@@ -33,7 +33,7 @@ public class TimeoutServiceException extends NetworkServiceException {
     }
     private static FaultInfo makeFault() {
         return new FaultInfo(
-                Blame.SERVER_PERFORMANCE,
+                Blame.SERVER,
                 Retry.NOW, //this is disputable, either NOW or LATER. in the best case the (network) problem is gone already. in the worst case the server is overloaded, and retrying now makes it worse.
                 false
         );

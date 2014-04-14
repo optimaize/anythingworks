@@ -75,13 +75,17 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
     }
     @NotNull
     private Retry extractRetry(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "getRetry");
-        Object oRetry = execMethod(oFaultBean, m);
-        return Retry.valueOf(oRetry.toString());
+//        //TODO there are 2 variables: retrySameServer and retryOtherServers. decide what to do. maybe rename server to address or location.
+//        //TODO it's an object now, not a simple enum.
+//        Method m = expectMethod(oFaultBean, "getRetrySameServer"); //getRetry
+//        Object oRetry = execMethod(oFaultBean, m);
+//        return Retry.valueOf(oRetry.toString());
+
+        return Retry.UNKNOWN; //FIXME
     }
     @Nullable
     private Boolean extractProblemLogged(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "isProblemLogged");
+        Method m = expectMethod(oFaultBean, "isProblemReported"); // isProblemLogged
         Object problemLogged = execMethod(oFaultBean, m);
         return (Boolean)problemLogged;
     }

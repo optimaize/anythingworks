@@ -16,11 +16,14 @@ public class SystemSoapWebServiceProvider implements SoapWebServiceProvider {
 
     @Inject
     private SoapPingService ping;
+    @Inject
+    private SoapExceptionThrower exceptionThrower;
 
     @NotNull
     public List<SoapWebService> getAll() {
         return Arrays.<SoapWebService>asList(
-                ping
+                ping,
+                exceptionThrower
         );
     }
 }
