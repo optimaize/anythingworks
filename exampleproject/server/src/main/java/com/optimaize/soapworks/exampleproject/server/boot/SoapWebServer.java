@@ -1,9 +1,9 @@
 package com.optimaize.soapworks.exampleproject.server.boot;
 
-import com.optimaize.soapworks.SoapWebServiceProvider;
-import com.optimaize.soapworks.SoapWebServicePublisher;
+import com.optimaize.soapworks.server.SoapWebServiceProvider;
+import com.optimaize.soapworks.server.SoapWebServicePublisher;
 import com.optimaize.soapworks.common.host.Host;
-import com.optimaize.soapworks.implgrizzly.GrizzlyHttpServer;
+import com.optimaize.soapworks.server.implgrizzly.GrizzlyHttpServer;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

@@ -1,7 +1,7 @@
 package com.optimaize.soapworks.exampleproject.server.services.system;
 
-import com.optimaize.soapworks.SoapWebService;
-import com.optimaize.soapworks.SoapWebServiceProvider;
+import com.optimaize.soapworks.server.SoapWebService;
+import com.optimaize.soapworks.server.SoapWebServiceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 

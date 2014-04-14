@@ -1,7 +1,7 @@
 package com.optimaize.soapworks.exampleproject.server.lib;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
-import com.optimaize.soapworks.commandextensions.WebServiceExceptionTranslator;
+import com.optimaize.soapworks.server.commandextensions.WebServiceExceptionTranslator;
 import org.jetbrains.annotations.NotNull;
 
 /**

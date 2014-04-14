@@ -5,9 +5,9 @@ import com.optimaize.command4j.Command;
 import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.commands.BaseCommand;
 import com.optimaize.soapworks.exampleproject.server.lib.AbstractSoapWebService;
-import com.optimaize.soapworks.exception.AccessDeniedWebServiceException;
-import com.optimaize.soapworks.exception.InternalServerErrorWebServiceException;
-import com.optimaize.soapworks.exception.InvalidInputWebServiceException;
+import com.optimaize.soapworks.server.exception.AccessDeniedWebServiceException;
+import com.optimaize.soapworks.server.exception.InternalServerErrorWebServiceException;
+import com.optimaize.soapworks.server.exception.InvalidInputWebServiceException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
