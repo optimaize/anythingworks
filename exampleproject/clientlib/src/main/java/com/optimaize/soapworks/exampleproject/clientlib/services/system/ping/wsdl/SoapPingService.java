@@ -7,6 +7,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -17,7 +18,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "SoapPingService", targetNamespace = "http://system.services.server.userland.demosoapserver.optimaize.com/")
+@WebService(name = "SoapPingService", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -29,14 +30,23 @@ public interface SoapPingService {
      * @param apiKey
      * @return
      *     returns java.lang.String
+     * @throws AccessDeniedWebServiceException
+     * @throws InternalServerErrorWebServiceException
+     * @throws InvalidInputWebServiceException
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "ping", targetNamespace = "http://system.services.server.userland.demosoapserver.optimaize.com/", className = "com.optimaize.demosoapserver.userland.client.services.system.ping.wsdl.Ping")
-    @ResponseWrapper(localName = "pingResponse", targetNamespace = "http://system.services.server.userland.demosoapserver.optimaize.com/", className = "com.optimaize.demosoapserver.userland.client.services.system.ping.wsdl.PingResponse")
-    @Action(input = "http://system.services.server.userland.demosoapserver.optimaize.com/SoapPingService/pingRequest", output = "http://system.services.server.userland.demosoapserver.optimaize.com/SoapPingService/pingResponse")
+    @RequestWrapper(localName = "ping", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl.Ping")
+    @ResponseWrapper(localName = "pingResponse", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl.PingResponse")
+    @Action(input = "http://system.services.server.exampleproject.soapworks.optimaize.com/SoapPingService/pingRequest", output = "http://system.services.server.exampleproject.soapworks.optimaize.com/SoapPingService/pingResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://system.services.server.exampleproject.soapworks.optimaize.com/SoapPingService/ping/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://system.services.server.exampleproject.soapworks.optimaize.com/SoapPingService/ping/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://system.services.server.exampleproject.soapworks.optimaize.com/SoapPingService/ping/Fault/InternalServerErrorWebServiceException")
+    })
     public String ping(
-            @WebParam(name = "apiKey", targetNamespace = "")
-            String apiKey);
+        @WebParam(name = "apiKey", targetNamespace = "")
+        String apiKey)
+        throws AccessDeniedWebServiceException, InternalServerErrorWebServiceException, InvalidInputWebServiceException
+    ;
 
 }
