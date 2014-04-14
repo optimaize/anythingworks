@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>soapworks</artifactId>
+        <groupId>com.optimaize.soapworks</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.optimaize.soapworks.server</groupId>
+    <artifactId>soapworks-server</artifactId>
+    <name>soaplib-server</name>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>
+        Library code for server development.
+    </description>
+    <organization>
+        <name>Optimaize GmbH, Switzerland</name>
+        <url>http://www.optimaize.com/</url>
+    </organization>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.optimaize.soapworks.common</groupId>
+            <artifactId>soapworks-common</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>api</module>
+        <module>implcommon</module>
+        <module>implgrizzly</module>
+        <module>impljdk</module>
+    </modules>
+</project>
