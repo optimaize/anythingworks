@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.optimaize.soapworks</groupId>
+        <artifactId>soapworks</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.optimaize.soapworks.exampleproject</groupId>
+    <artifactId>soapworks-exampleproject</artifactId>
+    <name>soapworks-exampleproject</name>
+    <packaging>pom</packaging>
+
+    <description>
+        A code example for how to use the soapworks library.
+
+        The submodules are:
+        server: a sample server app that runs a web service.
+        clientlib: the matching web service client library that uses soap/wsdl to connect to the server.
+        clientapp: a sample client app that uses the clientlib to connect to the server.
+
+        To test it, run the Boot class and then execute the PingServiceImplTest.
+    </description>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+    </dependencies>
+
+    <modules>
+        <module>server</module>
+        <module>clientlib</module>
+        <module>clientapp</module>
+    </modules>
+</project>

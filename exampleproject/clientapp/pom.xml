@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.optimaize.soapworks.exampleproject</groupId>
+        <artifactId>soapworks-exampleproject</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.optimaize.soapworks.exampleproject.clientapp</groupId>
+    <artifactId>soapworks-exampleproject-clientapp</artifactId>
+    <name>soapworks-exampleproject-clientapp</name>
+
+    <description>
+        The sample client app in this example project that uses the clientlib to connect to the server.
+    </description>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.optimaize.soapworks.exampleproject.clientlib</groupId>
+            <artifactId>soapworks-exampleproject-clientlib</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.optimaize.soapworks.exampleproject</groupId>
+        <artifactId>soapworks-exampleproject</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.optimaize.soapworks.exampleproject.server</groupId>
+    <artifactId>soapworks-exampleproject-server</artifactId>
+    <name>soapworks-exampleproject-server</name>
+
+    <description>
+        The sample server app in this example project that runs a web service.
+    </description>
+
+    <properties>
+        <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.optimaize.soapworks.server.implgrizzly</groupId>
+            <artifactId>soapworks-server-implgrizzly</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+
+
+        <!-- this demo app uses spring. -->
+
+        <dependency><!-- for the @Inject annotation -->
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <!--
+            Core utilities used by other modules.
+            Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!--
+            Expression Language (depends on spring-core)
+            Define this if you use Spring Expression APIs (org.springframework.expression.*)
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!--
+            Bean Factory and JavaBeans utilities (depends on spring-core)
+            Define this if you use Spring Bean APIs (org.springframework.beans.*)
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!--
+            Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans)
+            Define this if you use Spring AOP APIs (org.springframework.aop.*)
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!--
+            Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans)
+            This is the central artifact for Spring's Dependency Injection Container and is generally always defined
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>
