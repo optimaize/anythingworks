@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.optimaize.command4j</groupId>
             <artifactId>command4j</artifactId>
-            <version>0.3</version>
+            <version>${command4j.version}</version>
         </dependency>
     </dependencies>
 </project>
