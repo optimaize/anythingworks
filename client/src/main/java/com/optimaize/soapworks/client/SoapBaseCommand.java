@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Adds SOAP (WSDL) specific functionality to the BaseCommand.
