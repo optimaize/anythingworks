@@ -5,13 +5,13 @@
     <parent>
         <artifactId>soapworks</artifactId>
         <groupId>com.optimaize.soapworks</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.client</groupId>
     <artifactId>soapworks-client</artifactId>
     <name>soapworks-client</name>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <description>
         Library code for client development.
     </description>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>com.optimaize.soapworks.common</groupId>
             <artifactId>soapworks-common</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>

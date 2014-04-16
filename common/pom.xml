@@ -6,13 +6,13 @@
     <parent>
         <artifactId>soapworks</artifactId>
         <groupId>com.optimaize.soapworks</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.common</groupId>
     <artifactId>soapworks-common</artifactId>
     <name>soapworks-common</name>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <description>
         Common code used by both the client and server.
     </description>

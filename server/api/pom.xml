@@ -6,13 +6,13 @@
     <parent>
         <artifactId>soapworks-server</artifactId>
         <groupId>com.optimaize.soapworks.server</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.server.api</groupId>
     <artifactId>soapworks-server-api</artifactId>
     <name>soapworks-server-api</name>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 
     <properties>
     </properties>

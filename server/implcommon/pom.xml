@@ -6,13 +6,13 @@
     <parent>
         <artifactId>soapworks-server</artifactId>
         <groupId>com.optimaize.soapworks.server</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.server.implcommon</groupId>
     <artifactId>soapworks-server-implcommon</artifactId>
     <name>soapworks-server-implcommon</name>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 
     <properties>
     </properties>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.optimaize.soapworks.server.api</groupId>
             <artifactId>soapworks-server-api</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

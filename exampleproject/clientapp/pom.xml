@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.optimaize.soapworks.exampleproject</groupId>
         <artifactId>soapworks-exampleproject</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.exampleproject.clientapp</groupId>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.optimaize.soapworks.exampleproject.clientlib</groupId>
             <artifactId>soapworks-exampleproject-clientlib</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
