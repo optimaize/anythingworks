@@ -13,7 +13,8 @@ public class PingServiceImplTest {
 
     private final CommandExecutor executor = DemoappRemoteExecutors.get();
 
-    @Test
+    //In order to run this test, run the Boot class first.
+//    @Test
     public void testPing() throws Exception {
         PingCommand ping = new PingCommand();
         Mode mode = MyModeFactory.debug();

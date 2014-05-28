@@ -15,7 +15,8 @@ public class ExceptionThrowerTest {
 
     private final CommandExecutor executor = DemoappRemoteExecutors.get();
 
-    @Test(expectedExceptions=AccessDeniedServiceException.class)
+    //In order to run this test, run the Boot class first.
+//    @Test(expectedExceptions=AccessDeniedServiceException.class)
     public void accessDeniedNoSuchAccount() throws Exception {
         ExceptionThrowerAccessDeniedNoSuchAccount command = new ExceptionThrowerAccessDeniedNoSuchAccount();
         Mode mode = DemoappModeFactory.unitTest();
