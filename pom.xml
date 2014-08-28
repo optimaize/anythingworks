@@ -9,7 +9,7 @@
     <version>0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <url>https://github.com/fabiankessler/soapworks</url>
+    <url>https://github.com/optimaize/soapworks</url>
     <description>
         Java Library to Bootstrap SOAP / WSDL Development.
     </description>
