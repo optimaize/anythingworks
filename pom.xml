@@ -52,9 +52,9 @@
     </dependencies>
 
     <scm>
-        <connection>scm:git:git://github.com/fabiankessler/soapworks.git</connection>
-        <developerConnection>scm:git:git@github.com:fabiankessler/soapworks.git</developerConnection>
-        <url>http://github.com/fabiankessler/soapworks</url>
+        <connection>scm:git:git://github.com/optimaize/soapworks.git</connection>
+        <developerConnection>scm:git:git@github.com:optimaize/soapworks.git</developerConnection>
+        <url>http://github.com/optimaize/soapworks</url>
         <tag>HEAD</tag>
     </scm>
 
