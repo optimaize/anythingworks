@@ -9,6 +9,12 @@ Java Library to Bootstrap SOAP / WSDL Development.
 
 This is the dependency to develop a SOAP client.
 
+    <dependency>
+        <groupId>com.optimaize.soapworks.client</groupId>
+        <artifactId>soapworks-client</artifactId>
+        <version>0.2</version>
+    </dependency>
+
 ### server
 
 This is the dependency to develop a SOAP server.
@@ -19,6 +25,12 @@ There are 2 implementations available:
 
 If you wish to use another http server, then implement your own module. There's only one
 interface to implement (SoapWebServerHandler).
+
+    <dependency>
+        <groupId>com.optimaize.soapworks.server.implgrizzly</groupId>
+        <artifactId>soapworks-server-implgrizzly</artifactId>
+        <version>0.2</version>
+    </dependency>
 
 ### common
 
