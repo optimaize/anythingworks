@@ -32,7 +32,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
-        <command4j.version>0.4-SNAPSHOT</command4j.version>
+        <command4j.version>0.5</command4j.version>
     </properties>
 
 
