@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>soapworks</artifactId>
         <groupId>com.optimaize.soapworks</groupId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.2</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.client</groupId>
     <artifactId>soapworks-client</artifactId>
     <name>soapworks-client</name>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <description>
         Library code for client development.
     </description>
@@ -27,7 +26,7 @@
         <dependency>
             <groupId>com.optimaize.soapworks.common</groupId>
             <artifactId>soapworks-common</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <version>0.2</version>
         </dependency>
 
         <dependency>

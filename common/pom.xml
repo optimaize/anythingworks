@@ -1,18 +1,16 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>soapworks</artifactId>
         <groupId>com.optimaize.soapworks</groupId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.2</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.common</groupId>
     <artifactId>soapworks-common</artifactId>
     <name>soapworks-common</name>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <description>
         Common code used by both the client and server.
     </description>
