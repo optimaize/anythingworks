@@ -12,17 +12,24 @@ This is the dependency to develop a SOAP client.
 ### server
 
 This is the dependency to develop a SOAP server.
+There are 2 implementations available:
+
+1. implgrizzly using the org.glassfish.grizzly grizzly-http-server dependency (recommended)
+2. impljdk which uses the built-in http server from the JDK
+
+If you wish to use another http server, then implement your own module. There's only one
+interface to implement (SoapWebServerHandler).
 
 ### common
 
-Both client and server depend on this. Shared code is in here.
+Both client and server depend on this and include it already. Shared code is in here.
 
 ### exampleproject
 
 This project is a full working example containing a runnable server,
 and a client that connects to it.
 
-It is not needed in your production environment, thus it is not available as a Maven artifact.
+It is not needed in your production environment.
 
 
 Exception handling
