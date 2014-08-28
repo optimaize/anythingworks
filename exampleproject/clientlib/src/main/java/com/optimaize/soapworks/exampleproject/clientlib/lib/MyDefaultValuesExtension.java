@@ -30,7 +30,7 @@ public class MyDefaultValuesExtension implements ModeExtension {
 
     @NotNull @Override
     public <A, R> Command<A, R> extend(@NotNull Command<A, R> cmd, @NotNull Mode mode) {
-        return new DefaultValuesCommand<A, R>(cmd);
+        return new DefaultValuesCommand<>(cmd);
     }
 
     private static class DefaultValuesCommand<A, R> implements Command<A, R> {
@@ -50,6 +50,11 @@ public class MyDefaultValuesExtension implements ModeExtension {
                 mode = mode.with(Keys.PORT_URL_FACTORY, new DemoappPortUrlFactory());
             }
             return ec.execute(delegate, mode, arg).orNull();
+        }
+
+        @Override
+        public String getName() {
+            return delegate.getName();
         }
 
         @Override
