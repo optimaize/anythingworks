@@ -4,13 +4,13 @@
     <parent>
         <artifactId>soapworks-server</artifactId>
         <groupId>com.optimaize.soapworks.server</groupId>
-        <version>0.3</version>
+        <version>0.4-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.server.impljdk</groupId>
     <artifactId>soapworks-server-impljdk</artifactId>
     <name>soapworks-server-impljdk</name>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
 
     <properties>
     </properties>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.optimaize.soapworks.server.implcommon</groupId>
             <artifactId>soapworks-server-implcommon</artifactId>
-            <version>0.3</version>
+            <version>0.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

@@ -5,7 +5,7 @@
     <groupId>com.optimaize.soapworks</groupId>
     <artifactId>soapworks</artifactId>
     <name>soapworks</name>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <url>https://github.com/optimaize/soapworks</url>
@@ -56,7 +56,7 @@
         <connection>scm:git:git://github.com/optimaize/soapworks.git</connection>
         <developerConnection>scm:git:git@github.com:optimaize/soapworks.git</developerConnection>
         <url>http://github.com/optimaize/soapworks</url>
-        <tag>soapworks-0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
