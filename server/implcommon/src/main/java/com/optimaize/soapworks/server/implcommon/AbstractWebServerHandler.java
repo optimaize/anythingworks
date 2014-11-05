@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  */
+@Deprecated
 public abstract class AbstractWebServerHandler {
 
     @NotNull

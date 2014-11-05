@@ -21,7 +21,10 @@ import java.util.List;
 
 /**
  * Handles soap service registration in the Grizzly http server.
+ *
+ * @deprecated this was refactored into GrizzlyHttpServer and GrizzlySoapWebServicePublisher.
  */
+@Deprecated
 public class SoapGrizzlyWebServerHandler extends AbstractWebServerHandler implements SoapWebServerHandler {
 
     //private final Logger logger = LoggerFactory.getLogger(SoapGrizzlyWebServerHandler.class);

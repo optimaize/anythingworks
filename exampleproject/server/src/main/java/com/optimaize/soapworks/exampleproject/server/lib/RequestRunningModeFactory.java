@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RequestRunningModeFactory {
 
-//        protected static final Logger permLog = LoggerFactory.getLogger("onoserver.permanentproblem");
-//        protected static final Logger stackTraceLog = LoggerFactory.getLogger("onoserver.stacktrace");
-        protected static final Logger logger = LoggerFactory.getLogger(RequestRunningModeFactory.class);
+    protected static final Logger logger = LoggerFactory.getLogger(RequestRunningModeFactory.class);
 
     @NotNull
     public Mode defaultMode() {

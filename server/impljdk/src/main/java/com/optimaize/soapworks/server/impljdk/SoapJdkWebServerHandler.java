@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Handles soap service registration in the JDK built-in http server.
  */
+@Deprecated
 public class SoapJdkWebServerHandler extends AbstractWebServerHandler implements SoapWebServerHandler {
 
     private final Logger logger = LoggerFactory.getLogger(SoapJdkWebServerHandler.class);
