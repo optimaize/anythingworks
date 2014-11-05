@@ -16,7 +16,7 @@ import javax.xml.ws.Endpoint;
  */
 public class JdkHttpServer extends BaseSoapWebServicePublisher {
 
-    private final Logger logger = LoggerFactory.getLogger(SoapJdkWebServerHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(JdkHttpServer.class);
 
     @NotNull
     private final TransportInfo transportInfo;
