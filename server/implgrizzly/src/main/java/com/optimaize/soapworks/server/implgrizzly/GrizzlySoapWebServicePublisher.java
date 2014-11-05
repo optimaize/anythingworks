@@ -1,24 +1,27 @@
 package com.optimaize.soapworks.server.implgrizzly;
 
 import com.optimaize.soapworks.server.SoapWebService;
-import com.optimaize.soapworks.server.SoapWebServiceProvider;
-import com.optimaize.soapworks.server.SoapWebServicePublisher;
+import com.optimaize.soapworks.server.implcommon.BaseSoapWebServicePublisher;
 import com.optimaize.soapworks.server.implcommon.TransportInfo;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.jaxws.JaxwsHandler;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * Handles soap service registration in the Grizzly http server.
  */
-public class GrizzlySoapWebServicePublisher implements SoapWebServicePublisher {
+public class GrizzlySoapWebServicePublisher extends BaseSoapWebServicePublisher {
 
+    private static final Logger log = LoggerFactory.getLogger(GrizzlySoapWebServicePublisher.class);
+
+    @NotNull
     private final HttpServer httpServer;
+    @NotNull
     private final NetworkListener networkListener;
 
     @NotNull
@@ -26,35 +29,33 @@ public class GrizzlySoapWebServicePublisher implements SoapWebServicePublisher {
 
     private volatile boolean isNetworkListenerAdded = false;
 
-    public GrizzlySoapWebServicePublisher(HttpServer httpServer, @NotNull TransportInfo transportInfo) {
+    public GrizzlySoapWebServicePublisher(@NotNull HttpServer httpServer, @NotNull TransportInfo transportInfo) {
+        this(httpServer, transportInfo, new NetworkListener("jaxws-listener", transportInfo.getHost().getHostName(), transportInfo.getHost().getPortNumber()));
+    }
+
+    /**
+     * Overloaded constructor that gives you the chance to hand in a NetworkListener that is configured already.
+     */
+    public GrizzlySoapWebServicePublisher(@NotNull HttpServer httpServer, @NotNull TransportInfo transportInfo, @NotNull NetworkListener networkListener) {
         this.httpServer = httpServer;
         this.transportInfo = transportInfo;
-        networkListener = new NetworkListener("jaxws-listener", transportInfo.getHost().getHostName(), transportInfo.getHost().getPortNumber());
+        this.networkListener = networkListener;
     }
 
-
-    public void publishServices(SoapWebServiceProvider soapWebServiceProvider) {
-        publishServices(soapWebServiceProvider.getAll());
-
+    /**
+     * Gives you the chance to configure the listener.
+     * Note that it's untested whether this works once the HttpServer has been started, or once you have published services.
+     */
+    @NotNull
+    public NetworkListener getNetworkListener() {
+        return networkListener;
     }
 
-    public void publishServices(Collection<SoapWebService> soapWebService) {
-        for (SoapWebService webService : soapWebService) {
-            publishService(webService);
-        }
-    }
-
-    @Override
-    public void publishServicesByProviders(Collection<SoapWebServiceProvider> soapWebServiceProviders) {
-        for (SoapWebServiceProvider soapWebServiceProvider : soapWebServiceProviders) {
-            publishServices(soapWebServiceProvider);
-        }
-    }
 
     @Override
     public void publishService(SoapWebService soapWebService) {
         String path = transportInfo.getBasePath() + soapWebService.getServicePath();
-        System.out.println("Publishing soap web service: " + transportInfo.toUriString()+soapWebService.getServicePath()+"?wsdl");
+        log.info("Publishing soap web service: " + transportInfo.toUriString() + soapWebService.getServicePath() + "?wsdl");
         HttpHandler jaxwsHandler = new JaxwsHandler(soapWebService);
         httpServer.getServerConfiguration().addHttpHandler(jaxwsHandler, path);
 

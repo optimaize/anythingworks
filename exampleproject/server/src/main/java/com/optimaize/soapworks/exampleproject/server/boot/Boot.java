@@ -3,13 +3,16 @@ package com.optimaize.soapworks.exampleproject.server.boot;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.IOException;
-
 /**
  */
 public class Boot {
 
-    public static void main(String... args) throws IOException {
+    /**
+     * Or else JDK is used.
+     */
+    private static final boolean USE_GRIZZLY = true;
+
+    public static void main(String... args) throws Exception {
         Boot boot = new Boot();
         try {
             boot.boot();
@@ -23,10 +26,15 @@ public class Boot {
     }
 
 
-    private void boot() throws IOException {
+    private void boot() throws Exception {
         ConfigurableApplicationContext context = makeAppContext();
 
-        SoapWebServer server = context.getBean(SoapWebServer.class);
+        SoapWebServer server;
+        if (USE_GRIZZLY) {
+            server = context.getBean(GrizzlySoapWebServer.class);
+        } else {
+            server = context.getBean(JdkSoapWebServer.class);
+        }
         server.start();
 
         System.out.println("Server ready. Hit enter in the console to stop app.");

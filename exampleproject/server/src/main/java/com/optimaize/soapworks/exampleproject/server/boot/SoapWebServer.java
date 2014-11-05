@@ -1,28 +1,9 @@
 package com.optimaize.soapworks.exampleproject.server.boot;
 
-import com.optimaize.soapworks.server.SoapWebServiceProvider;
-import com.optimaize.soapworks.server.SoapWebServicePublisher;
-import com.optimaize.soapworks.common.host.Host;
-import com.optimaize.soapworks.server.implgrizzly.GrizzlyHttpServer;
-import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.List;
-
 /**
  */
-@Service
-public class SoapWebServer {
+public interface SoapWebServer {
 
-    @Inject
-    private List<SoapWebServiceProvider> webServiceProviders;
-
-    public void start() throws IOException {
-        GrizzlyHttpServer httpServer = new GrizzlyHttpServer(new Host("localhost", 80));
-        SoapWebServicePublisher soapPublisher = httpServer.getSoapWebServicePublisher("/soap/v1/");
-        soapPublisher.publishServicesByProviders(webServiceProviders);
-        httpServer.start();
-    }
+    void start() throws Exception;
 
 }
