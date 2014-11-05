@@ -16,11 +16,10 @@ public class Boot {
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
-        } finally {
-            //in case of an exception we don't arrive here because of system.exit!
-            System.out.println("Stopping normally.");
-            System.exit(0);
         }
+        //in case of an exception we don't arrive here because of system.exit!
+        System.out.println("Stopping normally.");
+        System.exit(0);
     }
 
 
