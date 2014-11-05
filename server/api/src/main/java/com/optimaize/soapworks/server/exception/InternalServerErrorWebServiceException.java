@@ -15,29 +15,23 @@ import javax.xml.ws.WebFault;
  * <ul>
  *   <li>OutOfMemoryError<pre>
  *     Cause:  Misconfiguration of caches, memory leaks.
- *     Action: 1) Automatic application restart when detected, which removes the problem for a while.
- *             2) NameProfiler analyzes the memory snapshot and tries to figure out the problem.
+ *     Action: 1) Application should auto-restart (hint: use Tanuki). That solves it for a while.
+ *             2) The provider should analyze the memory snapshot and try to figure out the problem.
  *     Retry:  The client may resend the same request again later.
  *     </pre>
  *   </li>
  *   <li>IllegalArgumentException<pre>
  *     Cause:        Some internal method refused to work with a given input parameter.
- *     Example case: The user's request hits a name that has a language assigned for which
- *                   the system tries to convert a code and there is no corresponding language
- *                   or geo code. Then some variable is passed in to a method which refuses
- *                   to work with it.
- *                   This can happen because data changes, for example new countries appear
- *                   and others disappear because of political changes.
- *      Action:      NameProfiler analyzes the situation (offending method and parameter) and fixes
- *                   the problem by changing code or data, then deploys a patch.
+ *      Action:      The provider should analyze the situation (offending method and parameter) and fix
+ *                   the problem by changing code or data, then deploy a patch.
  *      Retry:       The client should not resend the same request for it would result in the same
  *                   situation.
  *     </pre>
  *   </li>
  *   <li>UnsupportedOperationException<pre>
  *      Cause:       Similar to IllegalArgumentException.
- *      Action:      NameProfiler analyzes the situation (offending method and parameter) and fixes
- *                   the problem by changing code or data, then deploys a patch.
+ *      Action:      The provider should analyze the situation (offending method and parameter) and fix
+ *                   the problem by changing code or data, then deploy a patch.
  *      Retry:       The client should not resend the same request for it would result in the same
  *                   situation.
  *     </pre>
@@ -46,16 +40,10 @@ import javax.xml.ws.WebFault;
  *   <li>AssertionError<pre>
  *      Cause:       An unexpected situation that really did happen in code, and the case was not detected
  *                   by unit and integration tests.
- *      Action:      NameProfiler analyzes the situation (offending method and variables) and fixes
- *                   the problem by changing code or data, then deploys a patch.
+ *      Action:      The provider should analyze the situation (offending method and variables) and fix
+ *                   the problem by changing code or data, then deploy a patch.
  *      Retry:       The client should not resend the same request for it would result in the same
  *                   situation.
- *     </pre>
- *   </li>
- *   <li>Data access exception<pre>
- *     Cause:        Problem with the connection to the [name] data.
- *     Action:       None.
- *     Retry:        The client may resend the same request again now, or later.
  *     </pre>
  *   </li>
  * </ul>
