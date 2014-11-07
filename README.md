@@ -12,7 +12,7 @@ This is the dependency to develop a SOAP client.
     <dependency>
         <groupId>com.optimaize.soapworks.client</groupId>
         <artifactId>soapworks-client</artifactId>
-        <version>0.2</version>
+        <version>0.3</version>
     </dependency>
 
 ### server
@@ -29,7 +29,7 @@ interface to implement (SoapWebServerHandler).
     <dependency>
         <groupId>com.optimaize.soapworks.server.implgrizzly</groupId>
         <artifactId>soapworks-server-implgrizzly</artifactId>
-        <version>0.2</version>
+        <version>0.3</version>
     </dependency>
 
 ### common
