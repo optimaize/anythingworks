@@ -1,6 +1,7 @@
 package com.optimaize.soapworks.exampleproject.server.lib;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
+import com.optimaize.soapworks.server.commandextensions.FixedStringExceptionMessageMaker;
 import com.optimaize.soapworks.server.commandextensions.WebServiceExceptionTranslator;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +12,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DefaultServerExceptionTranslator implements ExceptionTranslator {
 
-    private static final WebServiceExceptionTranslator wrapped = new WebServiceExceptionTranslator();
+    private static final WebServiceExceptionTranslator wrapped = new WebServiceExceptionTranslator(
+            new FixedStringExceptionMessageMaker("Internal server error!"),
+            true //someone has got to log the exceptions
+    );
 
     public boolean canTranslate(@NotNull Throwable t) {
         return wrapped.canTranslate(t);
@@ -22,18 +26,5 @@ public class DefaultServerExceptionTranslator implements ExceptionTranslator {
     public Exception translate(@NotNull Throwable t) throws Exception {
         return wrapped.translate(t);
     }
-
-//    private void logPerm(String apiKey, WsRequestRunnerTask task, Throwable t) {
-//        permLog.error("Logging error for User["+apiKey+"] and Task["+ tryToGetToString(task) +"']!");
-//        stackTraceLog.error(t.getMessage(), t);
-//    }
-//
-//    private String tryToGetToString(@NotNull WsRequestRunnerTask task) {
-//        try {
-//            return task.toString();
-//        } catch (Exception e) {
-//            return "(Exception for task.toString())";
-//        }
-//    }
 
 }

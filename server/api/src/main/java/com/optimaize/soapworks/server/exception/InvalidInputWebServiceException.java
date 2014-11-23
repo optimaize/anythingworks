@@ -16,22 +16,12 @@ import javax.xml.ws.WebFault;
  * <ul>
  *   <li>illegal argument</li>
  *   <li>incomplete request</li>
- *   <li>
- *       wrong api use
- *       <ul>
- *           <li>illegal state</li>
- *           <li>senseless request (for example when asking for the gender when providing it already)</li>
- *       </ul>
- *   </li>
  * </ul></p>
  */
 @WebFault(name="InvalidInputWebServiceException")
 public class InvalidInputWebServiceException extends ClientWebServiceException {
 
     private static final long serialVersionUID = 1L;
-
-    private static final Blame BLAME = Blame.CLIENT;
-    public static final String FAULT_CAUSE = "InvalidInput";
 
 
     public InvalidInputWebServiceException(@NotNull FaultBean faultBean, Throwable cause) {
@@ -47,7 +37,7 @@ public class InvalidInputWebServiceException extends ClientWebServiceException {
 
     public InvalidInputWebServiceException(String message, Throwable cause) {
         //TODO stick SoapFaultCode.Client into cause (dunno how)
-        super(new FaultBean(2200, BLAME, FAULT_CAUSE, message, Retry.no(), Retry.no(), PROBLEM_REPORTED));
+        super(FaultBeans.Client.InvalidInput.invalidInput(message));
 
     }
 

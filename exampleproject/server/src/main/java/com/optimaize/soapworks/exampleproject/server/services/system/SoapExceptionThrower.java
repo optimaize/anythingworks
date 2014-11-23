@@ -1,10 +1,7 @@
 package com.optimaize.soapworks.exampleproject.server.services.system;
 
 import com.optimaize.soapworks.exampleproject.server.lib.AbstractSoapWebService;
-import com.optimaize.soapworks.server.exception.AccessDeniedWebServiceException;
-import com.optimaize.soapworks.server.exception.InternalServerErrorWebServiceException;
-import com.optimaize.soapworks.server.exception.InvalidInputWebServiceException;
-import com.optimaize.soapworks.server.exception.Retry;
+import com.optimaize.soapworks.server.exception.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +27,7 @@ public class SoapExceptionThrower extends AbstractSoapWebService {
     )
             throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException
     {
-        throw AccessDeniedWebServiceException.noSuchAccount(apiKey);
+        throw AccessDeniedWebServiceException.accountUnknown(apiKey);
     }
 
     @WebMethod
@@ -39,7 +36,7 @@ public class SoapExceptionThrower extends AbstractSoapWebService {
     )
             throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException
     {
-        throw AccessDeniedWebServiceException.requestLimitExceeded();
+        throw AccessDeniedWebServiceException.requestLimitExceeded(apiKey, "unspecified");
     }
 
     @WebMethod
@@ -48,7 +45,7 @@ public class SoapExceptionThrower extends AbstractSoapWebService {
     )
             throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException
     {
-        throw AccessDeniedWebServiceException.tooManyConcurrentRequests();
+        throw AccessDeniedWebServiceException.tooManyConcurrentRequests(apiKey);
     }
 
     @WebMethod
@@ -66,7 +63,14 @@ public class SoapExceptionThrower extends AbstractSoapWebService {
     )
             throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException
     {
-        throw new InternalServerErrorWebServiceException(Retry.unknown(), false);
+        throw new InternalServerErrorWebServiceException(
+                FaultBeanBuilders.Server.internalServerError()
+                        .errorCode(ErrorCodes.Server.SERVER_ERROR.getCode())
+                        .message("Throwing on demand!")
+                        .retrySameServer(Retry.unknown())
+                        .retryOtherServers(Retry.unknown())
+                        .problemReported(false) //whatever
+        );
     }
 
 }

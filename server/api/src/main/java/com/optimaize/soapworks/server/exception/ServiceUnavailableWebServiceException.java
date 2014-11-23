@@ -24,7 +24,7 @@ import javax.xml.ws.WebFault;
  *
  * @author Fabian Kessler
  */
-@WebFault(name="InternalServerErrorWebServiceException")
+@WebFault(name="ServiceUnavailableWebServiceException")
 public class ServiceUnavailableWebServiceException extends ServerWebServiceException {
 
     private static final long serialVersionUID = 1L;
@@ -34,23 +34,29 @@ public class ServiceUnavailableWebServiceException extends ServerWebServiceExcep
 
 
     public ServiceUnavailableWebServiceException(@NotNull FaultBean faultBean, Throwable cause) {
+        //TODO stick SoapFaultCode.Client into cause (dunno how)
         super(faultBean, cause);
     }
     public ServiceUnavailableWebServiceException(@NotNull FaultBean faultBean) {
         super(faultBean);
     }
 
-    public ServiceUnavailableWebServiceException(@NotNull Retry retryThisServer, boolean problemReported) {
-        this(defaultMessage, retryThisServer, problemReported);
+    public ServiceUnavailableWebServiceException() {
+        super(FaultBeans.Server.ServiceTemporarilyUnavailable.serviceTemporarilyUnavailable());
     }
-    public ServiceUnavailableWebServiceException(@NotNull String message, @NotNull Retry retryThisServer, boolean problemReported) {
-        super(new FaultBean(1500, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported));
-    }
-    public ServiceUnavailableWebServiceException(@NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
-        this(defaultMessage, cause, retryThisServer, problemReported);
-    }
-    public ServiceUnavailableWebServiceException(@NotNull String message, @NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
-        super(new FaultBean(1500, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported), cause);
-    }
+
+
+//    public ServiceUnavailableWebServiceException(@NotNull Retry retryThisServer, boolean problemReported) {
+//        this(defaultMessage, retryThisServer, problemReported);
+//    }
+//    public ServiceUnavailableWebServiceException(@NotNull String message, @NotNull Retry retryThisServer, boolean problemReported) {
+//        super(new FaultBean(1500, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported));
+//    }
+//    public ServiceUnavailableWebServiceException(@NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
+//        this(defaultMessage, cause, retryThisServer, problemReported);
+//    }
+//    public ServiceUnavailableWebServiceException(@NotNull String message, @NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
+//        super(new FaultBean(1500, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported), cause);
+//    }
 
 }

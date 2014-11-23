@@ -3,11 +3,24 @@ package com.optimaize.soapworks.server.exception;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * An object containing fault information according to the SOAP specification which
+ * makes up the {@code Fault} element of the message {@code Body}.
  *
- * Some of this information about the fault is normally present in an Exception.
+ * <p>It contains:
+ * <ol>
+ *   <li>{@link #blame} whether the server or the client is responsible</li>
+ *   <li>{@link #errorCode} the reason for machines to understand</li>
+ *   <li>{@link #message} the reason for humans to understand</li>
+ *   <li>{@link #faultCause} exception class (technical detail)</li>
+ *   <li>{@link #retrySameServer} and {@link #retryOtherServers} whether re-sending the same request makes sense</li>
+ *   <li>{@link #problemReported} if it escalated for analysis by the service provider</li>
+ * </ol>
+ * </p>
+ *
+ * <p>Some of this information about the fault is normally present in an Exception.
  * But because we're dealing with web services we can't guarantee that the
  * client understands the concept of exceptions. And hence some information
- * is duplicated.
+ * is duplicated.</p>
  *
  * @author Fabian Kessler
  */
@@ -17,35 +30,18 @@ public class FaultBean {
 
 
     /**
-     * This is partly application-specific.
+     * An error code for machines to understand the problem.
+     * It can be generic or specific.
+     *
+     * <p>This is partly application-specific.
      * See the application's documentation for a complete list.
-     *
-     * ------------------------------------------------------------------
-     * 1xxx = Server error
-     *   1000 = Unspecified server error
-     *   1100 = Internal server error
-     *   1500 = Service unavailable
-     *
-     * ------------------------------------------------------------------
-     * 2xxx = Client Error
-     *   2000 = Unspecified Client Error
-     *   2100 = Unspecified Permission Error
-     *     2101 = No Such Account
-     *     2120 = Request limit exceeded
-     *     2121 = Too many concurrent requests
-     *   2200 = Unspecified Invalid Input Error
-     *   2300 = No such service
-     *     2301 = No such service method
-     *     2302 = No such service version
-     *
-     * ------------------------------------------------------------------
+     * The recommendation is to use the following code ranges:
+     * <pre>
+     * 1xxx = Client Error
+     * 2xxx = Server error
      * 3xxx = Network error
-     *   3000 = Unspecified network error
-     *
-     * ------------------------------------------------------------------
      * 4xxx = Unknown error
-     *   4000 = Unknown error
-     *
+     * </pre></p>
      */
     private int errorCode;
 
@@ -58,48 +54,64 @@ public class FaultBean {
     /**
      * Exception class name without suffix "WebServiceException".
      *
-     * It is a String (not an enum) so that it can be extended easily, without the need of redeploying.
+     * <p>Examples:
+     * <pre>
+     * Caused by Client:
+     *  - InvalidInput
+     *  - NoSuchService
+     *  - AccessDenied
+     * Caused by Server:
+     *  - InternalServerError
+     *  - ServiceUnavailable
+     * Caused by Network:
+     *  - Timeout
+     *  - DNS lookup failed
+     * </pre></p>
      *
-     * Examples:
-     *
-     * InvalidInput
-     * NoSuchService
-     * AccessDenied
-     *
-     * InternalServerError
-     * ServiceUnavailable
-     *
-     * NAME_RESOLUTION_FAILURE
-     * Timeout
-     *
+     * <p>It is a String (not an enum) in order to be easily extendable.</p>
      */
     @NotNull
     private String faultCause;
 
     /**
-     * Exception message belonging to errorCode, possibly giving
-     * more detail. Thus it's not a static string.
-     * Examples:
-     * "Internal Server Error" (static)
-     * "Your account for user id 'blahblah' has expired on 'somedate'"
+     * Exception message for the human to understand the problem.
+     *
+     * <p>It has to match the basic meaning of the {@code errorCode}.
+     * It can be generic or specific.
+     * <pre>Examples:
+     *  - "Account expired"
+     *  - "Your account for user id 'foo' has expired on '2014-12-31'"
+     * </pre></p>
+     *
+     * <p>It can be generic because either no detailed info is available, or because the system prefers to hide it
+     * from the end user.</p>
      */
     @NotNull
     private String message;
 
+    /**
+     * Tells if re-sending the same request that just failed with this error to the SAME NETWORK makes sense.
+     */
     @NotNull
     private Retry retrySameServer;
+    /**
+     * Tells if re-sending the same request that just failed with this error to ANOTHER NETWORK makes sense.
+     */
     @NotNull
     private Retry retryOtherServers;
 
     /**
-     * Tells if a server error was logged/reported for analyzing by system admin etc.
-     * Not security-wise (those are logged anyway).
+     * Tells if a server error was logged/reported/escalated for analyzing by a system admin, qa or programmer.
      * This can only be true for server errors, not for client or network.
+     * Security errors (no such account etc) are meant to be logged separately anyway.
      */
     private boolean problemReported;
 
 
-    public FaultBean(int errorCode,
+    /**
+     * Use the {@link FaultBeanBuilder}.
+     */
+    protected FaultBean(int errorCode,
                      @NotNull Blame blame,
                      @NotNull String faultCause,
                      @NotNull String message,

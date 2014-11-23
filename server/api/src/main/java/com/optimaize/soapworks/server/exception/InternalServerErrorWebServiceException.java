@@ -67,17 +67,19 @@ public class InternalServerErrorWebServiceException extends ServerWebServiceExce
     }
 
 
-    public InternalServerErrorWebServiceException(@NotNull Retry retryThisServer, boolean problemReported) {
-        this("Internal server error", retryThisServer, problemReported);
-    }
-    public InternalServerErrorWebServiceException(@NotNull String message, @NotNull Retry retryThisServer, boolean problemReported) {
-        super(new FaultBean(1100, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported));
-    }
-    public InternalServerErrorWebServiceException(@NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
-        this(cause.getMessage(), cause, retryThisServer, problemReported);
-    }
-    public InternalServerErrorWebServiceException(@NotNull String message, @NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
-        super(new FaultBean(1100, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported), cause);
-    }
+//    public InternalServerErrorWebServiceException(@NotNull Retry retryThisServer, boolean problemReported) {
+//        this("Internal server error", retryThisServer, problemReported);
+//    }
+//    public InternalServerErrorWebServiceException(@NotNull String message, @NotNull Retry retryThisServer, boolean problemReported) {
+//        super(
+//                FaultBeans.Server.AccessDenied.tooManyConcurrentRequests(userId)
+//                new FaultBean(1100, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported));
+//    }
+//    public InternalServerErrorWebServiceException(@NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
+//        this(cause.getMessage(), cause, retryThisServer, problemReported);
+//    }
+//    public InternalServerErrorWebServiceException(@NotNull String message, @NotNull Throwable cause, @NotNull Retry retryThisServer, boolean problemReported) {
+//        super(new FaultBean(1100, BLAME, FAULT_CAUSE, message, retryThisServer, Retry.now(), problemReported), cause);
+//    }
 
 }

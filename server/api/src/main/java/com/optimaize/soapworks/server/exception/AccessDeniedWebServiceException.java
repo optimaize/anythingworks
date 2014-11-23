@@ -24,16 +24,15 @@ public class AccessDeniedWebServiceException extends ClientWebServiceException {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String FAULT_CAUSE = "AccessDenied";
     private static final SoapFaultCode SOAP_FAULT_CODE = SoapFaultCode.Client;
 
 
     /**
      * @return never returns.
      */
-    public static AccessDeniedWebServiceException noSuchAccount(@NotNull String userId) throws AccessDeniedWebServiceException {
+    public static AccessDeniedWebServiceException accountUnknown(@NotNull String userId) throws AccessDeniedWebServiceException {
         throw new AccessDeniedWebServiceException(
-                faultBean(2101, "No such account: >>>" + userId + "<<<!", Retry.no()),
+                FaultBeans.Client.AccessDenied.accountUnknown(userId),
                 createSfe(SOAP_FAULT_CODE)
         );
     }
@@ -41,18 +40,67 @@ public class AccessDeniedWebServiceException extends ClientWebServiceException {
     /**
      * @return never returns.
      */
-    public static AccessDeniedWebServiceException requestLimitExceeded() throws AccessDeniedWebServiceException {
+    public static AccessDeniedWebServiceException accountInactive(@NotNull String userId) throws AccessDeniedWebServiceException {
         throw new AccessDeniedWebServiceException(
-                faultBean(2120, "Request limit exceeded!", Retry.later(null))
+                FaultBeans.Client.AccessDenied.accountInactive(userId),
+                createSfe(SOAP_FAULT_CODE)
         );
     }
     /**
      * @return never returns.
      */
-    public static AccessDeniedWebServiceException tooManyConcurrentRequests() throws AccessDeniedWebServiceException {
+    public static AccessDeniedWebServiceException accountInactive(@NotNull String userId, @NotNull String comment) throws AccessDeniedWebServiceException {
         throw new AccessDeniedWebServiceException(
-                faultBean(2121, "Too many concurrent requests!", Retry.later(null))
+                FaultBeans.Client.AccessDenied.accountInactive(userId, comment),
+                createSfe(SOAP_FAULT_CODE)
         );
+    }
+
+    /**
+     * @return never returns.
+     */
+    public static AccessDeniedWebServiceException networkRestriction(@NotNull String userId, @NotNull String hostOrIp) throws AccessDeniedWebServiceException {
+        throw new AccessDeniedWebServiceException(
+                FaultBeans.Client.AccessDenied.networkRestriction(userId, hostOrIp),
+                createSfe(SOAP_FAULT_CODE)
+        );
+    }
+
+    /**
+     * @return never returns.
+     */
+    public static AccessDeniedWebServiceException requestLimitExceeded(@NotNull String userId, @NotNull String timePeriod) throws AccessDeniedWebServiceException {
+        throw new AccessDeniedWebServiceException(
+                FaultBeans.Client.AccessDenied.requestLimitReached(userId, timePeriod),
+                createSfe(SOAP_FAULT_CODE)
+        );
+    }
+
+    /**
+     * @return never returns.
+     */
+    public static AccessDeniedWebServiceException tooManyConcurrentRequests(@NotNull String userId) throws AccessDeniedWebServiceException {
+        throw new AccessDeniedWebServiceException(
+                FaultBeans.Client.AccessDenied.tooManyConcurrentRequests(userId),
+                createSfe(SOAP_FAULT_CODE)
+        );
+    }
+
+    /**
+     * @return never returns.
+     */
+    public static AccessDeniedWebServiceException hostBlocked(@NotNull String message) throws AccessDeniedWebServiceException {
+        throw new AccessDeniedWebServiceException(
+                FaultBeans.Client.AccessDenied.hostBlocked(message),
+                createSfe(SOAP_FAULT_CODE)
+        );
+    }
+
+    /**
+     * @return never returns.
+     */
+    public static AccessDeniedWebServiceException other(@NotNull FaultBean faultBean) throws AccessDeniedWebServiceException {
+        throw new AccessDeniedWebServiceException(faultBean);
     }
 
     public AccessDeniedWebServiceException(@NotNull FaultBean faultBean, Throwable cause) {
@@ -61,10 +109,6 @@ public class AccessDeniedWebServiceException extends ClientWebServiceException {
 
     public AccessDeniedWebServiceException(@NotNull FaultBean faultBean) {
         super(faultBean);
-    }
-
-    private static FaultBean faultBean(int errorCode, String message, Retry retry) {
-        return new FaultBean(errorCode, Blame.CLIENT, FAULT_CAUSE, message, retry, retry, PROBLEM_REPORTED);
     }
 
 }

@@ -8,6 +8,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public class Retry {
 
+    private static final Retry NO = new Retry(RetryType.NO, null);
+    private static final Retry NOW = new Retry(RetryType.NOW, null);
+    private static final Retry UNKNOWN = new Retry(RetryType.UNKNOWN, null);
+
     @NotNull
     private RetryType retryType;
 
@@ -25,16 +29,16 @@ public class Retry {
     }
 
     public static Retry no() {
-        return new Retry(RetryType.NO, null);
+        return NO;
     }
     public static Retry later(@Nullable Long retryInSeconds) {
         return new Retry(RetryType.LATER, retryInSeconds);
     }
     public static Retry now() {
-        return new Retry(RetryType.NOW, null);
+        return NOW;
     }
     public static Retry unknown() {
-        return new Retry(RetryType.UNKNOWN, null);
+        return UNKNOWN;
     }
 
 

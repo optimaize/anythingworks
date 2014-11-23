@@ -30,23 +30,24 @@ public class NoSuchServiceWebServiceException extends ClientWebServiceException 
 
 
     public NoSuchServiceWebServiceException(@NotNull FaultBean faultBean, Throwable cause) {
+        //TODO stick SoapFaultCode.Client into cause (dunno how)
         super(faultBean, cause);
     }
     public NoSuchServiceWebServiceException(@NotNull FaultBean faultBean) {
         super(faultBean);
     }
 
-    public NoSuchServiceWebServiceException(String message) {
-        this(message, createSfe(SoapFaultCode.Client));
-    }
+//    public NoSuchServiceWebServiceException(String message) {
+//        this(message, createSfe(SoapFaultCode.Client));
+//    }
+//
+//    public NoSuchServiceWebServiceException(String message, Throwable cause) {
+//        //TODO stick SoapFaultCode.Client into cause (dunno how)
+//        super(new FaultBean(2300, Blame.CLIENT, FAULT_CAUSE, message, Retry.no(), Retry.no(), PROBLEM_REPORTED), cause);
+//    }
 
-    public NoSuchServiceWebServiceException(String message, Throwable cause) {
-        //TODO stick SoapFaultCode.Client into cause (dunno how)
-        super(new FaultBean(2300, Blame.CLIENT, FAULT_CAUSE, message, Retry.no(), Retry.no(), PROBLEM_REPORTED), cause);
-    }
-
-    public NoSuchServiceWebServiceException(Throwable cause) {
-        this(cause.getMessage(), cause);
-    }
+//    public NoSuchServiceWebServiceException(Throwable cause) {
+//        this(cause.getMessage(), cause);
+//    }
 
 }

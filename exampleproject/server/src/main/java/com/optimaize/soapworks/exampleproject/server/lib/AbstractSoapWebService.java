@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 
 /**
  */
@@ -19,10 +19,10 @@ public abstract class AbstractSoapWebService implements SoapWebService {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractSoapWebService.class);
 
-    @Resource
+    @Inject
     protected CommandExecutor executor;
 
-    @Resource
+    @Inject
     protected RequestRunningModeFactory modeFactory;
 
 
@@ -48,7 +48,12 @@ public abstract class AbstractSoapWebService implements SoapWebService {
                 //should never arrive here. nothing we can do.
                 logger.error("Murphy: unexpected late exception translation!");
                 throw new InternalServerErrorWebServiceException(
-                        new FaultBean(1000, Blame.SERVER, "InternalServerError", "Unexpected late exception translation", Retry.unknown(), Retry.unknown(), true),
+                        FaultBeanBuilders.Server.internalServerError()
+                        .errorCode(1100)
+                        .message("Unexpected late exception translation")
+                        .retrySameServer(Retry.unknown())
+                        .retryOtherServers(Retry.unknown())
+                        .problemReported(true),
                         e
                 );
             }
