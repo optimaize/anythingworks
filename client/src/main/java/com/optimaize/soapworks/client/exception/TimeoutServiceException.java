@@ -32,11 +32,12 @@ public class TimeoutServiceException extends NetworkServiceException {
         this.timeUnit = timeUnit;
     }
     private static FaultInfo makeFault() {
-        return new FaultInfo(
-                Blame.SERVER,
-                Retry.NOW, //this is disputable, either NOW or LATER. in the best case the (network) problem is gone already. in the worst case the server is overloaded, and retrying now makes it worse.
-                false
-        );
+        throw new UnsupportedOperationException();
+//        return new FaultInfo(
+//                Blame.SERVER,
+//                Retry.NOW, //this is disputable, either NOW or LATER. in the best case the (network) problem is gone already. in the worst case the server is overloaded, and retrying now makes it worse.
+//                false
+//        );
     }
 
 

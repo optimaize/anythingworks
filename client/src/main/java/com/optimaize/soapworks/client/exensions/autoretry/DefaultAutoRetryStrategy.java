@@ -2,8 +2,8 @@ package com.optimaize.soapworks.client.exensions.autoretry;
 
 import com.optimaize.command4j.ext.extensions.failover.autoretry.AutoRetryStrategy;
 import com.optimaize.command4j.lang.Duration;
-import com.optimaize.soapworks.client.exception.Retry;
 import com.optimaize.soapworks.client.exception.ServiceException;
+import com.optimaize.soapworks.common.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +16,7 @@ public class DefaultAutoRetryStrategy implements AutoRetryStrategy {
     public Duration doRetry(int executionCounter, @NotNull Exception exception) {
             if (executionCounter==1) {
                 if (exception instanceof ServiceException) {
-                    if (((ServiceException)exception).getFaultInfo().getRetry() == Retry.NOW) {
+                    if (((ServiceException)exception).getFaultInfo().getRetrySameServer().getRetryType() == RetryType.NOW) {
                         return Duration.millis(1000);
                     }
                 }

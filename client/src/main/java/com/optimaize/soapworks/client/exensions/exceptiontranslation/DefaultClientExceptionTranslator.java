@@ -2,6 +2,8 @@ package com.optimaize.soapworks.client.exensions.exceptiontranslation;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
 import com.optimaize.soapworks.client.exception.*;
+import com.optimaize.soapworks.common.exception.Blame;
+import com.optimaize.soapworks.common.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.InvocationTargetException;
@@ -21,6 +23,7 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
         mappings.put("InvalidInputWebServiceException", InvalidInputServiceException.class);
         mappings.put("AccessDeniedWebServiceException", AccessDeniedServiceException.class);
         mappings.put("InternalServerErrorWebServiceException",     InternalServiceException.class);
+        //mappings.put("ServiceUnavailableWebServiceException",     .class); //*shrug*
     }
 
 
@@ -47,7 +50,7 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
             case "InternalServerErrorWebServiceException":
                 throw new InternalServiceException(msg, faultInfo);
             default:
-                throw new AssertionError("Unhandled case, or canTranslate() not called: "+className+"!");
+                throw new UnsupportedOperationException("Unhandled case, or canTranslate() not called: "+className+"!");
         }
     }
 
@@ -61,10 +64,33 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
 
     @NotNull
     private FaultInfo translateFaultBean(Object oFaultBean) {
+        int errorCode = extractErrorCode(oFaultBean);
         Blame blame           = extractBlame(oFaultBean);
-        Retry retry           = extractRetry(oFaultBean);
-        Boolean problemLogged = extractProblemLogged(oFaultBean);
-        return new FaultInfo(blame, retry, problemLogged);
+        String faultCause = extractFaultCause(oFaultBean);
+        String message = extractMessage(oFaultBean);
+        Retry retrySameServer       = extractRetrySameServer(oFaultBean);
+        Retry retryOtherServers     = extractRetryOtherServers(oFaultBean);
+        boolean problemReported = extractProblemReported(oFaultBean); //TODO decide nullablility
+
+        return new FaultInfo(errorCode, blame, faultCause, message, retrySameServer, retryOtherServers, problemReported);
+    }
+
+    private int extractErrorCode(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getErrorCode");
+        Object o = execMethod(oFaultBean, m);
+        return (Integer)o;
+    }
+
+    @NotNull
+    private String extractFaultCause(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getFaultCause");
+        return execMethod(oFaultBean, m).toString();
+    }
+
+    @NotNull
+    private String extractMessage(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getMessage");
+        return execMethod(oFaultBean, m).toString();
     }
 
     @NotNull
@@ -74,18 +100,29 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
         return Blame.valueOf(oBlame.toString());
     }
     @NotNull
-    private Retry extractRetry(Object oFaultBean) {
-//        //TODO there are 2 variables: retrySameServer and retryOtherServers. decide what to do. maybe rename server to address or location.
-//        //TODO it's an object now, not a simple enum.
-//        Method m = expectMethod(oFaultBean, "getRetrySameServer"); //getRetry
-//        Object oRetry = execMethod(oFaultBean, m);
-//        return Retry.valueOf(oRetry.toString());
+    private Retry extractRetrySameServer(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getRetrySameServer");
+        return handleRetryExtraction(oFaultBean, m);
+    }
 
-        return Retry.UNKNOWN; //FIXME
+    @NotNull
+    private Retry extractRetryOtherServers(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getRetryOtherServers");
+        return handleRetryExtraction(oFaultBean, m);
+    }
+
+    private Retry handleRetryExtraction(Object oFaultBean, Method m) {
+        //gives us THE or just A retry object.
+        Object oRetry = execMethod(oFaultBean, m);
+
+        //we can't be sure which it is, therefore we go on with generics, not type casting.
+        Method m1 = expectMethod(oRetry, "getRetryType");
+        Method m2 = expectMethod(oRetry, "getRetryInSeconds");
+        return new Retry(RetryType.valueOf(execMethod(oRetry, m1).toString()), (Long)execMethod(oRetry, m2));
     }
     @Nullable
-    private Boolean extractProblemLogged(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "isProblemReported"); // isProblemLogged
+    private Boolean extractProblemReported(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "isProblemReported");
         Object problemLogged = execMethod(oFaultBean, m);
         return (Boolean)problemLogged;
     }

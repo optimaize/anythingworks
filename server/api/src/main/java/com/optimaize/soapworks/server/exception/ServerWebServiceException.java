@@ -1,5 +1,6 @@
 package com.optimaize.soapworks.server.exception;
 
+import com.optimaize.soapworks.common.exception.Blame;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

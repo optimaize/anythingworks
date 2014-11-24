@@ -1,5 +1,6 @@
 package com.optimaize.soapworks.server.exception;
 
+import com.optimaize.soapworks.common.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,7 +18,7 @@ public class Retry {
 
     /**
      * Tells when the service can be called again.
-     * This is only available if <code>retryType</code> is {@link com.optimaize.soapworks.server.exception.RetryType#LATER}, and
+     * This is only available if <code>retryType</code> is {@link com.optimaize.soapworks.common.exception.RetryType#LATER}, and
      * can still be <code>null</code> if unknown.
      */
     @Nullable

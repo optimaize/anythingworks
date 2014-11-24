@@ -1,5 +1,7 @@
 package com.optimaize.soapworks.server.exception;
 
+import com.optimaize.soapworks.common.exception.Blame;
+
 /**
  * Builder for the {@link FaultBean}.
  *

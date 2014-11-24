@@ -1,4 +1,4 @@
-package com.optimaize.soapworks.server.exception;
+package com.optimaize.soapworks.common.exception;
 
 /**
  * Tells who's likely to blame when exceptions occur.

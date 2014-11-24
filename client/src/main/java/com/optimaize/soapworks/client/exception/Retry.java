@@ -1,34 +1,48 @@
 package com.optimaize.soapworks.client.exception;
 
+import com.optimaize.soapworks.common.exception.RetryType;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
- * Used in {@link FaultInfo}, tells if a service call may be retried after ending with a failure.
- *
- * @author fab
+ * Tells if and when the service request can be tried again in case of a failure.
  */
-public enum Retry {
+public class Retry {
+
+    @NotNull
+    private RetryType retryType;
 
     /**
-     * It has no point to resend the same request again.
-     * One use case is when the input arguments were illegal.
+     * Tells when the service can be called again.
+     * This is only available if <code>retryType</code> is {@link com.optimaize.soapworks.common.exception.RetryType#LATER}, and
+     * can still be <code>null</code> if unknown.
      */
-    NO,
+    @Nullable
+    private Long retryInSeconds;
 
-    /**
-     * The same request may be sent to another server, or to the same server again later.
-     * One use case is when the server is too busy.
-     * Another is when the request limit has been reached.
-     */
-    LATER,
 
-    /**
-     * The same request may be sent again.
-     * One use case is when there was a timeout.
-     */
-    NOW,
+    public Retry(@NotNull RetryType retryType, @Nullable Long retryInSeconds) {
+        this.retryType = retryType;
+        this.retryInSeconds = retryInSeconds;
+    }
 
-    /**
-     * It is unknown what the problem was and thus also if a retry makes sense.
-     */
-    UNKNOWN
 
+    @NotNull
+    public RetryType getRetryType() {
+        return retryType;
+    }
+
+    @Nullable
+    public Long getRetryInSeconds() {
+        return retryInSeconds;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Retry{" +
+                "retryType=" + retryType +
+                ", retryInSeconds=" + retryInSeconds +
+                '}';
+    }
 }

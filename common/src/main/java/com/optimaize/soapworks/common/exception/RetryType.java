@@ -1,4 +1,4 @@
-package com.optimaize.soapworks.server.exception;
+package com.optimaize.soapworks.common.exception;
 
 /**
  * If and when the client may retry and send the same request again.
