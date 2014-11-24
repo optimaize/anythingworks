@@ -129,6 +129,22 @@ public class FaultBean {
 
 
 
+    @Override
+    public String toString() {
+        return "FaultBean{" +
+                "errorCode=" + errorCode +
+                ", blame=" + blame +
+                ", faultCause='" + faultCause + '\'' +
+                ", message='" + message + '\'' +
+                ", retrySameServer=" + retrySameServer +
+                ", retryOtherServers=" + retryOtherServers +
+                ", problemReported=" + problemReported +
+                '}';
+    }
+
+
+
+
     /* generated getters */
 
 

@@ -1,5 +1,7 @@
 package com.optimaize.soapworks.server.exception;
 
+import com.google.common.base.Optional;
+
 /**
  * A non-complete, non-authoritative list of error codes suggested by soapworks.
  *
@@ -35,6 +37,15 @@ public class ErrorCodes {
         public int getCode() {
             return code;
         }
+
+        public static Optional<Client> fromCode(int code) {
+            for (Client entry : values()) {
+                if (entry.getCode() == code) {
+                    return Optional.of(entry);
+                }
+            }
+            return Optional.absent();
+        }
     }
 
 
@@ -52,6 +63,15 @@ public class ErrorCodes {
 
         public int getCode() {
             return code;
+        }
+
+        public static Optional<Server> fromCode(int code) {
+            for (Server entry : values()) {
+                if (entry.getCode() == code) {
+                    return Optional.of(entry);
+                }
+            }
+            return Optional.absent();
         }
     }
 
@@ -71,6 +91,15 @@ public class ErrorCodes {
         public int getCode() {
             return code;
         }
+
+        public static Optional<Network> fromCode(int code) {
+            for (Network entry : values()) {
+                if (entry.getCode() == code) {
+                    return Optional.of(entry);
+                }
+            }
+            return Optional.absent();
+        }
     }
 
 
@@ -87,6 +116,15 @@ public class ErrorCodes {
 
         public int getCode() {
             return code;
+        }
+
+        public static Optional<Unknown> fromCode(int code) {
+            for (Unknown entry : values()) {
+                if (entry.getCode() == code) {
+                    return Optional.of(entry);
+                }
+            }
+            return Optional.absent();
         }
     }
 
