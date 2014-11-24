@@ -1,6 +1,8 @@
 
 package com.optimaize.soapworks.exampleproject.clientlib.commonwsdl;
 
+import com.optimaize.soapworks.common.exception.RetryType;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
