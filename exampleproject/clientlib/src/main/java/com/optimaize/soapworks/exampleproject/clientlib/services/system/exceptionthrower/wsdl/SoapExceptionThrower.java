@@ -1,6 +1,10 @@
 
 package com.optimaize.soapworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl;
 
+import com.optimaize.soapworks.exampleproject.clientlib.commonwsdl.AccessDeniedWebServiceException;
+import com.optimaize.soapworks.exampleproject.clientlib.commonwsdl.InternalServerErrorWebServiceException;
+import com.optimaize.soapworks.exampleproject.clientlib.commonwsdl.InvalidInputWebServiceException;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;

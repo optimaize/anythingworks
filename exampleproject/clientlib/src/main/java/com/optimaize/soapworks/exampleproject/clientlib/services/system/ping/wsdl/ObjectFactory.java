@@ -1,6 +1,9 @@
 
 package com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl;
 
+import com.optimaize.soapworks.exampleproject.clientlib.commonwsdl.FaultBean;
+import com.optimaize.soapworks.exampleproject.clientlib.commonwsdl.Retry;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;

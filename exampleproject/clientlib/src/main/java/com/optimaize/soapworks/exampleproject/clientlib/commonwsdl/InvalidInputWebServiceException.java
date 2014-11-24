@@ -1,5 +1,5 @@
 
-package com.optimaize.soapworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl;
+package com.optimaize.soapworks.exampleproject.clientlib.commonwsdl;
 
 import javax.xml.ws.WebFault;
 
@@ -10,8 +10,8 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "InternalServerErrorWebServiceException", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/")
-public class InternalServerErrorWebServiceException
+@WebFault(name = "InvalidInputWebServiceException", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/")
+public class InvalidInputWebServiceException
     extends Exception
 {
 
@@ -26,7 +26,7 @@ public class InternalServerErrorWebServiceException
      * @param message
      * @param faultInfo
      */
-    public InternalServerErrorWebServiceException(String message, FaultBean faultInfo) {
+    public InvalidInputWebServiceException(String message, FaultBean faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class InternalServerErrorWebServiceException
      * @param faultInfo
      * @param cause
      */
-    public InternalServerErrorWebServiceException(String message, FaultBean faultInfo, Throwable cause) {
+    public InvalidInputWebServiceException(String message, FaultBean faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }

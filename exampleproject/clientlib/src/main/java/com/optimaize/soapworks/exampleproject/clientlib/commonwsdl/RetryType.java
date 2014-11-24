@@ -1,41 +1,41 @@
 
-package com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl;
+package com.optimaize.soapworks.exampleproject.clientlib.commonwsdl;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for blame.
+ * <p>Java class for retryType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="blame">
+ * &lt;simpleType name="retryType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="CLIENT"/>
- *     &lt;enumeration value="SERVER"/>
- *     &lt;enumeration value="NETWORK"/>
+ *     &lt;enumeration value="NO"/>
+ *     &lt;enumeration value="LATER"/>
+ *     &lt;enumeration value="NOW"/>
  *     &lt;enumeration value="UNKNOWN"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "blame")
+@XmlType(name = "retryType")
 @XmlEnum
-public enum Blame {
+public enum RetryType {
 
-    CLIENT,
-    SERVER,
-    NETWORK,
+    NO,
+    LATER,
+    NOW,
     UNKNOWN;
 
     public String value() {
         return name();
     }
 
-    public static Blame fromValue(String v) {
+    public static RetryType fromValue(String v) {
         return valueOf(v);
     }
 

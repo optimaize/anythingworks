@@ -1,5 +1,5 @@
 
-package com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl;
+package com.optimaize.soapworks.exampleproject.clientlib.commonwsdl;
 
 import javax.xml.ws.WebFault;
 
@@ -45,7 +45,7 @@ public class AccessDeniedWebServiceException
     /**
      * 
      * @return
-     *     returns fault bean: com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl.FaultBean
+     *     returns fault bean: com.optimaize.soapworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
      */
     public FaultBean getFaultInfo() {
         return faultInfo;

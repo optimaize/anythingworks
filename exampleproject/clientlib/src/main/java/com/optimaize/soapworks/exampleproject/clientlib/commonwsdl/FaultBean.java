@@ -1,5 +1,5 @@
 
-package com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl;
+package com.optimaize.soapworks.exampleproject.clientlib.commonwsdl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
