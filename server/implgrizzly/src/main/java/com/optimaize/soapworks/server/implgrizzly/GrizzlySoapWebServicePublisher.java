@@ -4,6 +4,7 @@ import com.optimaize.soapworks.server.SoapWebService;
 import com.optimaize.soapworks.server.implcommon.BaseSoapWebServicePublisher;
 import com.optimaize.soapworks.server.implcommon.TransportInfo;
 import org.glassfish.grizzly.http.server.HttpHandler;
+import org.glassfish.grizzly.http.server.HttpHandlerRegistration;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.jaxws.JaxwsHandler;
@@ -57,7 +58,12 @@ public class GrizzlySoapWebServicePublisher extends BaseSoapWebServicePublisher 
         String path = transportInfo.getBasePath() + soapWebService.getServicePath();
         log.info("Publishing soap web service: " + transportInfo.toUriString() + soapWebService.getServicePath() + "?wsdl");
         HttpHandler jaxwsHandler = new JaxwsHandler(soapWebService);
-        httpServer.getServerConfiguration().addHttpHandler(jaxwsHandler, path);
+        httpServer.getServerConfiguration().addHttpHandler(jaxwsHandler,
+                //see https://java.net/projects/grizzly/lists/users/archive/2014-11/message/7 for why this is done.
+                HttpHandlerRegistration.bulder()
+                        .contextPath(path)
+                        .urlPattern("")
+                        .build());
 
         if (!isNetworkListenerAdded) {
             addNetworkListener();
