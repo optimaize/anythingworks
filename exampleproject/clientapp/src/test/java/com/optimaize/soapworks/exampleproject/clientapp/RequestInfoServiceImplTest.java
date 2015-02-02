@@ -13,7 +13,7 @@ public class RequestInfoServiceImplTest {
     private final CommandExecutor executor = DemoappRemoteExecutors.get();
 
     //In order to run this test, run the Boot class first.
-    @Test
+//    @Test
     public void testRequestInfo() throws Exception {
         RequestInfoCommand cmd = new RequestInfoCommand();
         Mode mode = MyModeFactory.debug();
