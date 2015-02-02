@@ -5,13 +5,13 @@
     <parent>
         <artifactId>soapworks</artifactId>
         <groupId>com.optimaize.soapworks</groupId>
-        <version>0.4-SNAPSHOT</version>
+        <version>0.4</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.server</groupId>
     <artifactId>soapworks-server</artifactId>
     <name>soaplib-server</name>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.4</version>
     <packaging>pom</packaging>
     <description>
         Library code for server development.
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.optimaize.soapworks.common</groupId>
             <artifactId>soapworks-common</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.4</version>
         </dependency>
     </dependencies>
 

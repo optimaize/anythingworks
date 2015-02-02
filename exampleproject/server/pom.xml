@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.optimaize.soapworks.exampleproject</groupId>
         <artifactId>soapworks-exampleproject</artifactId>
-        <version>0.4-SNAPSHOT</version>
+        <version>0.4</version>
     </parent>
 
     <groupId>com.optimaize.soapworks.exampleproject.server</groupId>
@@ -24,12 +24,12 @@
         <dependency>
             <groupId>com.optimaize.soapworks.server.implgrizzly</groupId>
             <artifactId>soapworks-server-implgrizzly</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.4</version>
         </dependency>
         <dependency>
             <groupId>com.optimaize.soapworks.server.impljdk</groupId>
             <artifactId>soapworks-server-impljdk</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.4</version>
         </dependency>
 
 
