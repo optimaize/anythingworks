@@ -8,7 +8,8 @@ import com.optimaize.soapworks.exampleproject.server.lib.AbstractSoapWebService;
 import com.optimaize.soapworks.server.exception.AccessDeniedWebServiceException;
 import com.optimaize.soapworks.server.exception.InternalServerErrorWebServiceException;
 import com.optimaize.soapworks.server.exception.InvalidInputWebServiceException;
-import com.sun.xml.ws.server.AbstractWebServiceContext;
+import com.optimaize.soapworks.server.implcommon.EagerRequestDataExtractor;
+import com.optimaize.soapworks.server.implcommon.RequestDataExtractor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,6 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
-import java.util.Map;
 
 /**
  */
@@ -38,30 +37,28 @@ public class SoapRequestInfoService extends AbstractSoapWebService {
     public String requestInfo(
             @WebParam(name="apiKey") @XmlElement(nillable=false,required=true) final String apiKey
     ) throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException {
-//        java.lang.IllegalStateException: getMessageContext() can only be called while servicing a request
-        final MessageContext messageContext = webServiceContext.getMessageContext();
-        return makeMsg(webServiceContext, messageContext);
+        //because only this thread has access to the request, and the command4j framework uses another thread for
+        //the execution of the call, we must use the eager impl here:
+        final EagerRequestDataExtractor extractor = new EagerRequestDataExtractor(webServiceContext);
 
-
-//        return execute(new BaseCommand<Object, String>() {
-//                @Override
-//                public String call(@NotNull Optional<Object> arg, @NotNull ExecutionContext ec) throws Exception {
-//                    return makeMsg(messageContext);
-//                }
-//        }).orNull();
+        return execute(new BaseCommand<Object, String>() {
+                @Override
+                public String call(@NotNull Optional<Object> arg, @NotNull ExecutionContext ec) throws Exception {
+                    return makeMsg(extractor);
+                }
+        }).orNull();
     }
 
-    private String makeMsg(WebServiceContext webServiceContext, MessageContext messageContext) {
+    private String makeMsg(RequestDataExtractor extractor) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Request method: "+messageContext.get(MessageContext.HTTP_REQUEST_METHOD));
-        sb.append(", Path: "+messageContext.get(MessageContext.PATH_INFO));
-        sb.append(", Query string: "+messageContext.get(MessageContext.QUERY_STRING));
-        sb.append(", User agent: "+((Map)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS)).get("user-agent"));
-        sb.append(", Content type: "+((Map)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS)).get("content-type"));
-        sb.append(", Http accept: "+((Map)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS)).get("accept"));
-        sb.append(", Http host: "+((Map)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS)).get("host"));
-        sb.append(", Connection: "+((Map)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS)).get("connection"));
-        sb.append(", wasTransportSecure: "+((AbstractWebServiceContext) webServiceContext).getRequestPacket().wasTransportSecure);
+        sb.append("Request method: " + extractor.requestMethod());
+        sb.append(", URI: " + extractor.uri());
+        sb.append(", User agent: "+extractor.requestHeaderUserAgent());
+        sb.append(", Content type: " + extractor.requestHeaderContentType());
+        sb.append(", Http accept: "+extractor.requestHeaderAccept());
+        sb.append(", Http host: " + extractor.requestHeaderHost());
+        sb.append(", Connection: "+extractor.requestHeaderConnection());
+        sb.append(", wasTransportSecure: " + extractor.wasTransportSecure());
         return sb.toString();
     }
 
