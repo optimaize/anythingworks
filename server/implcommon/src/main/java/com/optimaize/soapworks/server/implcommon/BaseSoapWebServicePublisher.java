@@ -14,7 +14,6 @@ public abstract class BaseSoapWebServicePublisher implements SoapWebServicePubli
     @Override
     public void publishServices(SoapWebServiceProvider soapWebServiceProvider) {
         publishServices(soapWebServiceProvider.getAll());
-
     }
 
     @Override
