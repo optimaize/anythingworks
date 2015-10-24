@@ -8,9 +8,9 @@ import org.jetbrains.annotations.Nullable;
  * It throws {@link InvalidInputWebServiceException} in case of error.
  */
 @SuppressWarnings({"JavaDoc"})
-public class SoapPreconditions {
+public class WebServicePreconditions {
 
-    private SoapPreconditions() {
+    private WebServicePreconditions() {
         throw new Error("No instance!");
     }
 
