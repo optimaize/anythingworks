@@ -10,7 +10,14 @@
 
     <url>https://github.com/optimaize/soapworks</url>
     <description>
-        Java Library to Bootstrap SOAP / WSDL Development.
+        Java Library to Bootstrap Web service client/server development.
+
+        It supports both RESTful web services (JAX-RS) and
+        SOAP / WSDL web services (JAX-WS).
+
+        Within this project classes specific for one technology are prefixed
+        with either "Rest" or "Soap".
+
     </description>
     <organization>
         <name>Optimaize GmbH, Switzerland</name>
@@ -34,7 +41,29 @@
         <command4j.version>0.5</command4j.version>
         <intellijannotations.version>12.0</intellijannotations.version>
         <testng.version>6.8.7</testng.version>
+        <guava.version>15.0</guava.version>
+        <jersey-version>1.18</jersey-version>
+        <jackson-version>2.6.3</jackson-version>
+
+        <!-- can't upgrade this now, otherwise getting error at server startup:
+        "class file for com.sun.xml.ws.api.server.WSEndpoint not found" -->
+        <!--<grizzly-version>2.3.23</grizzly-version>-->
+        <grizzly-version>2.3.18</grizzly-version>
     </properties>
+
+
+    <!-- bring in all the jersey dependencies we need, from the same version -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>2.22.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
     <dependencies>
@@ -111,6 +140,14 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <!--
+                            This is currently required when building on a machine with JDK8
+                            See http://stackoverflow.com/questions/15886209/maven-is-not-working-in-java-8-when-javadoc-tags-are-incomplete
+                            Disable this when building with earlier JDKs.
+                            -->
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -141,6 +178,15 @@
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.4</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19</version>
+                <configuration>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
