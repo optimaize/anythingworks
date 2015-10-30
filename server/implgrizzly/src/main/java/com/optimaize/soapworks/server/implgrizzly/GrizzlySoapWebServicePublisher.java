@@ -1,7 +1,7 @@
 package com.optimaize.soapworks.server.implgrizzly;
 
-import com.optimaize.soapworks.server.SoapWebService;
-import com.optimaize.soapworks.server.implcommon.BaseSoapWebServicePublisher;
+import com.optimaize.soapworks.server.soap.SoapWebService;
+import com.optimaize.soapworks.server.implcommon.soap.BaseSoapWebServicePublisher;
 import com.optimaize.soapworks.server.implcommon.TransportInfo;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpHandlerRegistration;
@@ -31,13 +31,19 @@ public class GrizzlySoapWebServicePublisher extends BaseSoapWebServicePublisher 
     private volatile boolean isNetworkListenerAdded = false;
 
     public GrizzlySoapWebServicePublisher(@NotNull HttpServer httpServer, @NotNull TransportInfo transportInfo) {
-        this(httpServer, transportInfo, new NetworkListener("jaxws-listener", transportInfo.getHost().getHostName(), transportInfo.getHost().getPortNumber()));
+        this(
+                httpServer,
+                transportInfo,
+                new NetworkListener("jaxws-listener", transportInfo.getHost().getHostName(), transportInfo.getHost().getPortNumber())
+        );
     }
 
     /**
      * Overloaded constructor that gives you the chance to hand in a NetworkListener that is configured already.
      */
-    public GrizzlySoapWebServicePublisher(@NotNull HttpServer httpServer, @NotNull TransportInfo transportInfo, @NotNull NetworkListener networkListener) {
+    public GrizzlySoapWebServicePublisher(@NotNull HttpServer httpServer,
+                                          @NotNull TransportInfo transportInfo,
+                                          @NotNull NetworkListener networkListener) {
         this.httpServer = httpServer;
         this.transportInfo = transportInfo;
         this.networkListener = networkListener;
@@ -74,6 +80,7 @@ public class GrizzlySoapWebServicePublisher extends BaseSoapWebServicePublisher 
      * This is done at most once. And only if at least one service gets published.
      */
     private synchronized void addNetworkListener() {
+        if (true) return; //because REST already does it.
         if (!isNetworkListenerAdded) {
             httpServer.addListener(networkListener);
             isNetworkListenerAdded = true;

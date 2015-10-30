@@ -1,7 +1,7 @@
 package com.optimaize.soapworks.server.impljdk;
 
-import com.optimaize.soapworks.server.SoapWebService;
-import com.optimaize.soapworks.server.implcommon.BaseSoapWebServicePublisher;
+import com.optimaize.soapworks.server.soap.SoapWebService;
+import com.optimaize.soapworks.server.implcommon.soap.BaseSoapWebServicePublisher;
 import com.optimaize.soapworks.server.implcommon.TransportInfo;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

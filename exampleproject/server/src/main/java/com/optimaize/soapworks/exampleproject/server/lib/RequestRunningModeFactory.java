@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * Provides Mode instances that contain the minimum.
+ * Provides Mode instances for running commands.
  *
  * @author Fabian Kessler
  */
@@ -22,10 +22,19 @@ public class RequestRunningModeFactory {
     protected static final Logger logger = LoggerFactory.getLogger(RequestRunningModeFactory.class);
 
     @NotNull
-    public Mode defaultMode() {
+    public Mode soapDefaultMode() {
         return Mode.create()
                 .with(TimeoutExtension.TIMEOUT, Duration.millis(5000))
                 .with(ExceptionTranslationExtension.TRANSLATOR, new DefaultServerExceptionTranslator())
+                .with(CustomLoggingExtension.LOGGER, new CommandExecutionLoggerFactoryImpl(logger))
+        ;
+    }
+
+    @NotNull
+    public Mode restDefaultMode() {
+        return Mode.create()
+                .with(TimeoutExtension.TIMEOUT, Duration.millis(5000))
+                .with(ExceptionTranslationExtension.TRANSLATOR, new RestDefaultServerExceptionTranslator())
                 .with(CustomLoggingExtension.LOGGER, new CommandExecutionLoggerFactoryImpl(logger))
         ;
     }

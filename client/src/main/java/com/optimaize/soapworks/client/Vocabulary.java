@@ -21,7 +21,9 @@ public enum Vocabulary {
     servicePath,
 
     /**
-     * A Port is a wsdl-generated java service class on the client.
+     * A Port is the connector to the web service.
+     * For SOAP it is a wsdl-generated java service class on the client.
+     * For REST it is the class that handles the HTTP networking.
      * It is the equivalent of the service on the server.
      */
     Port,

@@ -1,9 +1,9 @@
 package com.optimaize.soapworks.client.exensions.exceptiontranslation;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
-import com.optimaize.soapworks.client.exception.*;
-import com.optimaize.soapworks.common.exception.Blame;
-import com.optimaize.soapworks.common.exception.RetryType;
+import com.optimaize.soapworks.client.soap.exception.*;
+import com.optimaize.soapworks.common.soap.exception.Blame;
+import com.optimaize.soapworks.common.soap.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -34,6 +34,9 @@ public class SoapFaultExceptionTranslator implements ExceptionTranslator {
 
     private static final Logger log = LoggerFactory.getLogger(SoapFaultExceptionTranslator.class);
 
+    private static final FaultInfoToExceptionConverter converter = new FaultInfoToExceptionConverter();
+
+
     public boolean canTranslate(@NotNull Throwable t) {
         return (t instanceof SOAPFaultException);
     }
@@ -48,7 +51,7 @@ public class SoapFaultExceptionTranslator implements ExceptionTranslator {
                 Detail detail = fault.getDetail();
                 if (detail != null) {
                     FaultInfo faultInfo = extractFaultInfo(detail);
-                    exToThrow = makeException(e.getMessage(), faultInfo);
+                    exToThrow = converter.makeException(e.getMessage(), faultInfo);
                 }
             }
         } catch (RuntimeException exWhileTryingToMakeEx) {
@@ -67,22 +70,7 @@ public class SoapFaultExceptionTranslator implements ExceptionTranslator {
         }
     }
 
-    @NotNull
-    private ServiceException makeException(@Nullable String msg, @NotNull FaultInfo faultInfo) {
-        String className = faultInfo.getFaultCause()+"WebServiceException";
-        switch (className) {
-            case "AccessDeniedWebServiceException":
-                return new AccessDeniedServiceException(msg, faultInfo);
-            case "InvalidInputWebServiceException":
-                return new InvalidInputServiceException(msg, faultInfo);
-            case "InternalServerErrorWebServiceException":
-            case "InternalWebServiceException": //old name
-                return new InternalServiceException(msg, faultInfo);
-            default:
-                log.error("Unknown exception type from server: ");
-                return new UnknownServiceException(msg, faultInfo);
-        }
-    }
+
 
 //    /**
 //     * @return something like "AccessDeniedWebServiceException", or <code>null</code> if not in the supported format.

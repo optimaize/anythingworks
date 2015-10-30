@@ -29,11 +29,11 @@ public class Boot {
     private void boot() throws Exception {
         ConfigurableApplicationContext context = makeAppContext();
 
-        SoapWebServer server;
+        WebServer server;
         if (USE_GRIZZLY) {
-            server = context.getBean(GrizzlySoapWebServer.class);
+            server = context.getBean(GrizzlyWebServer.class);
         } else {
-            server = context.getBean(JdkSoapWebServer.class);
+            server = context.getBean(JdkWebServer.class);
         }
         server.start();
 

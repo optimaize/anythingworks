@@ -2,7 +2,7 @@ package com.optimaize.soapworks.exampleproject.server.lib;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
 import com.optimaize.soapworks.server.commandextensions.FixedStringExceptionMessageMaker;
-import com.optimaize.soapworks.server.commandextensions.WebServiceExceptionTranslator;
+import com.optimaize.soapworks.server.soap.exception.SoapWebServiceExceptionTranslator;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DefaultServerExceptionTranslator implements ExceptionTranslator {
 
-    private static final WebServiceExceptionTranslator wrapped = new WebServiceExceptionTranslator(
+    private static final SoapWebServiceExceptionTranslator wrapped = new SoapWebServiceExceptionTranslator(
             new FixedStringExceptionMessageMaker("Internal server error!"),
             true //someone has got to log the exceptions
     );

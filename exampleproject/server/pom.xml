@@ -22,6 +22,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.optimaize.soapworks.exampleproject.ontology</groupId>
+            <artifactId>soapworks-exampleproject-ontology</artifactId>
+            <version>0.5-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.optimaize.soapworks.server.implgrizzly</groupId>
             <artifactId>soapworks-server-implgrizzly</artifactId>
             <version>0.5-SNAPSHOT</version>

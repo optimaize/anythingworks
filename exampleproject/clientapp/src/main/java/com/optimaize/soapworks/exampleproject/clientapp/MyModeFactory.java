@@ -8,8 +8,8 @@ import com.optimaize.command4j.lang.Duration;
 import com.optimaize.soapworks.client.Keys;
 import com.optimaize.soapworks.client.exensions.autoretry.DefaultAutoRetryStrategy;
 import com.optimaize.soapworks.common.host.Host;
-import com.optimaize.soapworks.exampleproject.clientlib.lib.DemoappKeys;
-import com.optimaize.soapworks.exampleproject.clientlib.lib.DemoappModeFactory;
+import com.optimaize.soapworks.exampleproject.clientlib.DemoappKeys;
+import com.optimaize.soapworks.exampleproject.clientlib.DemoappModeFactory;
 import org.jetbrains.annotations.NotNull;
 
 /**

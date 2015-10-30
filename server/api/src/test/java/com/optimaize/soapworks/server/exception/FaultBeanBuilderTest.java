@@ -1,6 +1,9 @@
 package com.optimaize.soapworks.server.exception;
 
-import com.optimaize.soapworks.common.exception.Blame;
+import com.optimaize.soapworks.common.soap.exception.Blame;
+import com.optimaize.soapworks.server.soap.exception.FaultBean;
+import com.optimaize.soapworks.server.soap.exception.FaultBeanBuilder;
+import com.optimaize.soapworks.server.soap.exception.Retry;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;

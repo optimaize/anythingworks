@@ -2,8 +2,8 @@ package com.optimaize.soapworks.client.exensions.autoretry;
 
 import com.optimaize.command4j.ext.extensions.failover.autoretry.AutoRetryStrategy;
 import com.optimaize.command4j.lang.Duration;
-import com.optimaize.soapworks.client.exception.ServiceException;
-import com.optimaize.soapworks.common.exception.RetryType;
+import com.optimaize.soapworks.client.soap.exception.ServiceException;
+import com.optimaize.soapworks.common.soap.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

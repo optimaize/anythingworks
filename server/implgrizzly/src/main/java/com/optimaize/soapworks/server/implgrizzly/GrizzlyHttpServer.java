@@ -20,7 +20,7 @@ public class GrizzlyHttpServer {
     private static final Logger log = LoggerFactory.getLogger(GrizzlyHttpServer.class);
 
     @NotNull
-    private final HttpServer httpServer;
+    public final HttpServer httpServer;
 
     @NotNull
     private final Host host;

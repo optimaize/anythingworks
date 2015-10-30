@@ -1,6 +1,8 @@
 package com.optimaize.soapworks.client;
 
 import com.optimaize.command4j.lang.Key;
+import com.optimaize.soapworks.client.rest.RestPortUrlFactory;
+import com.optimaize.soapworks.client.soap.SoapPortUrlFactory;
 import com.optimaize.soapworks.common.host.Host;
 
 /**
@@ -26,8 +28,14 @@ public interface Keys {
   Key<Host> HOST = Key.create("host", Host.class);
 
   /**
-   * The factory for creating endpoint urls. This is always available and provided
+   * The factory for creating SOAP endpoint urls. This is always available and provided
    * by the library. If a custom factory is specified, it is preferred.
    */
-  Key<PortUrlFactory> PORT_URL_FACTORY = Key.create("portUrlFactory", PortUrlFactory.class);
+  Key<SoapPortUrlFactory> SOAP_PORT_URL_FACTORY = Key.create("soapPortUrlFactory", SoapPortUrlFactory.class);
+
+  /**
+   * The factory for creating REST endpoint urls. This is always available and provided
+   * by the library. If a custom factory is specified, it is preferred.
+   */
+  Key<RestPortUrlFactory> REST_PORT_URL_FACTORY = Key.create("restPortUrlFactory", RestPortUrlFactory.class);
 }

@@ -13,14 +13,28 @@
     <name>soapworks-exampleproject-clientlib</name>
 
     <description>
-        The matching web service client library for the server in this example project that uses soap/wsdl
+        The matching web service client library for the server in this example project
         to connect to the server.
+
+        This library is ideally provided by the service provider of the server, so that
+        users can go ahead and hack their userland code against this client library,
+        without having to worry about the transport.
+
+        Whether the client library uses REST or SOAP is up to the implementor, both are
+        possible. A user of the client library usually does not care what technology
+        is used underneath (as long as things are working correctly).
     </description>
 
     <properties>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.optimaize.soapworks.exampleproject.ontology</groupId>
+            <artifactId>soapworks-exampleproject-ontology</artifactId>
+            <version>0.5-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>com.optimaize.soapworks.client</groupId>
             <artifactId>soapworks-client</artifactId>

@@ -1,9 +1,9 @@
 package com.optimaize.soapworks.client.exensions.exceptiontranslation;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
-import com.optimaize.soapworks.client.exception.*;
-import com.optimaize.soapworks.common.exception.Blame;
-import com.optimaize.soapworks.common.exception.RetryType;
+import com.optimaize.soapworks.client.soap.exception.*;
+import com.optimaize.soapworks.common.soap.exception.Blame;
+import com.optimaize.soapworks.common.soap.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.InvocationTargetException;
