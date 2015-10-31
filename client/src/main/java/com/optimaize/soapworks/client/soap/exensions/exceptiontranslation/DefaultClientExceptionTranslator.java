@@ -1,4 +1,4 @@
-package com.optimaize.soapworks.client.exensions.exceptiontranslation;
+package com.optimaize.soapworks.client.soap.exensions.exceptiontranslation;
 
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
 import com.optimaize.soapworks.client.soap.exception.*;

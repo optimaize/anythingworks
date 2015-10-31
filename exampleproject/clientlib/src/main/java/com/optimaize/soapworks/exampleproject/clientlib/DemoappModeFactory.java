@@ -6,8 +6,8 @@ import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.Exc
 import com.optimaize.command4j.ext.extensions.timeout.configurabletimeout.TimeoutExtension;
 import com.optimaize.command4j.lang.Duration;
 import com.optimaize.soapworks.client.Keys;
-import com.optimaize.soapworks.client.exensions.exceptiontranslation.DefaultClientExceptionTranslator;
-import com.optimaize.soapworks.client.exensions.exceptiontranslation.SoapFaultExceptionTranslator;
+import com.optimaize.soapworks.client.soap.exensions.exceptiontranslation.DefaultClientExceptionTranslator;
+import com.optimaize.soapworks.client.soap.exensions.exceptiontranslation.SoapFaultExceptionTranslator;
 import com.optimaize.soapworks.common.host.Host;
 import com.optimaize.soapworks.exampleproject.clientlib.rest.DemoappRestPortUrlFactory;
 import com.optimaize.soapworks.exampleproject.clientlib.soap.DemoappSoapPortUrlFactory;

@@ -6,7 +6,7 @@ import com.optimaize.command4j.ext.extensions.logging.stdoutlogging.StdoutLoggin
 import com.optimaize.command4j.ext.extensions.timeout.configurabletimeout.TimeoutExtension;
 import com.optimaize.command4j.lang.Duration;
 import com.optimaize.soapworks.client.Keys;
-import com.optimaize.soapworks.client.exensions.autoretry.DefaultAutoRetryStrategy;
+import com.optimaize.soapworks.client.soap.exensions.autoretry.DefaultAutoRetryStrategy;
 import com.optimaize.soapworks.common.host.Host;
 import com.optimaize.soapworks.exampleproject.clientlib.DemoappKeys;
 import com.optimaize.soapworks.exampleproject.clientlib.DemoappModeFactory;

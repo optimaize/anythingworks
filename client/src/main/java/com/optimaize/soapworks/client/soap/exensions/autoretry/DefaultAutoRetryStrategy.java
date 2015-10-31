@@ -1,4 +1,4 @@
-package com.optimaize.soapworks.client.exensions.autoretry;
+package com.optimaize.soapworks.client.soap.exensions.autoretry;
 
 import com.optimaize.command4j.ext.extensions.failover.autoretry.AutoRetryStrategy;
 import com.optimaize.command4j.lang.Duration;
