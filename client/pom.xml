@@ -46,7 +46,7 @@
             <version>1.6.6</version>
         </dependency>
 
-        <!-- HTTP client: jersey-client -->
+        <!-- These are for REST only. -->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
