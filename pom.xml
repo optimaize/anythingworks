@@ -41,7 +41,7 @@
         <command4j.version>0.5</command4j.version>
         <intellijannotations.version>12.0</intellijannotations.version>
         <testng.version>6.8.7</testng.version>
-        <guava.version>15.0</guava.version>
+        <guava.version>18.0</guava.version>
         <jackson-version>2.6.3</jackson-version>
 
         <!-- can't upgrade this now, otherwise getting error at server startup:
