@@ -5,6 +5,7 @@ import com.optimaize.command4j.Mode;
 import com.optimaize.soapworks.client.soap.exception.AccessDeniedServiceException;
 import com.optimaize.soapworks.exampleproject.clientlib.DemoappModeFactory;
 import com.optimaize.soapworks.exampleproject.clientlib.DemoappRemoteExecutors;
+import com.optimaize.soapworks.exampleproject.clientlib.rest.services.development.exceptionthrower.ExceptionThrowerParams;
 import com.optimaize.soapworks.exampleproject.clientlib.rest.services.development.exceptionthrower.RestExceptionThrowerCommand;
 import com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.ExceptionThrowerAccessDeniedNoSuchAccount;
 import org.testng.annotations.Test;
@@ -12,7 +13,8 @@ import org.testng.annotations.Test;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.WebApplicationException;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * In order to run these tests, run the Boot class first.
@@ -36,28 +38,39 @@ public class ExceptionThrowerTest {
     public void rest_NotAuthorized() throws Exception {
         RestExceptionThrowerCommand command = new RestExceptionThrowerCommand();
         Mode mode = DemoappModeFactory.unitTest();
-        executor.execute(command, mode, "NotAuthorized").orNull();
+        executor.execute(command, mode, new ExceptionThrowerParams(ExceptionThrowerParams.ExceptionType.NotAuthorized, 100)).orNull();
     }
 
     @Test(expectedExceptions=NotAuthorizedException.class)
     public void rest_Forbidden() throws Exception {
         RestExceptionThrowerCommand command = new RestExceptionThrowerCommand();
         Mode mode = DemoappModeFactory.unitTest();
-        executor.execute(command, mode, "Forbidden").orNull();
+        executor.execute(command, mode, new ExceptionThrowerParams(ExceptionThrowerParams.ExceptionType.Forbidden, 100)).orNull();
     }
 
     @Test(expectedExceptions=BadRequestException.class)
     public void rest_BadRequest() throws Exception {
         RestExceptionThrowerCommand command = new RestExceptionThrowerCommand();
         Mode mode = DemoappModeFactory.unitTest();
-        executor.execute(command, mode, "BadRequest").orNull();
+        executor.execute(command, mode, new ExceptionThrowerParams(ExceptionThrowerParams.ExceptionType.BadRequest, 100)).orNull();
     }
 
     @Test(expectedExceptions=InternalServerErrorException.class)
     public void rest_InternalServerError() throws Exception {
         RestExceptionThrowerCommand command = new RestExceptionThrowerCommand();
         Mode mode = DemoappModeFactory.unitTest();
-        executor.execute(command, mode, "InternalServerError").orNull();
+        executor.execute(command, mode, new ExceptionThrowerParams(ExceptionThrowerParams.ExceptionType.InternalServerError, 100)).orNull();
+    }
+
+    /**
+     * Because the chance for an exception to be thrown is set to zero, all calls succeed.
+     */
+    @Test
+    public void rest_InternalServerError_zeroChance() throws Exception {
+        RestExceptionThrowerCommand command = new RestExceptionThrowerCommand();
+        Mode mode = DemoappModeFactory.unitTest();
+        String result = executor.execute(command, mode, new ExceptionThrowerParams(ExceptionThrowerParams.ExceptionType.InternalServerError, 0)).orNull();
+        assertEquals(result, "OK");
     }
 
 }

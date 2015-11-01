@@ -12,9 +12,10 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 
 /**
- *
+ * This command tells the server to throw certain exceptions.
+ * It can also be at random, meaning it succeeds sometimes and fails other times.
  */
-public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionThrowerPort, String, Void> {
+public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionThrowerPort, ExceptionThrowerParams, String> {
 
     private static final String servicePath = "/development/exceptionthrower";
 
@@ -23,8 +24,8 @@ public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionTh
     }
 
     @Override
-    public Void call(@NotNull Optional<String> arg, @NotNull ExecutionContext ec) throws Exception {
-        return getPort(ec).call(getApiKey(ec), arg.get());
+    public String call(@NotNull Optional<ExceptionThrowerParams> arg, @NotNull ExecutionContext ec) throws Exception {
+        return getPort(ec).call(getApiKey(ec), arg.get().getExceptionType().name(), arg.get().getExceptionChance());
     }
 
     private String getApiKey(ExecutionContext ec) {

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import java.util.Random;
 
 /**
  * This service throws exceptions at the user's choice.
@@ -22,40 +22,43 @@ public class RestExceptionThrower extends BaseWebService implements RestWebServi
     @GET
     @Path("/exceptionthrower")
     @Produces({"application/json"})
-    public Response throwException(
+    public String throwException(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope,
-            @QueryParam(value = "exceptionType") final String exceptionType
+            @QueryParam(value = "exceptionType") final String exceptionType,
+            @QueryParam(value = "exceptionChance") final int exceptionChance
     ) {
 
-        execute(new BaseCommand<Void, Void>() {
+        return execute(new BaseCommand<Void, String>() {
             @Override
-            public Void call(@NotNull Optional<Void> arg, @NotNull ExecutionContext ec) throws Exception {
-                if (exceptionType.equals("NotAuthorized")) {
-                    throw new NotAuthorizedException("Unknown api key: "+apiKey);
+            public String call(@NotNull Optional<Void> arg, @NotNull ExecutionContext ec) throws Exception {
+                Random r = new Random();
+                int randomInt = r.nextInt(101); //returns 0-100 (101 is exclusive)
+                if (exceptionChance!=0 && randomInt <= exceptionChance) {
+                    if (exceptionType.equals("NotAuthorized")) {
+                        throw new NotAuthorizedException("Unknown api key: " + apiKey);
+                    }
+                    if (exceptionType.equals("Forbidden")) {
+                        throw new NotAuthorizedException("This service is not for you.");
+                    }
+                    if (exceptionType.equals("BadRequest")) {
+                        throw new BadRequestException("Your data was not understood.");
+                    }
+                    if (exceptionType.equals("InternalServerError")) {
+                        throw new InternalServerErrorException("No one knows what happened.");
+                    }
+                    throw new WebApplicationException("Something unspecified");
+                } else {
+                    return "OK";
                 }
-                if (exceptionType.equals("Forbidden")) {
-                    throw new NotAuthorizedException("This service is not for you.");
-                }
-                if (exceptionType.equals("BadRequest")) {
-                    throw new BadRequestException("Your data was not understood.");
-                }
-                if (exceptionType.equals("InternalServerError")) {
-                    throw new InternalServerErrorException("No one knows what happened.");
-                }
-                throw new WebApplicationException("Something unspecified");
             }
-        });
-
-        throw new InternalServerErrorException("Unexpected to get here!");
+        }).get();
     }
 
 
     @NotNull
-    protected Optional<Void> execute(Command<Void, Void> command) {
+    protected Optional<String> execute(Command<Void, String> command) {
         return restExceptionBarrier(command, modeFactory.restDefaultMode(), null);
     }
-
-
 
 }

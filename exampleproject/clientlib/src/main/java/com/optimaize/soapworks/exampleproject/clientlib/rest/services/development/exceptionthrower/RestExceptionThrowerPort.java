@@ -3,8 +3,10 @@ package com.optimaize.soapworks.exampleproject.clientlib.rest.services.developme
 import com.optimaize.soapworks.client.rest.http.HeaderParams;
 import com.optimaize.soapworks.client.rest.http.QueryParams;
 import com.optimaize.soapworks.client.rest.http.RestHttpClient;
+import com.optimaize.soapworks.client.rest.http.RestHttpClientResponse;
 import com.optimaize.soapworks.common.rest.TypeRef;
 import com.optimaize.soapworks.exampleproject.clientlib.rest.services.RestServicePort;
+import com.optimaize.soapworks.exampleproject.ontology.rest.development.post.ComplexObject;
 
 /**
  *
@@ -22,21 +24,22 @@ public class RestExceptionThrowerPort implements RestServicePort {
         this.servicePath = servicePath;
     }
 
-    public Void call(String apiKey, String exceptionType) {
+    public String call(String apiKey, String exceptionType, int exceptionChance) {
         QueryParams queryParams = QueryParams.create();
         queryParams.add("apiKey", apiKey);
         queryParams.add("exceptionType", exceptionType);
+        queryParams.add("exceptionChance", ""+exceptionChance);
 
         HeaderParams headerParams = HeaderParams.none();
 
-        TypeRef returnType = new TypeRef<Void>() {};
-        restApiClient.invokeGet(
+        TypeRef returnType = new TypeRef<String>() {};
+        RestHttpClientResponse<String> response = restApiClient.invokeGet(
                 servicePath,
                 queryParams, headerParams,
                 accept, contentType,
                 returnType
         );
-        return null;
+        return response.getResult().get();
     }
 
 }
