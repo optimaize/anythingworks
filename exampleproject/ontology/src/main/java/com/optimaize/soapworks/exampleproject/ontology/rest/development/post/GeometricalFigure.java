@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 /**
  *
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value=Circle.class, name = "circle"),
         @JsonSubTypes.Type(value=Rectangle.class, name="rectangle")
 })
-public class GeometricalFigure {
+public abstract class GeometricalFigure {
 
-    private String color;
+    private final String color;
 
     @JsonCreator
     public GeometricalFigure(

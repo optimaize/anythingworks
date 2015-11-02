@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Rectangle extends GeometricalFigure {
 
-    private double length;
-    private double width;
+    private final double length;
+    private final double width;
 
     @JsonCreator
     public Rectangle(

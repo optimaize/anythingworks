@@ -23,11 +23,11 @@ public class ComplexObject {
         BLUE
     }
 
-    private String string;
-    private int number;
-    private boolean yesOrNo;
-    private Color color;
-    private GeometricalFigure geometricalFigure;
+    private final String string;
+    private final int number;
+    private final boolean yesOrNo;
+    private final Color color;
+    private final GeometricalFigure geometricalFigure;
 
     @JsonCreator
     public ComplexObject(

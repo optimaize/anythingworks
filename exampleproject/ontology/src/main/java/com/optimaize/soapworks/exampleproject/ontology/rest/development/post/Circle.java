@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Circle extends GeometricalFigure {
 
-    private double radius;
+    private final double radius;
 
     @JsonCreator
     public Circle(
