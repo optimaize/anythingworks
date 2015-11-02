@@ -25,7 +25,7 @@ public class RequestRunningModeFactory {
     public Mode soapDefaultMode() {
         return Mode.create()
                 .with(TimeoutExtension.TIMEOUT, Duration.millis(5000))
-                .with(ExceptionTranslationExtension.TRANSLATOR, new DefaultServerExceptionTranslator())
+                .with(ExceptionTranslationExtension.TRANSLATOR, new SoapDefaultServerExceptionTranslator())
                 .with(CustomLoggingExtension.LOGGER, new CommandExecutionLoggerFactoryImpl(logger))
         ;
     }

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Fabian Kessler
  */
-public class DefaultServerExceptionTranslator implements ExceptionTranslator {
+public class SoapDefaultServerExceptionTranslator implements ExceptionTranslator {
 
     private static final SoapWebServiceExceptionTranslator wrapped = new SoapWebServiceExceptionTranslator(
             new FixedStringExceptionMessageMaker("Internal server error!"),
