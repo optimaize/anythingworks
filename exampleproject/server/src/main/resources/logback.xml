@@ -10,7 +10,7 @@
     </appender>
 
 
-    <logger name="com.optimaize.soapworks" level="DEBUG" additivity="true"/>
+    <logger name="com.optimaize.anythingworks" level="DEBUG" additivity="true"/>
 
     <logger name="ch.qos.logback" level="WARN" additivity="true"/>
     <logger name="org.springframework" level="WARN" additivity="true"/>
