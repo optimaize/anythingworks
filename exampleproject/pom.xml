@@ -4,18 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.optimaize.soapworks</groupId>
-        <artifactId>soapworks</artifactId>
+        <groupId>com.optimaize.anythingworks</groupId>
+        <artifactId>anythingworks</artifactId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.exampleproject</groupId>
-    <artifactId>soapworks-exampleproject</artifactId>
-    <name>soapworks-exampleproject</name>
+    <groupId>com.optimaize.anythingworks.exampleproject</groupId>
+    <artifactId>anythingworks-exampleproject</artifactId>
+    <name>anythingworks-exampleproject</name>
     <packaging>pom</packaging>
 
     <description>
-        A code example for how to use the soapworks library.
+        A code example for how to use the anythingworks library.
 
         The submodules are:
         server: a sample server app that runs a web service.

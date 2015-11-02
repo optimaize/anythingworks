@@ -4,14 +4,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.optimaize.soapworks.exampleproject</groupId>
-        <artifactId>soapworks-exampleproject</artifactId>
+        <groupId>com.optimaize.anythingworks.exampleproject</groupId>
+        <artifactId>anythingworks-exampleproject</artifactId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.exampleproject.ontology</groupId>
-    <artifactId>soapworks-exampleproject-ontology</artifactId>
-    <name>soapworks-exampleproject-ontology</name>
+    <groupId>com.optimaize.anythingworks.exampleproject.ontology</groupId>
+    <artifactId>anythingworks-exampleproject-ontology</artifactId>
+    <name>anythingworks-exampleproject-ontology</name>
 
     <description>
         Contains the common "vocabulary", that is, the classes shared by both client and server.

@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>soapworks</artifactId>
-        <groupId>com.optimaize.soapworks</groupId>
+        <artifactId>anythingworks</artifactId>
+        <groupId>com.optimaize.anythingworks</groupId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.server</groupId>
-    <artifactId>soapworks-server</artifactId>
+    <groupId>com.optimaize.anythingworks.server</groupId>
+    <artifactId>anythingworks-server</artifactId>
     <name>soaplib-server</name>
     <version>0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -26,8 +26,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.optimaize.soapworks.common</groupId>
-            <artifactId>soapworks-common</artifactId>
+            <groupId>com.optimaize.anythingworks.common</groupId>
+            <artifactId>anythingworks-common</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
     </dependencies>

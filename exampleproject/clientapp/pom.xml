@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.optimaize.soapworks.exampleproject</groupId>
-        <artifactId>soapworks-exampleproject</artifactId>
+        <groupId>com.optimaize.anythingworks.exampleproject</groupId>
+        <artifactId>anythingworks-exampleproject</artifactId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.exampleproject.clientapp</groupId>
-    <artifactId>soapworks-exampleproject-clientapp</artifactId>
-    <name>soapworks-exampleproject-clientapp</name>
+    <groupId>com.optimaize.anythingworks.exampleproject.clientapp</groupId>
+    <artifactId>anythingworks-exampleproject-clientapp</artifactId>
+    <name>anythingworks-exampleproject-clientapp</name>
 
     <description>
         The sample client app in this example project that uses the clientlib to connect to the server.
@@ -21,8 +21,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.optimaize.soapworks.exampleproject.clientlib</groupId>
-            <artifactId>soapworks-exampleproject-clientlib</artifactId>
+            <groupId>com.optimaize.anythingworks.exampleproject.clientlib</groupId>
+            <artifactId>anythingworks-exampleproject-clientlib</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
     </dependencies>

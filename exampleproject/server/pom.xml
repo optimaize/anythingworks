@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.optimaize.soapworks.exampleproject</groupId>
-        <artifactId>soapworks-exampleproject</artifactId>
+        <groupId>com.optimaize.anythingworks.exampleproject</groupId>
+        <artifactId>anythingworks-exampleproject</artifactId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.exampleproject.server</groupId>
-    <artifactId>soapworks-exampleproject-server</artifactId>
-    <name>soapworks-exampleproject-server</name>
+    <groupId>com.optimaize.anythingworks.exampleproject.server</groupId>
+    <artifactId>anythingworks-exampleproject-server</artifactId>
+    <name>anythingworks-exampleproject-server</name>
 
     <description>
         The sample server app in this example project that runs a web service.
@@ -22,19 +22,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.optimaize.soapworks.exampleproject.ontology</groupId>
-            <artifactId>soapworks-exampleproject-ontology</artifactId>
+            <groupId>com.optimaize.anythingworks.exampleproject.ontology</groupId>
+            <artifactId>anythingworks-exampleproject-ontology</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.optimaize.soapworks.server.implgrizzly</groupId>
-            <artifactId>soapworks-server-implgrizzly</artifactId>
+            <groupId>com.optimaize.anythingworks.server.implgrizzly</groupId>
+            <artifactId>anythingworks-server-implgrizzly</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.optimaize.soapworks.server.impljdk</groupId>
-            <artifactId>soapworks-server-impljdk</artifactId>
+            <groupId>com.optimaize.anythingworks.server.impljdk</groupId>
+            <artifactId>anythingworks-server-impljdk</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
 

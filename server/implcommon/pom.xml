@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>soapworks-server</artifactId>
-        <groupId>com.optimaize.soapworks.server</groupId>
+        <artifactId>anythingworks-server</artifactId>
+        <groupId>com.optimaize.anythingworks.server</groupId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.server.implcommon</groupId>
-    <artifactId>soapworks-server-implcommon</artifactId>
-    <name>soapworks-server-implcommon</name>
+    <groupId>com.optimaize.anythingworks.server.implcommon</groupId>
+    <artifactId>anythingworks-server-implcommon</artifactId>
+    <name>anythingworks-server-implcommon</name>
     <version>0.5-SNAPSHOT</version>
 
     <properties>
@@ -17,8 +17,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.optimaize.soapworks.server.api</groupId>
-            <artifactId>soapworks-server-api</artifactId>
+            <groupId>com.optimaize.anythingworks.server.api</groupId>
+            <artifactId>anythingworks-server-api</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
 

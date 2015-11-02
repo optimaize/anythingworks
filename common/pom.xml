@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>soapworks</artifactId>
-        <groupId>com.optimaize.soapworks</groupId>
+        <artifactId>anythingworks</artifactId>
+        <groupId>com.optimaize.anythingworks</groupId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.optimaize.soapworks.common</groupId>
-    <artifactId>soapworks-common</artifactId>
-    <name>soapworks-common</name>
+    <groupId>com.optimaize.anythingworks.common</groupId>
+    <artifactId>anythingworks-common</artifactId>
+    <name>anythingworks-common</name>
     <version>0.5-SNAPSHOT</version>
     <description>
         Common code used by both the client and server.
