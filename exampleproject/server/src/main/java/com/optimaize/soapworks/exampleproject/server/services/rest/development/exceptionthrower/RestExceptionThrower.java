@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.util.Random;
 
 /**
@@ -22,19 +23,18 @@ public class RestExceptionThrower extends BaseWebService implements RestWebServi
     @GET
     @Path("/exceptionthrower")
     @Produces({"application/json"})
-    public String throwException(
+    public Response throwException(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope,
             @QueryParam(value = "exceptionType") final String exceptionType,
             @QueryParam(value = "exceptionChance") final int exceptionChance
     ) {
-
-        return execute(new BaseCommand<Void, String>() {
+        String result = execute(new BaseCommand<Void, String>() {
             @Override
             public String call(@NotNull Optional<Void> arg, @NotNull ExecutionContext ec) throws Exception {
                 Random r = new Random();
                 int randomInt = r.nextInt(101); //returns 0-100 (101 is exclusive)
-                if (exceptionChance!=0 && randomInt <= exceptionChance) {
+                if (exceptionChance != 0 && randomInt <= exceptionChance) {
                     if (exceptionType.equals("NotAuthorized")) {
                         throw new NotAuthorizedException("Unknown api key: " + apiKey);
                     }
@@ -53,6 +53,9 @@ public class RestExceptionThrower extends BaseWebService implements RestWebServi
                 }
             }
         }).get();
+
+        Object entity = possiblyWrapInEnvelope(envelope, result);
+        return Response.ok().entity(entity).build();
     }
 
 

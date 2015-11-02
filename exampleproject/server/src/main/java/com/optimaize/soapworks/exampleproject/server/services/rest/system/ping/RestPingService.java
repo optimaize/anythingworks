@@ -37,13 +37,11 @@ public class RestPingService extends BaseWebService implements RestWebService {
             }
         }).orNull();
 
-        Object entity = result;
-        if (envelope) {
-            entity = Envelope.success(entity);
-        }
+        Object entity = possiblyWrapInEnvelope(envelope, result);
         return Response.ok().entity(entity).build();
-
     }
+
+
 
     @NotNull
     protected Optional<String> execute(Command<Object, String> command) {

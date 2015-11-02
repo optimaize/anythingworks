@@ -16,7 +16,7 @@ import java.util.concurrent.Callable;
  * only parameter {@code API-KEY} is raised to a global parameter given with
  * the mode (thus applying to all nested commands and wrappers).
  *
- * @author Eike Kettner
+ * @author Fabian Kessler
  */
 public class RestPingCommand extends RestBaseCommand<RestPingServicePort, Void, String> {
 

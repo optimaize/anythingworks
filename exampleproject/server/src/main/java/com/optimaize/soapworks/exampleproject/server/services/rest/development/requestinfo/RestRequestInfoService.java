@@ -5,7 +5,6 @@ import com.optimaize.command4j.Command;
 import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.commands.BaseCommand;
 import com.optimaize.soapworks.exampleproject.server.lib.BaseWebService;
-import com.optimaize.soapworks.server.rest.Envelope;
 import com.optimaize.soapworks.server.rest.RestWebService;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +21,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
- * Returns information about the request
+ * Returns information about the request (URL and such).
  */
 @Service
 @Path("/v1/development")
@@ -52,10 +51,7 @@ public class RestRequestInfoService extends BaseWebService implements RestWebSer
             }
         }).orNull();
 
-        Object entity = result;
-        if (envelope) {
-            entity = Envelope.success(entity);
-        }
+        Object entity = possiblyWrapInEnvelope(envelope, result);
         return Response.ok().entity(entity).build();
     }
 
@@ -63,6 +59,5 @@ public class RestRequestInfoService extends BaseWebService implements RestWebSer
     protected Optional<RequestInfo> execute(Command<Void, RequestInfo> command) {
         return restExceptionBarrier(command, modeFactory.restDefaultMode(), null);
     }
-
 
 }

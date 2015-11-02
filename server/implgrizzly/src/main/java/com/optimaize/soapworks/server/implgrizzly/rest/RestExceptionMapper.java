@@ -9,7 +9,15 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 /**
+ * Maps {@link Exception}s to {@link Response}s.
+ *
  * This is registered when starting the web server.
+ *
+ * In the normal case the Exception we get here already is a {@link WebApplicationException}.
+ * Anything else would be an exception (ha ha). And yes the interface defines Exception, not Throwable,
+ * therefore an Error would not get in here. I don't see how {@link Error}s are handled, where they get
+ * mapped, there is no such interface.
+ * Because our code uses an exception barrier
  */
 public class RestExceptionMapper implements javax.ws.rs.ext.ExceptionMapper<Exception> {
 
@@ -66,6 +74,11 @@ public class RestExceptionMapper implements javax.ws.rs.ext.ExceptionMapper<Exce
         try {
             String envelope = containerRequestProvider.get().getUriInfo().getQueryParameters().getFirst("envelope");
             if (envelope!=null && envelope.equalsIgnoreCase("true")) {
+                //i have tested the boolean interpretation from jax-rs or jackson, whoever takes care of it, and
+                //that's exactly how it behaves: "true" ignoring case is true, everything else (including "on", "1"
+                //and so on) is false.
+                //i'm not judging, i just do it exactly the same way, so that exceptions are consistently returned
+                //in line with success results.
                 return true;
             }
         } catch (Exception e) {

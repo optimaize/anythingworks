@@ -18,15 +18,13 @@ public class RestWebServiceExceptionTranslator implements ExceptionTranslator {
 
     @NotNull
     private final ExceptionMessageMaker exceptionMessageMaker;
-    private final boolean problemReported;
 
     /**
      * Sets the {@code problemReported} in the {@link FaultBean}.
      * <p>If {@code true} then it expects the user of this translator to log the exceptions.</p>
      */
-    public RestWebServiceExceptionTranslator(@NotNull ExceptionMessageMaker exceptionMessageMaker, boolean problemReported) {
+    public RestWebServiceExceptionTranslator(@NotNull ExceptionMessageMaker exceptionMessageMaker) {
         this.exceptionMessageMaker = exceptionMessageMaker;
-        this.problemReported = problemReported;
     }
 
     public boolean canTranslate(@NotNull Throwable t) {

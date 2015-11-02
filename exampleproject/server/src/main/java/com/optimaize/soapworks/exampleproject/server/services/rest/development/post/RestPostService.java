@@ -7,6 +7,7 @@ import com.optimaize.soapworks.server.rest.RestWebService;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 
 /**
  * This service uses a complex JSON input that comes in the http post body payload.
@@ -28,18 +29,21 @@ public class RestPostService extends BaseWebService implements RestWebService {
     @Path("/post")
     @Produces({"application/json"})
     @Consumes({"application/json"})
-    public ComplexObject post(
+    public Response post(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope,
             ComplexObject complexParam
     ) {
-        return new ComplexObject(
-                complexParam.getString()+"-result",
-                complexParam.getNumber()*2,
+        ComplexObject result = new ComplexObject(
+                complexParam.getString() + "-result",
+                complexParam.getNumber() * 2,
                 !complexParam.isYesOrNo(),
                 complexParam.getColor(),
-                new Circle("light"+complexParam.getGeometricalFigure().getColor(), 5d)
+                new Circle("light" + complexParam.getGeometricalFigure().getColor(), 5d)
         );
+
+        Object entity = possiblyWrapInEnvelope(envelope, result);
+        return Response.ok().entity(entity).build();
     }
 
 }

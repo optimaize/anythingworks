@@ -6,15 +6,14 @@ import com.optimaize.soapworks.server.rest.exception.RestWebServiceExceptionTran
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * Works using the {@link RestWebServiceExceptionTranslator}.
  *
  * @author Fabian Kessler
  */
 public class RestDefaultServerExceptionTranslator implements ExceptionTranslator {
 
     private static final ExceptionTranslator wrapped = new RestWebServiceExceptionTranslator(
-            new FixedStringExceptionMessageMaker("Internal server error!"),
-            true //someone has got to log the exceptions
+            new FixedStringExceptionMessageMaker("Internal server error!")
     );
 
     public boolean canTranslate(@NotNull Throwable t) {

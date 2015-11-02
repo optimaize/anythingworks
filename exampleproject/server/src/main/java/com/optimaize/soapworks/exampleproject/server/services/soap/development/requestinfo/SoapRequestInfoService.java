@@ -66,7 +66,7 @@ public class SoapRequestInfoService extends BaseWebService implements SoapWebSer
     @NotNull
     protected Optional<String> execute(Command<Object, String> command)
             throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException {
-        return exceptionBarrier(command, modeFactory.soapDefaultMode(), null);
+        return soapExceptionBarrier(command, modeFactory.soapDefaultMode(), null);
     }
 
 }

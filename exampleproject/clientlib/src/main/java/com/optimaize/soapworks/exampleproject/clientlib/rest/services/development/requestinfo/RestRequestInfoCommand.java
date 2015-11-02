@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 
 /**
- * The infoservice command retrieves information from the server about the request.
+ * The requestinfo command retrieves information from the server about the request.
  */
 public class RestRequestInfoCommand extends RestBaseCommand<RestRequestInfoPort, Void, RequestInfo> {
 

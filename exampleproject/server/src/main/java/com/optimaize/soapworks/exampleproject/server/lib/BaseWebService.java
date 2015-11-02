@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.optimaize.command4j.Command;
 import com.optimaize.command4j.CommandExecutor;
 import com.optimaize.command4j.Mode;
+import com.optimaize.soapworks.server.rest.Envelope;
 import com.optimaize.soapworks.server.rest.RestWebService;
 import com.optimaize.soapworks.server.soap.SoapWebService;
 import com.optimaize.soapworks.server.soap.exception.*;
@@ -40,14 +41,14 @@ public abstract class BaseWebService {
      * Removes the "throws Exception" from the api.
      */
     @NotNull
-    protected <A, R> Optional<R> exceptionBarrier(
+    protected <A, R> Optional<R> soapExceptionBarrier(
             Command<A, R> command,
             Mode mode,
             @Nullable A param
     ) throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException {
         try {
             return executor.execute(command, mode, param);
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
             if (e instanceof AccessDeniedWebServiceException) {
                 throw (AccessDeniedWebServiceException)e;
             } else if (e instanceof InvalidInputWebServiceException) {
@@ -81,7 +82,7 @@ public abstract class BaseWebService {
     ) {
         try {
             return executor.execute(command, mode, param);
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
             if (e instanceof WebApplicationException) {
                 throw (WebApplicationException)e;
             } else {
@@ -90,6 +91,13 @@ public abstract class BaseWebService {
                 throw new InternalServerErrorException(e);
             }
         }
+    }
+
+    protected Object possiblyWrapInEnvelope(boolean envelope, Object result) {
+        if (envelope) {
+            return Envelope.success(result);
+        }
+        return result;
     }
 
 }
