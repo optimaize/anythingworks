@@ -20,9 +20,13 @@ public class RestPostService extends BaseWebService implements RestWebService {
     @GET
     @Path("/get")
     @Produces({"application/json"})
-    public ComplexObject get(
+    public Response get(
+            @QueryParam(value = "envelope") final boolean envelope
     ) {
-        return new ComplexObject("theresult", 15, true, ComplexObject.Color.RED, new Circle("blue", 5d));
+        ComplexObject result = new ComplexObject("theresult", 15, true, ComplexObject.Color.RED, new Circle("blue", 5d));
+
+        Object entity = possiblyWrapInEnvelope(envelope, result);
+        return Response.ok().entity(entity).build();
     }
 
     @POST
