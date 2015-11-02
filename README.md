@@ -1,13 +1,22 @@
-soapworks
+anythingworks (formerly soapworks)
 =========
 
-Java Library to Bootstrap SOAP / WSDL Development.
+Java Library to Bootstrap Web service client/server development.
+
+It supports both RESTful web services (JAX-RS) and
+SOAP / WSDL web services (JAX-WS).
+
+Within this project classes specific for one technology are prefixed
+with either "Rest" or "Soap".
+
+Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
+
 
 ## The modules
 
 ### client
 
-This is the dependency to develop a SOAP client.
+This is the dependency to develop a web service client.
 
     <dependency>
         <groupId>com.optimaize.soapworks.client</groupId>
@@ -17,7 +26,7 @@ This is the dependency to develop a SOAP client.
 
 ### server
 
-This is the dependency to develop a SOAP server.
+This is the dependency to develop a web service server.
 There are 2 implementations available:
 
 1. implgrizzly using the org.glassfish.grizzly grizzly-http-server dependency (recommended)
@@ -46,5 +55,6 @@ It is not needed in your production environment.
 
 Status
 ------
-soapworks has been in development at http://www.optimaize.com for use in the http://www.nameapi.org web services for a long time, and is now published on GitHub. It contains a full working example. This readme should be longer.
-See the wiki https://github.com/optimaize/soapworks/wiki
+soapworks has been in development at http://www.optimaize.com for use in the http://www.nameapi.org web services for 
+a long time, and is now published on GitHub. It contains a full working example. This readme should be longer.
+See the wiki https://github.com/optimaize/anythingworks/wiki

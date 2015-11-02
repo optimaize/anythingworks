@@ -8,7 +8,7 @@
     <version>0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <url>https://github.com/optimaize/soapworks</url>
+    <url>https://github.com/optimaize/anythingworks</url>
     <description>
         Java Library to Bootstrap Web service client/server development.
 
@@ -18,6 +18,7 @@
         Within this project classes specific for one technology are prefixed
         with either "Rest" or "Soap".
 
+        Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
     </description>
     <organization>
         <name>Optimaize GmbH, Switzerland</name>
@@ -81,9 +82,9 @@
     </dependencies>
 
     <scm>
-        <connection>scm:git:git://github.com/optimaize/soapworks.git</connection>
-        <developerConnection>scm:git:git@github.com:optimaize/soapworks.git</developerConnection>
-        <url>http://github.com/optimaize/soapworks</url>
+        <connection>scm:git:git://github.com/optimaize/anythingworks.git</connection>
+        <developerConnection>scm:git:git@github.com:optimaize/anythingworks.git</developerConnection>
+        <url>http://github.com/optimaize/anythingworks</url>
         <tag>HEAD</tag>
     </scm>
 
