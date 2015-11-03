@@ -27,11 +27,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _InternalServerErrorWebServiceException_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "InternalServerErrorWebServiceException");
-    private final static QName _InvalidInputWebServiceException_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "InvalidInputWebServiceException");
-    private final static QName _PingResponse_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "pingResponse");
-    private final static QName _Ping_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "ping");
-    private final static QName _AccessDeniedWebServiceException_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "AccessDeniedWebServiceException");
+    private final static QName _InternalServerErrorWebServiceException_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "InternalServerErrorWebServiceException");
+    private final static QName _InvalidInputWebServiceException_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "InvalidInputWebServiceException");
+    private final static QName _PingResponse_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "pingResponse");
+    private final static QName _Ping_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "ping");
+    private final static QName _AccessDeniedWebServiceException_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "AccessDeniedWebServiceException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.optimaize.soapworks.exampleproject.clientlib.services.system.ping.wsdl
@@ -76,7 +76,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "InternalServerErrorWebServiceException")
+    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "InternalServerErrorWebServiceException")
     public JAXBElement<FaultBean> createInternalServerErrorWebServiceException(FaultBean value) {
         return new JAXBElement<FaultBean>(_InternalServerErrorWebServiceException_QNAME, FaultBean.class, null, value);
     }
@@ -85,7 +85,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "InvalidInputWebServiceException")
+    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "InvalidInputWebServiceException")
     public JAXBElement<FaultBean> createInvalidInputWebServiceException(FaultBean value) {
         return new JAXBElement<FaultBean>(_InvalidInputWebServiceException_QNAME, FaultBean.class, null, value);
     }
@@ -94,7 +94,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link PingResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "pingResponse")
+    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "pingResponse")
     public JAXBElement<PingResponse> createPingResponse(PingResponse value) {
         return new JAXBElement<PingResponse>(_PingResponse_QNAME, PingResponse.class, null, value);
     }
@@ -103,7 +103,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Ping }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "ping")
+    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "ping")
     public JAXBElement<Ping> createPing(Ping value) {
         return new JAXBElement<Ping>(_Ping_QNAME, Ping.class, null, value);
     }
@@ -112,7 +112,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "AccessDeniedWebServiceException")
+    @XmlElementDecl(namespace = "http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "AccessDeniedWebServiceException")
     public JAXBElement<FaultBean> createAccessDeniedWebServiceException(FaultBean value) {
         return new JAXBElement<FaultBean>(_AccessDeniedWebServiceException_QNAME, FaultBean.class, null, value);
     }

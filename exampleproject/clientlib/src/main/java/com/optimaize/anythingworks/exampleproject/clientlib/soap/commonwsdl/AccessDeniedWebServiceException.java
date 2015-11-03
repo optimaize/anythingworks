@@ -10,7 +10,7 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "AccessDeniedWebServiceException", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/")
+@WebFault(name = "AccessDeniedWebServiceException", targetNamespace = "http://system.services.server.exampleproject.anythingworks.optimaize.com/")
 public class AccessDeniedWebServiceException
     extends Exception
 {
@@ -45,7 +45,7 @@ public class AccessDeniedWebServiceException
     /**
      * 
      * @return
-     *     returns fault bean: com.optimaize.soapworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
+     *     returns fault bean: com.optimaize.anythingworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
      */
     public FaultBean getFaultInfo() {
         return faultInfo;

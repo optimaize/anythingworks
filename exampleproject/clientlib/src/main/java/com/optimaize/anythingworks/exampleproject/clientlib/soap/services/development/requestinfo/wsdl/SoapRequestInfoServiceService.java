@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "SoapRequestInfoServiceService", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/requestinfo?wsdl")
+@WebServiceClient(name = "SoapRequestInfoServiceService", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/requestinfo?wsdl")
 public class SoapRequestInfoServiceService
     extends Service
 {
 
     private final static URL SOAPREQUESTINFOSERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SOAPREQUESTINFOSERVICESERVICE_EXCEPTION;
-    private final static QName SOAPREQUESTINFOSERVICESERVICE_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapRequestInfoServiceService");
+    private final static QName SOAPREQUESTINFOSERVICESERVICE_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapRequestInfoServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class SoapRequestInfoServiceService
      */
     @WebEndpoint(name = "SoapRequestInfoServicePort")
     public SoapRequestInfoService getSoapRequestInfoServicePort() {
-        return super.getPort(new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapRequestInfoServicePort"), SoapRequestInfoService.class);
+        return super.getPort(new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapRequestInfoServicePort"), SoapRequestInfoService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SoapRequestInfoServiceService
      */
     @WebEndpoint(name = "SoapRequestInfoServicePort")
     public SoapRequestInfoService getSoapRequestInfoServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapRequestInfoServicePort"), SoapRequestInfoService.class, features);
+        return super.getPort(new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapRequestInfoServicePort"), SoapRequestInfoService.class, features);
     }
 
     private static URL __getWsdlLocation() {

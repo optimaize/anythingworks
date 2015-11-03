@@ -22,7 +22,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "SoapExceptionThrower", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/")
+@WebService(name = "SoapExceptionThrower", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -40,12 +40,12 @@ public interface SoapExceptionThrower {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "throwAccessDeniedNoSuchAccount", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedNoSuchAccount")
-    @ResponseWrapper(localName = "throwAccessDeniedNoSuchAccountResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedNoSuchAccountResponse")
-    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccountRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccountResponse", fault = {
-        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccount/Fault/AccessDeniedWebServiceException"),
-        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccount/Fault/InvalidInputWebServiceException"),
-        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccount/Fault/InternalServerErrorWebServiceException")
+    @RequestWrapper(localName = "throwAccessDeniedNoSuchAccount", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedNoSuchAccount")
+    @ResponseWrapper(localName = "throwAccessDeniedNoSuchAccountResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedNoSuchAccountResponse")
+    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccountRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccountResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccount/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccount/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedNoSuchAccount/Fault/InternalServerErrorWebServiceException")
     })
     public String throwAccessDeniedNoSuchAccount(
         @WebParam(name = "apiKey", targetNamespace = "")
@@ -64,12 +64,12 @@ public interface SoapExceptionThrower {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "throwAccessDeniedRequestLimitExceeded", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedRequestLimitExceeded")
-    @ResponseWrapper(localName = "throwAccessDeniedRequestLimitExceededResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedRequestLimitExceededResponse")
-    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceededRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceededResponse", fault = {
-        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceeded/Fault/AccessDeniedWebServiceException"),
-        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceeded/Fault/InvalidInputWebServiceException"),
-        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceeded/Fault/InternalServerErrorWebServiceException")
+    @RequestWrapper(localName = "throwAccessDeniedRequestLimitExceeded", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedRequestLimitExceeded")
+    @ResponseWrapper(localName = "throwAccessDeniedRequestLimitExceededResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedRequestLimitExceededResponse")
+    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceededRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceededResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceeded/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceeded/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedRequestLimitExceeded/Fault/InternalServerErrorWebServiceException")
     })
     public String throwAccessDeniedRequestLimitExceeded(
         @WebParam(name = "apiKey", targetNamespace = "")
@@ -88,12 +88,12 @@ public interface SoapExceptionThrower {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "throwAccessDeniedTooManyConcurrentRequests", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedTooManyConcurrentRequests")
-    @ResponseWrapper(localName = "throwAccessDeniedTooManyConcurrentRequestsResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedTooManyConcurrentRequestsResponse")
-    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequestsRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequestsResponse", fault = {
-        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequests/Fault/AccessDeniedWebServiceException"),
-        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequests/Fault/InvalidInputWebServiceException"),
-        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequests/Fault/InternalServerErrorWebServiceException")
+    @RequestWrapper(localName = "throwAccessDeniedTooManyConcurrentRequests", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedTooManyConcurrentRequests")
+    @ResponseWrapper(localName = "throwAccessDeniedTooManyConcurrentRequestsResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowAccessDeniedTooManyConcurrentRequestsResponse")
+    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequestsRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequestsResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequests/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequests/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwAccessDeniedTooManyConcurrentRequests/Fault/InternalServerErrorWebServiceException")
     })
     public String throwAccessDeniedTooManyConcurrentRequests(
         @WebParam(name = "apiKey", targetNamespace = "")
@@ -112,12 +112,12 @@ public interface SoapExceptionThrower {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "throwInternal", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInternal")
-    @ResponseWrapper(localName = "throwInternalResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInternalResponse")
-    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInternalRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInternalResponse", fault = {
-        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInternal/Fault/AccessDeniedWebServiceException"),
-        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInternal/Fault/InvalidInputWebServiceException"),
-        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInternal/Fault/InternalServerErrorWebServiceException")
+    @RequestWrapper(localName = "throwInternal", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInternal")
+    @ResponseWrapper(localName = "throwInternalResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInternalResponse")
+    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInternalRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInternalResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInternal/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInternal/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInternal/Fault/InternalServerErrorWebServiceException")
     })
     public String throwInternal(
         @WebParam(name = "apiKey", targetNamespace = "")
@@ -136,12 +136,12 @@ public interface SoapExceptionThrower {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "throwInvalidInput", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInvalidInput")
-    @ResponseWrapper(localName = "throwInvalidInputResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInvalidInputResponse")
-    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInvalidInputRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInvalidInputResponse", fault = {
-        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInvalidInput/Fault/AccessDeniedWebServiceException"),
-        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInvalidInput/Fault/InvalidInputWebServiceException"),
-        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapExceptionThrower/throwInvalidInput/Fault/InternalServerErrorWebServiceException")
+    @RequestWrapper(localName = "throwInvalidInput", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInvalidInput")
+    @ResponseWrapper(localName = "throwInvalidInputResponse", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.exceptionthrower.wsdl.ThrowInvalidInputResponse")
+    @Action(input = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInvalidInputRequest", output = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInvalidInputResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInvalidInput/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInvalidInput/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapExceptionThrower/throwInvalidInput/Fault/InternalServerErrorWebServiceException")
     })
     public String throwInvalidInput(
         @WebParam(name = "apiKey", targetNamespace = "")

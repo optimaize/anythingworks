@@ -1,7 +1,10 @@
 package com.optimaize.anythingworks.exampleproject.server.boot;
 
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.logging.LogManager;
 
 /**
  */
@@ -14,6 +17,10 @@ public class Boot {
 
     public static void main(String... args) throws Exception {
         Boot boot = new Boot();
+
+        LogManager.getLogManager().reset();
+        SLF4JBridgeHandler.install();
+
         try {
             boot.boot();
         } catch (Exception e) {

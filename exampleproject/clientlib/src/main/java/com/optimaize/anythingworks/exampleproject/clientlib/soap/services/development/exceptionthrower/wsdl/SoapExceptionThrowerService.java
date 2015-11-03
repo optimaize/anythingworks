@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "SoapExceptionThrowerService", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/exceptionthrower?wsdl")
+@WebServiceClient(name = "SoapExceptionThrowerService", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/exceptionthrower?wsdl")
 public class SoapExceptionThrowerService
     extends Service
 {
 
     private final static URL SOAPEXCEPTIONTHROWERSERVICE_WSDL_LOCATION;
     private final static WebServiceException SOAPEXCEPTIONTHROWERSERVICE_EXCEPTION;
-    private final static QName SOAPEXCEPTIONTHROWERSERVICE_QNAME = new QName("http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapExceptionThrowerService");
+    private final static QName SOAPEXCEPTIONTHROWERSERVICE_QNAME = new QName("http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapExceptionThrowerService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class SoapExceptionThrowerService
      */
     @WebEndpoint(name = "SoapExceptionThrowerPort")
     public SoapExceptionThrower getSoapExceptionThrowerPort() {
-        return super.getPort(new QName("http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapExceptionThrowerPort"), SoapExceptionThrower.class);
+        return super.getPort(new QName("http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapExceptionThrowerPort"), SoapExceptionThrower.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SoapExceptionThrowerService
      */
     @WebEndpoint(name = "SoapExceptionThrowerPort")
     public SoapExceptionThrower getSoapExceptionThrowerPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://exceptionthrower.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapExceptionThrowerPort"), SoapExceptionThrower.class, features);
+        return super.getPort(new QName("http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapExceptionThrowerPort"), SoapExceptionThrower.class, features);
     }
 
     private static URL __getWsdlLocation() {

@@ -22,7 +22,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "SoapRequestInfoService", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/")
+@WebService(name = "SoapRequestInfoService", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -40,12 +40,12 @@ public interface SoapRequestInfoService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "requestInfo", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.requestinfo.wsdl.RequestInfo")
-    @ResponseWrapper(localName = "requestInfoResponse", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", className = "com.optimaize.soapworks.exampleproject.clientlib.soap.services.development.requestinfo.wsdl.RequestInfoResponse")
-    @Action(input = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapRequestInfoService/requestInfoRequest", output = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapRequestInfoService/requestInfoResponse", fault = {
-        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapRequestInfoService/requestInfo/Fault/AccessDeniedWebServiceException"),
-        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapRequestInfoService/requestInfo/Fault/InvalidInputWebServiceException"),
-        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/SoapRequestInfoService/requestInfo/Fault/InternalServerErrorWebServiceException")
+    @RequestWrapper(localName = "requestInfo", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.requestinfo.wsdl.RequestInfo")
+    @ResponseWrapper(localName = "requestInfoResponse", targetNamespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", className = "com.optimaize.anythingworks.exampleproject.clientlib.soap.services.development.requestinfo.wsdl.RequestInfoResponse")
+    @Action(input = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapRequestInfoService/requestInfoRequest", output = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapRequestInfoService/requestInfoResponse", fault = {
+        @FaultAction(className = AccessDeniedWebServiceException.class, value = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapRequestInfoService/requestInfo/Fault/AccessDeniedWebServiceException"),
+        @FaultAction(className = InvalidInputWebServiceException.class, value = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapRequestInfoService/requestInfo/Fault/InvalidInputWebServiceException"),
+        @FaultAction(className = InternalServerErrorWebServiceException.class, value = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/SoapRequestInfoService/requestInfo/Fault/InternalServerErrorWebServiceException")
     })
     public String requestInfo(
         @WebParam(name = "apiKey", targetNamespace = "")

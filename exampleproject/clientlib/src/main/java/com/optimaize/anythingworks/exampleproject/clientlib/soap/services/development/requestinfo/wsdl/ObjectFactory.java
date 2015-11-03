@@ -27,11 +27,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _InternalServerErrorWebServiceException_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "InternalServerErrorWebServiceException");
-    private final static QName _InvalidInputWebServiceException_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "InvalidInputWebServiceException");
-    private final static QName _RequestInfoResponse_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "requestInfoResponse");
-    private final static QName _RequestInfo_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "requestInfo");
-    private final static QName _AccessDeniedWebServiceException_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", "AccessDeniedWebServiceException");
+    private final static QName _InternalServerErrorWebServiceException_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "InternalServerErrorWebServiceException");
+    private final static QName _InvalidInputWebServiceException_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "InvalidInputWebServiceException");
+    private final static QName _RequestInfoResponse_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "requestInfoResponse");
+    private final static QName _RequestInfo_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "requestInfo");
+    private final static QName _AccessDeniedWebServiceException_QNAME = new QName("http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", "AccessDeniedWebServiceException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.optimaize.soapworks.exampleproject.clientlib.services.system.requestinfo.wsdl
@@ -76,7 +76,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "InternalServerErrorWebServiceException")
+    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "InternalServerErrorWebServiceException")
     public JAXBElement<FaultBean> createInternalServerErrorWebServiceException(FaultBean value) {
         return new JAXBElement<FaultBean>(_InternalServerErrorWebServiceException_QNAME, FaultBean.class, null, value);
     }
@@ -85,7 +85,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "InvalidInputWebServiceException")
+    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "InvalidInputWebServiceException")
     public JAXBElement<FaultBean> createInvalidInputWebServiceException(FaultBean value) {
         return new JAXBElement<FaultBean>(_InvalidInputWebServiceException_QNAME, FaultBean.class, null, value);
     }
@@ -94,7 +94,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link RequestInfoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "requestInfoResponse")
+    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "requestInfoResponse")
     public JAXBElement<RequestInfoResponse> createRequestInfoResponse(RequestInfoResponse value) {
         return new JAXBElement<RequestInfoResponse>(_RequestInfoResponse_QNAME, RequestInfoResponse.class, null, value);
     }
@@ -103,7 +103,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link RequestInfo }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "requestInfo")
+    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "requestInfo")
     public JAXBElement<RequestInfo> createRequestInfo(RequestInfo value) {
         return new JAXBElement<RequestInfo>(_RequestInfo_QNAME, RequestInfo.class, null, value);
     }
@@ -112,7 +112,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.soapworks.optimaize.com/", name = "AccessDeniedWebServiceException")
+    @XmlElementDecl(namespace = "http://requestinfo.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", name = "AccessDeniedWebServiceException")
     public JAXBElement<FaultBean> createAccessDeniedWebServiceException(FaultBean value) {
         return new JAXBElement<FaultBean>(_AccessDeniedWebServiceException_QNAME, FaultBean.class, null, value);
     }

@@ -10,7 +10,7 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "InternalServerErrorWebServiceException", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/")
+@WebFault(name = "InternalServerErrorWebServiceException", targetNamespace = "http://system.services.server.exampleproject.anythingworks.optimaize.com/")
 public class InternalServerErrorWebServiceException
     extends Exception
 {
@@ -45,7 +45,7 @@ public class InternalServerErrorWebServiceException
     /**
      * 
      * @return
-     *     returns fault bean: com.optimaize.soapworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
+     *     returns fault bean: com.optimaize.anythingworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
      */
     public FaultBean getFaultInfo() {
         return faultInfo;

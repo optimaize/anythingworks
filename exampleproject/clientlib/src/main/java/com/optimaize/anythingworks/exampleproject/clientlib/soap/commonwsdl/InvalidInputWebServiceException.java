@@ -10,7 +10,7 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "InvalidInputWebServiceException", targetNamespace = "http://system.services.server.exampleproject.soapworks.optimaize.com/")
+@WebFault(name = "InvalidInputWebServiceException", targetNamespace = "http://system.services.server.exampleproject.anythingworks.optimaize.com/")
 public class InvalidInputWebServiceException
     extends Exception
 {
@@ -45,7 +45,7 @@ public class InvalidInputWebServiceException
     /**
      * 
      * @return
-     *     returns fault bean: com.optimaize.soapworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
+     *     returns fault bean: com.optimaize.anythingworks.exampleproject.clientlib.services.system.exceptionthrower.wsdl.FaultBean
      */
     public FaultBean getFaultInfo() {
         return faultInfo;

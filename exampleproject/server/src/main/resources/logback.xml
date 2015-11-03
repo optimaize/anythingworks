@@ -14,8 +14,11 @@
 
     <logger name="ch.qos.logback" level="WARN" additivity="true"/>
     <logger name="org.springframework" level="WARN" additivity="true"/>
+    <logger name="org.glassfish" level="TRACE" additivity="true"/>
+    <logger name="org.glassfish.jersey" level="TRACE" additivity="true"/>
 
-    <root level="DEBUG">
+    <!--<root level="DEBUG">-->
+    <root level="TRACE">
         <appender-ref ref="STDOUT"/>
     </root>
 

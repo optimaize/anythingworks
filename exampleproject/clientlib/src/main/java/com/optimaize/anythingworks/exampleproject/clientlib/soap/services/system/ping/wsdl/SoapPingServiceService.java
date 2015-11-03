@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "SoapPingServiceService", targetNamespace = "http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/ping?wsdl")
+@WebServiceClient(name = "SoapPingServiceService", targetNamespace = "http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/ping?wsdl")
 public class SoapPingServiceService
     extends Service
 {
 
     private final static URL SOAPPINGSERVICESERVICE_WSDL_LOCATION;
     private final static WebServiceException SOAPPINGSERVICESERVICE_EXCEPTION;
-    private final static QName SOAPPINGSERVICESERVICE_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapPingServiceService");
+    private final static QName SOAPPINGSERVICESERVICE_QNAME = new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapPingServiceService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class SoapPingServiceService
      */
     @WebEndpoint(name = "SoapPingServicePort")
     public SoapPingService getSoapPingServicePort() {
-        return super.getPort(new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapPingServicePort"), SoapPingService.class);
+        return super.getPort(new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapPingServicePort"), SoapPingService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SoapPingServiceService
      */
     @WebEndpoint(name = "SoapPingServicePort")
     public SoapPingService getSoapPingServicePort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://ping.system.soap.services.server.exampleproject.soapworks.optimaize.com/", "SoapPingServicePort"), SoapPingService.class, features);
+        return super.getPort(new QName("http://ping.system.soap.services.server.exampleproject.anythingworks.optimaize.com/", "SoapPingServicePort"), SoapPingService.class, features);
     }
 
     private static URL __getWsdlLocation() {
