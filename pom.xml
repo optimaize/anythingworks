@@ -43,7 +43,16 @@
         <intellijannotations.version>12.0</intellijannotations.version>
         <testng.version>6.8.7</testng.version>
         <guava.version>18.0</guava.version>
-        <jackson-version>2.6.3</jackson-version>
+
+        <!-- We use the latest jersey from glassfish which is 2.22.1 and it uses jackson 2.5.4, which
+         is not the newest. It is incompatible with the latest 2.6.3. I run into a nasty runtime exception
+         because an empty constructor is not empty anymore, init fails.
+         Explicitly changing the Jackson version to the earlier one solves the issue. -->
+        <!--<jackson.version>2.6.3</jackson.version>-->
+        <jackson.version>2.5.4</jackson.version>
+        <glassfish-jersey.version>2.22.1</glassfish-jersey.version>
+
+        <slf4j-version>1.7.12</slf4j-version>
 
         <!-- can't upgrade this now, otherwise getting error at server startup:
         "class file for com.sun.xml.ws.api.server.WSEndpoint not found" -->
@@ -58,7 +67,7 @@
             <dependency>
                 <groupId>org.glassfish.jersey</groupId>
                 <artifactId>jersey-bom</artifactId>
-                <version>2.22.1</version>
+                <version>${glassfish-jersey.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
