@@ -41,7 +41,7 @@
         <java.version>1.7</java.version>
         <command4j.version>0.5</command4j.version>
         <intellijannotations.version>12.0</intellijannotations.version>
-        <testng.version>6.8.7</testng.version>
+        <testng.version>6.9.9</testng.version><!-- updated on 2015-11-04. -->
         <guava.version>18.0</guava.version>
 
         <!-- We use the latest jersey from glassfish which is 2.22.1 and it uses jackson 2.5.4, which
