@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.optimaize.anythingworks.client</groupId>
+        <artifactId>anythingworks-client</artifactId>
+        <version>0.5-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.optimaize.anythingworks.client.rest</groupId>
+    <artifactId>anythingworks-client-rest</artifactId>
+    <name>anythingworks-client-rest</name>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.optimaize.anythingworks.client.common</groupId>
+            <artifactId>anythingworks-client-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,11 +1,12 @@
 package com.optimaize.anythingworks.exampleproject.clientlib;
 
 import com.google.common.base.Optional;
+import com.optimaize.anythingworks.client.common.Keys;
+import com.optimaize.anythingworks.client.soap.SoapKeys;
 import com.optimaize.command4j.Command;
 import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.Mode;
 import com.optimaize.command4j.ModeExtension;
-import com.optimaize.anythingworks.client.Keys;
 import com.optimaize.anythingworks.common.host.Host;
 import com.optimaize.anythingworks.exampleproject.clientlib.soap.DemoappSoapPortUrlFactory;
 import org.jetbrains.annotations.NotNull;
@@ -47,8 +48,8 @@ public class MyDefaultValuesExtension implements ModeExtension {
             if (!mode.is(Keys.HOST)) {
                 mode = ec.getMode().with(Keys.HOST, new Host("localhost",80));
             }
-            if (!mode.is(Keys.SOAP_PORT_URL_FACTORY)) {
-                mode = mode.with(Keys.SOAP_PORT_URL_FACTORY, new DemoappSoapPortUrlFactory());
+            if (!mode.is(SoapKeys.SOAP_PORT_URL_FACTORY)) {
+                mode = mode.with(SoapKeys.SOAP_PORT_URL_FACTORY, new DemoappSoapPortUrlFactory());
             }
             return ec.execute(delegate, mode, arg).orNull();
         }

@@ -32,12 +32,17 @@
         <dependency>
             <groupId>com.optimaize.anythingworks.exampleproject.ontology</groupId>
             <artifactId>anythingworks-exampleproject-ontology</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.optimaize.anythingworks.client</groupId>
-            <artifactId>anythingworks-client</artifactId>
+            <groupId>com.optimaize.anythingworks.client.rest</groupId>
+            <artifactId>anythingworks-client-rest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.optimaize.anythingworks.client.soap</groupId>
+            <artifactId>anythingworks-client-soap</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
     </dependencies>

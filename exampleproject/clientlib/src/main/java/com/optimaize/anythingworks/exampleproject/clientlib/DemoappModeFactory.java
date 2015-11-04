@@ -1,11 +1,13 @@
 package com.optimaize.anythingworks.exampleproject.clientlib;
 
+import com.optimaize.anythingworks.client.common.Keys;
+import com.optimaize.anythingworks.client.rest.RestKeys;
+import com.optimaize.anythingworks.client.soap.SoapKeys;
 import com.optimaize.command4j.Mode;
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.CombinedExceptionTranslator;
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslationExtension;
 import com.optimaize.command4j.ext.extensions.timeout.configurabletimeout.TimeoutExtension;
 import com.optimaize.command4j.lang.Duration;
-import com.optimaize.anythingworks.client.Keys;
 import com.optimaize.anythingworks.client.soap.exensions.exceptiontranslation.DefaultClientExceptionTranslator;
 import com.optimaize.anythingworks.client.soap.exensions.exceptiontranslation.SoapFaultExceptionTranslator;
 import com.optimaize.anythingworks.common.host.Host;
@@ -21,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 public class DemoappModeFactory {
 
     private static final Mode minimalMode = Mode.create()
-            .with(Keys.SOAP_PORT_URL_FACTORY, new DemoappSoapPortUrlFactory())
-            .with(Keys.REST_PORT_URL_FACTORY, new DemoappRestPortUrlFactory())
+            .with(SoapKeys.SOAP_PORT_URL_FACTORY, new DemoappSoapPortUrlFactory())
+            .with(RestKeys.REST_PORT_URL_FACTORY, new DemoappRestPortUrlFactory())
             .with(ExceptionTranslationExtension.TRANSLATOR, new CombinedExceptionTranslator(new DefaultClientExceptionTranslator(), new SoapFaultExceptionTranslator()))
     ;
 

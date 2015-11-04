@@ -1,11 +1,11 @@
 package com.optimaize.anythingworks.exampleproject.clientapp;
 
+import com.optimaize.anythingworks.client.common.Keys;
 import com.optimaize.command4j.Mode;
 import com.optimaize.command4j.ext.extensions.failover.autoretry.AutoRetryExtension;
 import com.optimaize.command4j.ext.extensions.logging.stdoutlogging.StdoutLoggingExtension;
 import com.optimaize.command4j.ext.extensions.timeout.configurabletimeout.TimeoutExtension;
 import com.optimaize.command4j.lang.Duration;
-import com.optimaize.anythingworks.client.Keys;
 import com.optimaize.anythingworks.client.soap.exensions.autoretry.DefaultAutoRetryStrategy;
 import com.optimaize.anythingworks.common.host.Host;
 import com.optimaize.anythingworks.exampleproject.clientlib.DemoappKeys;
