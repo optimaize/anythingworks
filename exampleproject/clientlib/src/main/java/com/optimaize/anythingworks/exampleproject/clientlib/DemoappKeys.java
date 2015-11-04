@@ -10,9 +10,9 @@ import com.optimaize.command4j.lang.Key;
 public interface DemoappKeys {
 
     /**
-     * The api key is required for any call to optimaize services. You
+     * The api key is required for any call to the demo services. You
      * must supply a valid key with the {@code mode} argument.
      */
-    Key<String> API_KEY = Key.stringKey("optimaizeApiKey");
+    Key<String> API_KEY = Key.stringKey("apiKey");
 
 }
