@@ -27,10 +27,9 @@ public class ServerJacksonJsonMarshallerFactory {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
 
-//        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); //TODO really?
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
-        mapper.enable(SerializationFeature.INDENT_OUTPUT); //temporarily for dev
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); //disputable, but not bad for the result to the client. he might be looking in the browser.
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); //exclude null
         return mapper;
     }
