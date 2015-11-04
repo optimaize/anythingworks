@@ -40,6 +40,14 @@ import java.util.concurrent.ConcurrentMap;
 public class RestHttpClientImpl implements RestHttpClient {
 
     /**
+     * For now it's all JSON, no XML.
+     * Add methods to pass these values in if you need it.
+     */
+    private static final String ACCEPT = "application/json";
+    private static final String CONTENT_TYPE = "application/json";
+
+
+    /**
      * Creation of these Client instances is expensive, and according to its Javadoc, they
      * should be shared.
      */
@@ -358,14 +366,12 @@ public class RestHttpClientImpl implements RestHttpClient {
     public <T> RestHttpClientResponse<T> invokeGet(String path,
                                                    QueryParams queryParams,
                                                    HeaderParams headerParams,
-                                                   String accept, String contentType,
                                                    TypeRef returnType
     ) throws WebApplicationException {
         return invokeApi(
                 path, "GET",
                 queryParams, headerParams,
                 null, null,
-                accept, contentType,
                 returnType
         );
     }
@@ -375,14 +381,12 @@ public class RestHttpClientImpl implements RestHttpClient {
                                                     QueryParams queryParams,
                                                     HeaderParams headerParams,
                                                     Object body,
-                                                    String accept, String contentType,
                                                     TypeRef returnType
     ) throws WebApplicationException {
         return invokeApi(
                 path, method,
                 queryParams, headerParams,
                 body, null,
-                accept, contentType,
                 returnType
         );
     }
@@ -392,14 +396,12 @@ public class RestHttpClientImpl implements RestHttpClient {
                                                     QueryParams queryParams,
                                                     HeaderParams headerParams,
                                                     Map<String, Object> formParams,
-                                                    String accept, String contentType,
                                                     TypeRef returnType
     ) throws WebApplicationException {
         return invokeApi(
                 path, method,
                 queryParams, headerParams,
                 null, formParams,
-                accept, contentType,
                 returnType
         );
     }
@@ -413,14 +415,11 @@ public class RestHttpClientImpl implements RestHttpClient {
      * @param body The request body object
      * @param headerParams The header parameters
      * @param formParams The form parameters
-     * @param accept The request's Accept header
-     * @param contentType The request's Content-Type header
      * @param returnType The return type into which to deserialize the response
      */
     private <T> RestHttpClientResponse<T> invokeApi(String path, String method,
                                                    QueryParams queryParams, HeaderParams headerParams,
                                                    Object body, Map<String, Object> formParams,
-                                                   String accept, String contentType,
                                                    TypeRef returnType
     ) throws WebApplicationException {
         if (body!=null && formParams!=null) {
@@ -433,12 +432,12 @@ public class RestHttpClientImpl implements RestHttpClient {
         Client client = getClient();
         WebTarget target = client.target(this.basePath).path(path);
         target = addQueryParams(queryParams, target);
-        Invocation.Builder invocationBuilder = target.request().accept(accept);
+        Invocation.Builder invocationBuilder = target.request().accept(ACCEPT);
         invocationBuilder = setHeaders(headerParams, invocationBuilder);
 
         Entity<?> formEntity = null;
 
-        if (contentType.startsWith("multipart/form-data")) {
+        if (CONTENT_TYPE.startsWith("multipart/form-data")) {
             MultiPart multipart = new MultiPart();
             for (Entry<String, Object> param: formParams.entrySet()) {
                 if (param.getValue() instanceof File) {
@@ -456,7 +455,7 @@ public class RestHttpClientImpl implements RestHttpClient {
                 }
             }
             formEntity = Entity.entity(multipart, MediaType.MULTIPART_FORM_DATA_TYPE);
-        } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
+        } else if (CONTENT_TYPE.startsWith("application/x-www-form-urlencoded")) {
             Form form = new Form();
             for (Entry<String, Object> param: formParams.entrySet()) {
                 form.param(param.getKey(), parameterToString(param.getValue()));
@@ -476,7 +475,7 @@ public class RestHttpClientImpl implements RestHttpClient {
             } else if (body == null) {
                 response = invocationBuilder.post(null);
             } else {
-                response = invocationBuilder.post(serialize(body, contentType));
+                response = invocationBuilder.post(serialize(body, CONTENT_TYPE));
             }
         } else if ("PUT".equals(method)) {
             if (formEntity != null) {
@@ -484,7 +483,7 @@ public class RestHttpClientImpl implements RestHttpClient {
             } else if (body == null) {
                 response = invocationBuilder.put(null);
             } else {
-                response = invocationBuilder.put(serialize(body, contentType));
+                response = invocationBuilder.put(serialize(body, CONTENT_TYPE));
             }
         } else if ("DELETE".equals(method)) {
             response = invocationBuilder.delete();

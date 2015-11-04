@@ -1,14 +1,11 @@
 package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.development.exceptionthrower;
 
 import com.google.common.base.Optional;
-import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.anythingworks.client.rest.RestBaseCommand;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClient;
 import com.optimaize.anythingworks.exampleproject.clientlib.DemoappKeys;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClientImpl;
+import com.optimaize.command4j.ExecutionContext;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
 import java.util.concurrent.Callable;
 
 /**
@@ -17,7 +14,7 @@ import java.util.concurrent.Callable;
  */
 public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionThrowerPort, ExceptionThrowerParams, String> {
 
-    private static final String servicePath = "/development/exceptionthrower";
+    private static final String SERVICE_PATH = "/development/exceptionthrower";
 
     public RestExceptionThrowerCommand() {
         super(RestExceptionThrowerPort.class);
@@ -37,14 +34,7 @@ public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionTh
         return new Callable<RestExceptionThrowerPort>() {
             @Override
             public RestExceptionThrowerPort call() throws Exception {
-                URL baseUrl = makeBaseUrl(ec);
-
-                RestHttpClient restApiClient = new RestHttpClientImpl.Builder()
-                        .basePath(baseUrl.toExternalForm())
-                        .userAgent("Java-Client")
-                        .build();
-
-                return new RestExceptionThrowerPort(restApiClient, servicePath);
+                return new RestExceptionThrowerPort(makeClient(ec), SERVICE_PATH);
             }
         };
     }

@@ -1,14 +1,11 @@
 package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.system.ping;
 
 import com.google.common.base.Optional;
-import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.anythingworks.client.rest.RestBaseCommand;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClient;
 import com.optimaize.anythingworks.exampleproject.clientlib.DemoappKeys;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClientImpl;
+import com.optimaize.command4j.ExecutionContext;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
 import java.util.concurrent.Callable;
 
 /**
@@ -20,7 +17,7 @@ import java.util.concurrent.Callable;
  */
 public class RestPingCommand extends RestBaseCommand<RestPingServicePort, Void, String> {
 
-    private static final String servicePath = "/system/ping";
+    private static final String SERVICE_PATH = "/system/ping";
 
     public RestPingCommand() {
         super(RestPingServicePort.class);
@@ -40,14 +37,7 @@ public class RestPingCommand extends RestBaseCommand<RestPingServicePort, Void, 
         return new Callable<RestPingServicePort>() {
             @Override
             public RestPingServicePort call() throws Exception {
-                URL baseUrl = makeBaseUrl(ec);
-
-                RestHttpClient restApiClient = new RestHttpClientImpl.Builder()
-                        .basePath(baseUrl.toExternalForm())
-                        .userAgent("Java-Client")
-                        .build();
-
-                return new RestPingServicePort(restApiClient, servicePath);
+                return new RestPingServicePort(makeClient(ec), SERVICE_PATH);
             }
         };
     }

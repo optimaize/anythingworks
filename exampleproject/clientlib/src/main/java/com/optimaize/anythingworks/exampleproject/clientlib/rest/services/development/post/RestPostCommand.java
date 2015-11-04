@@ -1,15 +1,12 @@
 package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.development.post;
 
 import com.google.common.base.Optional;
-import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.anythingworks.client.rest.RestBaseCommand;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClient;
 import com.optimaize.anythingworks.exampleproject.clientlib.DemoappKeys;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClientImpl;
 import com.optimaize.anythingworks.exampleproject.ontology.rest.development.post.ComplexObject;
+import com.optimaize.command4j.ExecutionContext;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
 import java.util.concurrent.Callable;
 
 /**
@@ -19,7 +16,7 @@ import java.util.concurrent.Callable;
  */
 public class RestPostCommand extends RestBaseCommand<RestPostServicePort, ComplexObject, ComplexObject> {
 
-    private static final String servicePath = "/development/post";
+    private static final String SERVICE_PATH = "/development/post";
 
     public RestPostCommand() {
         super(RestPostServicePort.class);
@@ -39,14 +36,7 @@ public class RestPostCommand extends RestBaseCommand<RestPostServicePort, Comple
         return new Callable<RestPostServicePort>() {
             @Override
             public RestPostServicePort call() throws Exception {
-                URL baseUrl = makeBaseUrl(ec);
-
-                RestHttpClient restApiClient = new RestHttpClientImpl.Builder()
-                        .basePath(baseUrl.toExternalForm())
-                        .userAgent("Java-Client")
-                        .build();
-
-                return new RestPostServicePort(restApiClient, servicePath);
+                return new RestPostServicePort(makeClient(ec), SERVICE_PATH);
             }
         };
     }

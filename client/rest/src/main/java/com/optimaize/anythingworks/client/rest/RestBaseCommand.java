@@ -2,6 +2,8 @@ package com.optimaize.anythingworks.client.rest;
 
 import com.optimaize.anythingworks.client.common.Keys;
 import com.optimaize.anythingworks.client.common.PortCacheKey;
+import com.optimaize.anythingworks.client.rest.http.RestHttpClient;
+import com.optimaize.anythingworks.client.rest.http.RestHttpClientImpl;
 import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.commands.BaseCommand;
 import com.optimaize.anythingworks.common.host.Host;
@@ -38,6 +40,15 @@ public abstract class RestBaseCommand<T, A, R> extends BaseCommand<A, R> {
         Host host = getHost(ec);
         RestPortUrlFactory urlFactory = getPortUrlFactory(ec);
         return urlFactory.createUrl(host);
+    }
+
+    @NotNull
+    protected RestHttpClient makeClient(@NotNull final ExecutionContext ec) {
+        URL baseUrl = makeBaseUrl(ec);
+        return new RestHttpClientImpl.Builder()
+                .basePath(baseUrl.toExternalForm())
+                .userAgent("Java-Client")
+                .build();
     }
 
     @NotNull

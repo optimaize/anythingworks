@@ -2,14 +2,14 @@ package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.devel
 
 import com.optimaize.anythingworks.client.rest.http.*;
 import com.optimaize.anythingworks.common.rest.TypeRef;
+import com.optimaize.anythingworks.exampleproject.clientlib.rest.services.RestServicePort;
 
 /**
  *
  */
-public class RestRequestInfoPort {
+public class RestRequestInfoPort extends RestServicePort {
 
-    private static final String accept = "application/json";
-    private static final String contentType = "application/json";
+    private static final TypeRef returnType = new TypeRef<RequestInfo>() {};
 
     private final RestHttpClient restApiClient;
     private final String servicePath;
@@ -25,15 +25,12 @@ public class RestRequestInfoPort {
 
         HeaderParams headerParams = HeaderParams.none();
 
-        TypeRef returnType = new TypeRef<RequestInfo>() {};
         RestHttpClientResponse<RequestInfo> response = restApiClient.invokeGet(
                 servicePath,
                 queryParams, headerParams,
-                accept, contentType,
                 returnType
         );
         return response.getResult().get();
     }
-
 
 }

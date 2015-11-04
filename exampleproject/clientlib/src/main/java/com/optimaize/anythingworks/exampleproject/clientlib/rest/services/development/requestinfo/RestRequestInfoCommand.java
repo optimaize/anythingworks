@@ -1,14 +1,11 @@
 package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.development.requestinfo;
 
 import com.google.common.base.Optional;
-import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.anythingworks.client.rest.RestBaseCommand;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClient;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClientImpl;
 import com.optimaize.anythingworks.exampleproject.clientlib.DemoappKeys;
+import com.optimaize.command4j.ExecutionContext;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
 import java.util.concurrent.Callable;
 
 /**
@@ -16,7 +13,7 @@ import java.util.concurrent.Callable;
  */
 public class RestRequestInfoCommand extends RestBaseCommand<RestRequestInfoPort, Void, RequestInfo> {
 
-    private static final String servicePath = "/development/requestinfo";
+    private static final String SERVICE_PATH = "/development/requestinfo";
 
     public RestRequestInfoCommand() {
         super(RestRequestInfoPort.class);
@@ -36,14 +33,7 @@ public class RestRequestInfoCommand extends RestBaseCommand<RestRequestInfoPort,
         return new Callable<RestRequestInfoPort>() {
             @Override
             public RestRequestInfoPort call() throws Exception {
-                URL baseUrl = makeBaseUrl(ec);
-
-                RestHttpClient restApiClient = new RestHttpClientImpl.Builder()
-                        .basePath(baseUrl.toExternalForm())
-                        .userAgent("Java-Client")
-                        .build();
-
-                return new RestRequestInfoPort(restApiClient, servicePath);
+                return new RestRequestInfoPort(makeClient(ec), SERVICE_PATH);
             }
         };
     }

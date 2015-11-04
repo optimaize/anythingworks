@@ -13,7 +13,6 @@ public interface RestHttpClient {
     <T> RestHttpClientResponse<T> invokeGet(String path,
                                             QueryParams queryParams,
                                             HeaderParams headerParams,
-                                            String accept, String contentType,
                                             TypeRef returnType
     ) throws WebApplicationException;
 
@@ -21,7 +20,6 @@ public interface RestHttpClient {
                                              QueryParams queryParams,
                                              HeaderParams headerParams,
                                              Object body,
-                                             String accept, String contentType,
                                              TypeRef returnType
     ) throws WebApplicationException;
 
@@ -29,7 +27,6 @@ public interface RestHttpClient {
                                              QueryParams queryParams,
                                              HeaderParams headerParams,
                                              Map<String, Object> formParams,
-                                             String accept, String contentType,
                                              TypeRef returnType
     ) throws WebApplicationException;
 

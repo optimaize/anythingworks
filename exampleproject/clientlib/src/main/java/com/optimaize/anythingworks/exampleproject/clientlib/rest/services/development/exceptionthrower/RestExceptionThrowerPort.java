@@ -10,10 +10,9 @@ import com.optimaize.anythingworks.exampleproject.clientlib.rest.services.RestSe
 /**
  *
  */
-public class RestExceptionThrowerPort implements RestServicePort {
+public class RestExceptionThrowerPort extends RestServicePort {
 
-    private static final String accept = "application/json";
-    private static final String contentType = "application/json";
+    private static final TypeRef returnType = new TypeRef<String>() {};
 
     private final RestHttpClient restApiClient;
     private final String servicePath;
@@ -31,11 +30,9 @@ public class RestExceptionThrowerPort implements RestServicePort {
 
         HeaderParams headerParams = HeaderParams.none();
 
-        TypeRef returnType = new TypeRef<String>() {};
         RestHttpClientResponse<String> response = restApiClient.invokeGet(
                 servicePath,
                 queryParams, headerParams,
-                accept, contentType,
                 returnType
         );
         return response.getResult().get();

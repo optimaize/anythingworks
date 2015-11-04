@@ -8,10 +8,9 @@ import com.optimaize.anythingworks.exampleproject.ontology.rest.development.post
 /**
  *
  */
-public class RestPostServicePort implements RestServicePort {
+public class RestPostServicePort extends RestServicePort {
 
-    private static final String accept = "application/json";
-    private static final String contentType = "application/json";
+    private static final TypeRef returnType = new TypeRef<ComplexObject>() {};
 
     private final RestHttpClient restApiClient;
     private final String servicePath;
@@ -29,12 +28,10 @@ public class RestPostServicePort implements RestServicePort {
 
         HeaderParams headerParams = HeaderParams.none();
 
-        TypeRef returnType = new TypeRef<ComplexObject>() {};
         RestHttpClientResponse<ComplexObject> response = restApiClient.invokeBody(
                 servicePath, "POST",
                 queryParams, headerParams,
                 postBody,
-                accept, contentType,
                 returnType
         );
         return response.getResult().get();
