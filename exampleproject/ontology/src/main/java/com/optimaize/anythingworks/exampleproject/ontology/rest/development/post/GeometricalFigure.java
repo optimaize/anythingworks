@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value=Circle.class, name = "circle"),
         @JsonSubTypes.Type(value=Rectangle.class, name="rectangle")
 })
-public abstract class GeometricalFigure {
+public class GeometricalFigure {
 
     private final String color;
 
