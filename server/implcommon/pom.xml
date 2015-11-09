@@ -22,11 +22,21 @@
             <version>0.5-SNAPSHOT</version>
         </dependency>
 
-        <dependency><!-- this is needed for the RequestDataExtractor -->
+        <dependency><!-- this is needed for the (SOAP) RequestDataExtractor -->
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>2.2.10</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <!--
+             Because we use Guava Optional all over the place.
+             See https://github.com/FasterXML/jackson-datatype-guava
+            -->
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-guava</artifactId>
+            <version>2.4.0</version>
         </dependency>
     </dependencies>
 </project>

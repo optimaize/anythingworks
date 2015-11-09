@@ -1,5 +1,6 @@
 package com.optimaize.anythingworks.exampleproject.clientapp;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.optimaize.command4j.Command;
 import com.optimaize.command4j.CommandExecutor;
@@ -28,7 +29,7 @@ public class PostServiceTest {
     public void rest_Post() throws Exception {
         RestPostCommand ping = new RestPostCommand();
         Mode mode = MyModeFactory.debug();
-        ComplexObject param = new ComplexObject("nana", 42, true, ComplexObject.Color.RED, new Circle("blue", 5d));
+        ComplexObject param = new ComplexObject("nana", 42, true, ComplexObject.Color.RED, new Circle("blue", 5d), Optional.of("foo"), Optional.<String>absent());
         ComplexObject result = executor.service().submitAndWait(ping, mode, param, Duration.millis(100000)).get();
         assertEquals(result.getString(), param.getString()+"-result");
         assertEquals(result.getNumber(), param.getNumber()*2);
@@ -36,6 +37,8 @@ public class PostServiceTest {
         assertEquals(result.getColor(), ComplexObject.Color.RED);
         assertEquals(result.getGeometricalFigure().getColor(), "light"+param.getGeometricalFigure().getColor());
         assertTrue(result.getGeometricalFigure() instanceof Circle);
+        assertEquals(result.getOptional1().get(), "foobar");
+        assertFalse(result.getOptional2().isPresent());
 
 //        stressTest(ping);
     }

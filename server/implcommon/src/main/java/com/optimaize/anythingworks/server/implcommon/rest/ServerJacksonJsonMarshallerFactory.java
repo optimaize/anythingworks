@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.optimaize.anythingworks.common.rest.JacksonJsonMarshaller;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +32,11 @@ public class ServerJacksonJsonMarshallerFactory {
         mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
         mapper.enable(SerializationFeature.INDENT_OUTPUT); //disputable, but not bad for the result to the client. he might be looking in the browser.
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); //exclude null
+
+        //for Guava Optional:
+        GuavaModule module = new GuavaModule();
+        mapper.registerModule(module);
+
         return mapper;
     }
 

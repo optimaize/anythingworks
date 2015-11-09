@@ -1,5 +1,6 @@
 package com.optimaize.anythingworks.exampleproject.server.services.rest.development.post;
 
+import com.google.common.base.Optional;
 import com.optimaize.anythingworks.exampleproject.ontology.rest.development.post.Circle;
 import com.optimaize.anythingworks.exampleproject.ontology.rest.development.post.ComplexObject;
 import com.optimaize.anythingworks.exampleproject.server.lib.BaseWebService;
@@ -23,7 +24,7 @@ public class RestPostService extends BaseWebService implements RestWebService {
     public Response get(
             @QueryParam(value = "envelope") final boolean envelope
     ) {
-        ComplexObject result = new ComplexObject("theresult", 15, true, ComplexObject.Color.RED, new Circle("blue", 5d));
+        ComplexObject result = new ComplexObject("theresult", 15, true, ComplexObject.Color.RED, new Circle("blue", 5d), Optional.of("foobar"), Optional.<String>absent());
 
         Object entity = possiblyWrapInEnvelope(envelope, result);
         return Response.ok().entity(entity).build();
@@ -43,7 +44,9 @@ public class RestPostService extends BaseWebService implements RestWebService {
                 complexParam.getNumber() * 2,
                 !complexParam.isYesOrNo(),
                 complexParam.getColor(),
-                new Circle("light" + complexParam.getGeometricalFigure().getColor(), 5d)
+                new Circle("light" + complexParam.getGeometricalFigure().getColor(), 5d),
+                Optional.of(complexParam.getOptional1().get() + "bar"),
+                Optional.<String>absent()
         );
 
         Object entity = possiblyWrapInEnvelope(envelope, result);
