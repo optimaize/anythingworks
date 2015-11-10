@@ -11,6 +11,45 @@ with either "Rest" or "Soap".
 
 Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
 
+## Getting started
+
+### Step 1: 
+
+Run the Boot class. Keep it running.
+
+(If you have other stuff running, you can change the defaults of "localhost" and "port 80" in GrizzlyWebServer.)
+
+
+### Step 2: 
+
+Run requests. For example point your browser at http://localhost/rest/v1/system/ping
+
+The REST wadl is at http://localhost/rest/v1/application.wadl
+
+And one SOAP wsdl is at http://localhost/soap/v1/system/ping?wsdl
+
+There are also tests you can run from client to server. See the PingServiceTest class.
+
+
+### Step 3:
+
+Party!
+
+
+## Technology stack
+
+* Java 7
+* Guava: for the Optional class, and some other things
+* JAX-RS: for REST
+* JAX-WS: for SOAP
+* Spring: for Dependency Injection
+* Grizzly: as embedded web server
+* Jackson: for JSON marshalling
+* Swagger: for generating api documentation and swagger.json at build time, nothing at runtime
+* command4j: for command interception
+* slf4j: for Logging (Logback)
+* testng: for testing
+
 
 ## The modules
 
@@ -32,8 +71,7 @@ There are 2 implementations available:
 1. implgrizzly using the org.glassfish.grizzly grizzly-http-server dependency (recommended)
 2. impljdk which uses the built-in http server from the JDK
 
-If you wish to use another http server, then implement your own module. There's only one
-interface to implement (SoapWebServerHandler).
+If you wish to use another http server, then implement your own module.
 
     <dependency>
         <groupId>com.optimaize.anythingworks.server.implgrizzly</groupId>
