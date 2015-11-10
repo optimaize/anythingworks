@@ -29,9 +29,9 @@ public class PostServiceTest {
     public void rest_Post() throws Exception {
         RestPostCommand ping = new RestPostCommand();
         Mode mode = MyModeFactory.debug();
-        ComplexObject param = new ComplexObject("nana", 42, 3.33d, true, ComplexObject.Color.RED, new Circle("blue", 5d), Optional.of("foo"), Optional.<String>absent());
+        ComplexObject param = new ComplexObject("nanaäöü", 42, 3.33d, true, ComplexObject.Color.RED, new Circle("blue", 5d), Optional.of("foo"), Optional.<String>absent());
         ComplexObject result = executor.service().submitAndWait(ping, mode, param, Duration.millis(100000)).get();
-        assertEquals(result.getString(), param.getString()+"-result");
+        assertEquals(result.getString(), param.getString()+"-resultäöü");
         assertEquals(result.getIntNumber(), param.getIntNumber()*2);
         assertEquals(result.getDoubleNumber(), param.getDoubleNumber()*2, 0.0001d);
         assertEquals(result.isYesOrNo(), !param.isYesOrNo());

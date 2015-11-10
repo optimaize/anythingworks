@@ -24,7 +24,7 @@ public class RestPostService extends BaseWebService implements RestWebService {
     public Response get(
             @QueryParam(value = "envelope") final boolean envelope
     ) {
-        ComplexObject result = new ComplexObject("theresult", 15, 3.33d, true, ComplexObject.Color.RED, new Circle("blue", 5d), Optional.of("foobar"), Optional.<String>absent());
+        ComplexObject result = new ComplexObject("theresultäöü", 15, 3.33d, true, ComplexObject.Color.RED, new Circle("blue", 5d), Optional.of("foobar"), Optional.<String>absent());
 
         Object entity = possiblyWrapInEnvelope(envelope, result);
         return Response.ok().entity(entity).build();
@@ -40,7 +40,7 @@ public class RestPostService extends BaseWebService implements RestWebService {
             ComplexObject complexParam
     ) {
         ComplexObject result = new ComplexObject(
-                complexParam.getString() + "-result",
+                complexParam.getString() + "-resultäöü",
                 complexParam.getIntNumber() * 2,
                 complexParam.getDoubleNumber() * 2,
                 !complexParam.isYesOrNo(),

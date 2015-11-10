@@ -6,6 +6,7 @@ import com.optimaize.anythingworks.common.host.Host;
 import com.optimaize.anythingworks.server.implcommon.rest.ServerJacksonJsonMarshallerFactory;
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlyHttpServer;
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlySoapWebServicePublisher;
+import com.optimaize.anythingworks.server.implgrizzly.rest.CharsetResponseFilter;
 import com.optimaize.anythingworks.server.implgrizzly.rest.RestExceptionMapper;
 import com.optimaize.anythingworks.server.rest.RestWebService;
 import com.optimaize.anythingworks.server.rest.RestWebServiceProvider;
@@ -52,12 +53,13 @@ public class GrizzlyWebServer implements WebServer {
 
             //for data binding:
             //we customize it a bit with our own preferences.
-            JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
+            JacksonJaxbJsonProvider jacksonProvider = new JacksonJaxbJsonProvider();
             ObjectMapper objectMapper = ServerJacksonJsonMarshallerFactory.create().getJackson();
-            provider.setMapper(objectMapper);
-            resourceConfig.register(provider);
+            jacksonProvider.setMapper(objectMapper);
+            resourceConfig.register(jacksonProvider);
             resourceConfig.register(JacksonFeature.class);
             resourceConfig.register(RestExceptionMapper.class);
+            resourceConfig.register(CharsetResponseFilter.class);
 
             //register rest services
             for (RestWebServiceProvider restWebServiceProvider : restWebServiceProviders) {
