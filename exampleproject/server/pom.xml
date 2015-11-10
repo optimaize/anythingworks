@@ -131,13 +131,13 @@
                             <locations>com.optimaize.anythingworks.exampleproject.server.services.rest</locations>
                             <schemes>http</schemes>
                             <host>localhost</host>
-                            <basePath>/rest</basePath>
+                            <basePath>/rest/v1</basePath>
                             <info>
                                 <title>Anythingworks Swagger REST Api</title>
                                 <version>v1</version>
                                 <description>This is a sample for swagger-maven-plugin</description>
                                 <termsOfService>
-                                    http://www.example.com.com/toc
+                                    http://www.example.com.com/terms
                                 </termsOfService>
                                 <contact>
                                     <email>support@example.com</email>

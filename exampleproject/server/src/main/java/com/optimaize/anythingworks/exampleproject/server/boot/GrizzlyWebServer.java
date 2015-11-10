@@ -69,7 +69,7 @@ public class GrizzlyWebServer implements WebServer {
                 }
             }
             HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(
-                    URI.create("http://localhost:80/rest"),
+                    URI.create("http://localhost:80/rest/v1"),
                     resourceConfig,
                     false
             );

@@ -11,6 +11,7 @@ import com.optimaize.anythingworks.exampleproject.clientlib.soap.services.develo
 import org.testng.annotations.Test;
 
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotAuthorizedException;
 
@@ -41,7 +42,7 @@ public class ExceptionThrowerTest {
         executor.execute(command, mode, new ExceptionThrowerParams(ExceptionThrowerParams.ExceptionType.NotAuthorized, 100)).orNull();
     }
 
-    @Test(expectedExceptions=NotAuthorizedException.class)
+    @Test(expectedExceptions=ForbiddenException.class)
     public void rest_Forbidden() throws Exception {
         RestExceptionThrowerCommand command = new RestExceptionThrowerCommand();
         Mode mode = DemoappModeFactory.unitTest();

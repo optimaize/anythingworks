@@ -23,9 +23,9 @@ import javax.ws.rs.core.Response;
  *
  */
 @Service
-@Path("/v1/system")
+@Path("/system")
 @Produces({"application/json"})
-@Api(value = "/v1/system", description = "Operations for pinging the server.")
+@Api(value = "/system", description = "Operations for pinging the server.")
 public class RestPingService extends BaseWebService implements RestWebService {
 
     @GET

@@ -16,9 +16,9 @@ import javax.ws.rs.core.Response;
  * The result is complex also.
  */
 @Service
-@Path("/v1/development")
+@Path("/development")
 @Produces({"application/json"})
-@Api(value = "/v1/development", description = "Operations for development.")
+@Api(value = "/development", description = "Operations for development.")
 public class RestPostService extends BaseWebService implements RestWebService {
 
     @GET
