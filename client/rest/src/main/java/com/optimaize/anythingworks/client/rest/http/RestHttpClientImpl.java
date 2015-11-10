@@ -44,6 +44,15 @@ public class RestHttpClientImpl implements RestHttpClient {
      * Add methods to pass these values in if you need it.
      */
     private static final String ACCEPT = "application/json";
+    /**
+     * As with ACCEPT, for now it's all JSON no XML.
+     *
+     * It really shouldn't be necessary to define the charset here. If you need it, the correct value is:
+     * CONTENT_TYPE = "application/json; charset=UTF-8"
+     * See http://javaspree.com/2014/08/java-jersey-client-setting-character-encoding/ as an example where
+     * someone needed that. By definition, all JSON is UTF.
+     *
+     */
     private static final String CONTENT_TYPE = "application/json";
 
 
