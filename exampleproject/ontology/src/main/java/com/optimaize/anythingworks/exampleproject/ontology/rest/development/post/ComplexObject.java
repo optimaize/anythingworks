@@ -10,9 +10,11 @@ import com.google.common.base.Optional;
  * <pre>
  * - string
  * - integer
+ * - double
  * - boolean
  * - enum
  * - polymorphic object GeometricalFigure with subtypes Circle and Rectangle
+ * - Optional from Guava
  * </pre>
  *
  */
@@ -25,7 +27,8 @@ public class ComplexObject {
     }
 
     private final String string;
-    private final int number;
+    private final int intNumber;
+    private final double doubleNumber;
     private final boolean yesOrNo;
     private final Color color;
     private final GeometricalFigure geometricalFigure;
@@ -35,7 +38,8 @@ public class ComplexObject {
     @JsonCreator
     public ComplexObject(
             @JsonProperty("string") String string,
-            @JsonProperty("number") int number,
+            @JsonProperty("intNumber") int intNumber,
+            @JsonProperty("doubleNumber") double doubleNumber,
             @JsonProperty("yesOrNo") boolean yesOrNo,
             @JsonProperty("color") Color color,
             @JsonProperty("geometricalFigure") GeometricalFigure geometricalFigure,
@@ -43,7 +47,8 @@ public class ComplexObject {
             @JsonProperty("optional2") Optional<String> optional2
     ) {
         this.string = string;
-        this.number = number;
+        this.intNumber = intNumber;
+        this.doubleNumber = doubleNumber;
         this.yesOrNo = yesOrNo;
         this.color = color;
         this.geometricalFigure = geometricalFigure;
@@ -56,8 +61,12 @@ public class ComplexObject {
         return string;
     }
 
-    public int getNumber() {
-        return number;
+    public int getIntNumber() {
+        return intNumber;
+    }
+
+    public double getDoubleNumber() {
+        return doubleNumber;
     }
 
     public boolean isYesOrNo() {
