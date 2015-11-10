@@ -97,5 +97,80 @@
             <version>${org.springframework.version}</version>
         </dependency>
 
+        <dependency>
+            <!-- for swagger artifacts generation at build time -->
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <scope>compile</scope><!-- see, only for build time. -->
+            <version>1.5.4</version>
+            <exclusions>
+                <exclusion>
+                    <!-- don't know why the exclusion, that's how the example does it at
+                         https://github.com/kongchen/swagger-maven-example/blob/master/pom.xml -->
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
+
+
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <!-- for swagger artifacts generation at build time -->
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>false</springmvc>
+                            <locations>com.optimaize.anythingworks.exampleproject.server.services.rest</locations>
+                            <schemes>http</schemes>
+                            <host>localhost</host>
+                            <basePath>/rest</basePath>
+                            <info>
+                                <title>Anythingworks Swagger REST Api</title>
+                                <version>v1</version>
+                                <description>This is a sample for swagger-maven-plugin</description>
+                                <termsOfService>
+                                    http://www.example.com.com/toc
+                                </termsOfService>
+                                <contact>
+                                    <email>support@example.com</email>
+                                    <name>John Doe</name>
+                                    <url>http://www.example.com</url>
+                                </contact>
+                                <license>
+                                    <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+                                    <name>Apache 2.0</name>
+                                </license>
+                            </info>
+                            <!-- Support classpath or file absolute path here.
+                            1) classpath e.g: "classpath:/markdown.hbs", "classpath:/templates/hello.html"
+                            2) file e.g: "${basedir}/src/main/resources/markdown.hbs",
+                                "${basedir}/src/main/resources/template/hello.html" -->
+                            <templatePath>${basedir}/swagger/templates/strapdown.html.hbs</templatePath>
+                            <outputPath>${basedir}/swagger/generated/document.html</outputPath>
+                            <swaggerDirectory>${basedir}/swagger/generated/swagger-ui</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
 </project>

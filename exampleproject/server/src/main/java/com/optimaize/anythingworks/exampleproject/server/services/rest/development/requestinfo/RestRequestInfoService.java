@@ -6,6 +6,10 @@ import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.commands.BaseCommand;
 import com.optimaize.anythingworks.exampleproject.server.lib.BaseWebService;
 import com.optimaize.anythingworks.server.rest.RestWebService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -26,10 +30,16 @@ import java.util.List;
 @Service
 @Path("/v1/development")
 @Produces({"application/json"})
+@Api(value = "/v1/development", description = "Operations for development.")
 public class RestRequestInfoService extends BaseWebService implements RestWebService {
 
     @GET
     @Path("/requestinfo")
+    @ApiOperation(value = "Ping the server",
+            notes = "Shows information about the request as seen by the server, including the request method, user agent, and so on. This way a client can be confident about what the server actually gets through all the possible interceptors and proxies.",
+            response = RequestInfo.class
+    )
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Returns the RequestInfo object.")})
     public Response info(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope,

@@ -6,6 +6,10 @@ import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.commands.BaseCommand;
 import com.optimaize.anythingworks.exampleproject.server.lib.BaseWebService;
 import com.optimaize.anythingworks.server.rest.RestWebService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +25,16 @@ import javax.ws.rs.core.Response;
 @Service
 @Path("/v1/system")
 @Produces({"application/json"})
+@Api(value = "/v1/system", description = "Operations for pinging the server.")
 public class RestPingService extends BaseWebService implements RestWebService {
 
     @GET
     @Path("/ping")
+    @ApiOperation(value = "Ping the server",
+            notes = "Gives you a hint of the raw network time it takes for a round trip to the server and back, through the whole web service stack.",
+            response = String.class
+    )
+        @ApiResponses(value = { @ApiResponse(code = 200, message = "Returns 'pong'")})
     public Response ping(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope
