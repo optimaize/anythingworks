@@ -20,11 +20,11 @@ import javax.ws.rs.core.Response;
  */
 @Service
 @Path("/v1/system")
+@Produces({"application/json"})
 public class RestPingService extends BaseWebService implements RestWebService {
 
     @GET
     @Path("/ping")
-    @Produces({"application/json"})
     public Response ping(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope

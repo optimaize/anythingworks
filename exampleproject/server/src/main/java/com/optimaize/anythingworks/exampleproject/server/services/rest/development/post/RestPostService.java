@@ -16,11 +16,11 @@ import javax.ws.rs.core.Response;
  */
 @Service
 @Path("/v1/development")
+@Produces({"application/json"})
 public class RestPostService extends BaseWebService implements RestWebService {
 
     @GET
     @Path("/get")
-    @Produces({"application/json"})
     public Response get(
             @QueryParam(value = "envelope") final boolean envelope
     ) {
@@ -32,7 +32,6 @@ public class RestPostService extends BaseWebService implements RestWebService {
 
     @POST
     @Path("/post")
-    @Produces({"application/json"})
     @Consumes({"application/json"})
     public Response post(
             @QueryParam(value = "apiKey") final String apiKey,

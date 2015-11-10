@@ -18,11 +18,11 @@ import java.util.Random;
  */
 @Service
 @Path("/v1/development")
+@Produces({"application/json"})
 public class RestExceptionThrower extends BaseWebService implements RestWebService {
 
     @GET
     @Path("/exceptionthrower")
-    @Produces({"application/json"})
     public Response throwException(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope,

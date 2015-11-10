@@ -25,11 +25,11 @@ import java.util.List;
  */
 @Service
 @Path("/v1/development")
+@Produces({"application/json"})
 public class RestRequestInfoService extends BaseWebService implements RestWebService {
 
     @GET
     @Path("/requestinfo")
-    @Produces({"application/json"})
     public Response info(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope,
