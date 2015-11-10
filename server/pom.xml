@@ -10,7 +10,7 @@
 
     <groupId>com.optimaize.anythingworks.server</groupId>
     <artifactId>anythingworks-server</artifactId>
-    <name>soaplib-server</name>
+    <name>anythingworks-server</name>
     <version>0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>
