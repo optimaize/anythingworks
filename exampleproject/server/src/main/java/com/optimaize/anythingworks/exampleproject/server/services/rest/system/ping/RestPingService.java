@@ -34,7 +34,7 @@ public class RestPingService extends BaseWebService implements RestWebService {
             notes = "Gives you a hint of the raw network time it takes for a round trip to the server and back, through the whole web service stack.",
             response = String.class
     )
-        @ApiResponses(value = { @ApiResponse(code = 200, message = "Returns 'pong'")})
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Returns 'pong'")})
     public Response ping(
             @QueryParam(value = "apiKey") final String apiKey,
             @QueryParam(value = "envelope") final boolean envelope
