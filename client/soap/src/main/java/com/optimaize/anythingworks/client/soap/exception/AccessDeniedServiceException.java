@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author fab
  */
-public class AccessDeniedServiceException extends ServiceException {
+public class AccessDeniedServiceException extends ClientServiceException {
 
     public AccessDeniedServiceException(String message, @NotNull FaultInfo faultInfo) {
         super(message, faultInfo);

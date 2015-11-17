@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author fab
  */
-public class InvalidInputServiceException extends ServiceException {
+public class InvalidInputServiceException extends ClientServiceException {
 
     public InvalidInputServiceException(String message, @NotNull FaultInfo faultInfo) {
         super(message, faultInfo);

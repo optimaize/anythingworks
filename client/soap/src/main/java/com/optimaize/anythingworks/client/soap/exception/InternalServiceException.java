@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author fab
  */
-public class InternalServiceException extends ServiceException {
+public class InternalServiceException extends ServerServiceException {
 
     public InternalServiceException(String message, @NotNull FaultInfo faultInfo) {
         super(message, faultInfo);
