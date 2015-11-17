@@ -63,7 +63,7 @@ public class GrizzlySoapWebServicePublisher extends BaseSoapWebServicePublisher 
     public void publishService(SoapWebService soapWebService) {
         String path = transportInfo.getBasePath() + soapWebService.getServicePath();
         log.info("Publishing soap web service: " + transportInfo.toUriString() + soapWebService.getServicePath() + "?wsdl");
-        HttpHandler jaxwsHandler = new JaxwsHandler(soapWebService);
+        HttpHandler jaxwsHandler = new JaxwsHandler(soapWebService, false);
         httpServer.getServerConfiguration().addHttpHandler(jaxwsHandler,
                 //see https://java.net/projects/grizzly/lists/users/archive/2014-11/message/7 for why this is done.
                 HttpHandlerRegistration.bulder()
