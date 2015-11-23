@@ -80,7 +80,7 @@ For REST:
     <dependency>
         <groupId>com.optimaize.anythingworks.client.rest</groupId>
         <artifactId>anythingworks-client-rest</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.5</version>
     </dependency>
 
 For SOAP: 
@@ -88,7 +88,7 @@ For SOAP:
     <dependency>
         <groupId>com.optimaize.anythingworks.client.soap</groupId>
         <artifactId>anythingworks-client-soap</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.5</version>
     </dependency>
 
 
@@ -105,7 +105,7 @@ If you wish to use another http server, then implement your own module.
     <dependency>
         <groupId>com.optimaize.anythingworks.server.implgrizzly</groupId>
         <artifactId>anythingworks-server-implgrizzly</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.5</version>
     </dependency>
 
 ### common
