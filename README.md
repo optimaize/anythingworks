@@ -3,13 +3,14 @@ anythingworks (formerly soapworks)
 
 Java Library to Bootstrap Web service client/server development.
 
-It supports both RESTful web services (JAX-RS) and
-SOAP / WSDL web services (JAX-WS).
+It supports both RESTful web services (JAX-RS) and SOAP / WSDL web services (JAX-WS).
 
-Within this project classes specific for one technology are prefixed
+For the Client part there are different modules for REST and SOAP so that a web service client does not have 
+unwanted dependencies. In other places (server side) some classes specific for one technology are prefixed
 with either "Rest" or "Soap".
 
 Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
+
 
 ## Getting started
 
@@ -36,6 +37,23 @@ There are also tests you can run from client to server. See the PingServiceTest 
 Party!
 
 
+## Core Concepts
+
+This library supports you in developing the whole product line from Server web service application to Client 
+library. 
+
+We believe that the end user of a client library does not care what technology is used underneath. 
+He needs a nice programming interface, with documented methods. Without having to worry about low level 
+(HTTP) functionality. 
+
+Also, as history has shown again and again, technologies evolve, new ones arise and older ones fall out of fashion. 
+The past has seen more SOAP adoption, now it's REST, and there will be others (HTTP/2, non-HTTP, binary, ...).
+
+If the client code is tightly coupled to the technology then changes will reflect in the user's code. We believe 
+that shouldn't be. Therefore this library hides the web service technology as much as possible. 
+
+
+
 ## Technology stack
 
 * Java 7
@@ -55,13 +73,24 @@ Party!
 
 ### client
 
-This is the dependency to develop a web service client.
+This is the dependency to develop a web service client. 
+
+For REST:
 
     <dependency>
-        <groupId>com.optimaize.anythingworks.client</groupId>
-        <artifactId>anythingworks-client</artifactId>
+        <groupId>com.optimaize.anythingworks.client.rest</groupId>
+        <artifactId>anythingworks-client-rest</artifactId>
         <version>0.5-SNAPSHOT</version>
     </dependency>
+
+For SOAP: 
+
+    <dependency>
+        <groupId>com.optimaize.anythingworks.client.soap</groupId>
+        <artifactId>anythingworks-client-soap</artifactId>
+        <version>0.5-SNAPSHOT</version>
+    </dependency>
+
 
 ### server
 
@@ -118,8 +147,7 @@ web service actions. Whether the commands use REST or SOAP is irrelevant to the 
 ## Status
 
 anythingworks (soapworks) has been in development at http://www.optimaize.com for use in the http://www.nameapi.org web services for 
-a long time, and is now published on GitHub. It contains a full working example. This readme should be longer.
-See the wiki https://github.com/optimaize/anythingworks/wiki
+a long time, and is now published on GitHub. It contains a full working client/server example. 
 
 
 ## The name
