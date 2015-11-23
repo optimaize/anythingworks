@@ -4,13 +4,13 @@
     <parent>
         <artifactId>anythingworks</artifactId>
         <groupId>com.optimaize.anythingworks</groupId>
-        <version>0.5</version>
+        <version>0.6-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.anythingworks.common</groupId>
     <artifactId>anythingworks-common</artifactId>
     <name>anythingworks-common</name>
-    <version>0.5</version>
+    <version>0.6-SNAPSHOT</version>
     <description>
         Common code used by both the client and server.
     </description>

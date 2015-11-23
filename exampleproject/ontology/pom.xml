@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.optimaize.anythingworks.exampleproject</groupId>
         <artifactId>anythingworks-exampleproject</artifactId>
-        <version>0.5</version>
+        <version>0.6-SNAPSHOT</version>
     </parent>
 
     <groupId>com.optimaize.anythingworks.exampleproject.ontology</groupId>
