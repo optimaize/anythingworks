@@ -1,9 +1,10 @@
 package com.optimaize.anythingworks.client.soap.exensions.autoretry;
 
+import com.optimaize.anythingworks.common.fault.exceptions.ServiceException;
+import com.optimaize.anythingworks.common.fault.faultinfo.FaultInfo;
 import com.optimaize.command4j.ext.extensions.failover.autoretry.AutoRetryStrategy;
 import com.optimaize.command4j.lang.Duration;
-import com.optimaize.anythingworks.client.soap.exception.ServiceException;
-import com.optimaize.anythingworks.common.soap.exception.RetryType;
+import com.optimaize.anythingworks.common.fault.faultinfo.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +17,8 @@ public class DefaultAutoRetryStrategy implements AutoRetryStrategy {
     public Duration doRetry(int executionCounter, @NotNull Exception exception) {
             if (executionCounter==1) {
                 if (exception instanceof ServiceException) {
-                    if (((ServiceException)exception).getFaultInfo().getRetrySameServer().getRetryType() == RetryType.NOW) {
+                    FaultInfo faultInfo = ((ServiceException) exception).getFaultInfo();
+                    if (faultInfo.getRetrySameLocation().isPresent() && faultInfo.getRetrySameLocation().get().getRetryType() == RetryType.NOW) {
                         return Duration.millis(1000);
                     }
                 }

@@ -1,21 +1,23 @@
 package com.optimaize.anythingworks.exampleproject.server.lib;
 
 import com.google.common.base.Optional;
+import com.optimaize.anythingworks.common.fault.ErrorCodes;
+import com.optimaize.anythingworks.common.fault.exceptions.ServiceException;
+import com.optimaize.anythingworks.server.common.fault.FaultInfoBuilders;
+import com.optimaize.anythingworks.server.rest.FaultInfoEnvelope;
+import com.optimaize.anythingworks.server.rest.RestWebService;
+import com.optimaize.anythingworks.server.rest.fault.exception.InternalServerErrorServiceExceptions;
+import com.optimaize.anythingworks.server.soap.SoapWebService;
+import com.optimaize.anythingworks.server.soap.exception.SoapWebServiceException;
 import com.optimaize.command4j.Command;
 import com.optimaize.command4j.CommandExecutor;
 import com.optimaize.command4j.Mode;
-import com.optimaize.anythingworks.server.rest.Envelope;
-import com.optimaize.anythingworks.server.rest.RestWebService;
-import com.optimaize.anythingworks.server.soap.SoapWebService;
-import com.optimaize.anythingworks.server.soap.exception.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.WebApplicationException;
 
 /**
  * Base class for {@link RestWebService} and
@@ -45,26 +47,29 @@ public abstract class BaseWebService {
             Command<A, R> command,
             Mode mode,
             @Nullable A param
-    ) throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException {
+    ) throws SoapWebServiceException {
         try {
             return executor.execute(command, mode, param);
         } catch (Exception | AssertionError e) {
-            if (e instanceof AccessDeniedWebServiceException) {
-                throw (AccessDeniedWebServiceException)e;
-            } else if (e instanceof InvalidInputWebServiceException) {
-                throw (InvalidInputWebServiceException)e;
-            } else if (e instanceof InternalServerErrorWebServiceException) {
-                throw (InternalServerErrorWebServiceException)e;
+            if (e instanceof ServiceException) {
+                //convert
+                throw new SoapWebServiceException(((ServiceException) e).getFaultInfo());
+
+                //keep these
+            } else if (e instanceof SoapWebServiceException) {
+                throw (SoapWebServiceException)e;
+
             } else {
                 //should never arrive here. nothing we can do.
-                logger.error("Unexpected late exception translation!");
-                throw new InternalServerErrorWebServiceException(
-                        FaultBeanBuilders.Server.internalServerError()
-                        .errorCode(1100)
-                        .message("Unexpected late exception translation")
-                        .retrySameServer(Retry.unknown())
-                        .retryOtherServers(Retry.unknown())
-                        .problemReported(true),
+                String msg = "Unexpected late exception translation for: "+e.getMessage();
+                logger.error(msg);
+                throw new SoapWebServiceException(
+                        FaultInfoBuilders.Server.internalServerError()
+                        .applicationErrorCode(""+ErrorCodes.Server.INTERNAL_SERVER_ERROR.getCode())
+                        .message(msg)
+                        .retrySameLocation(null)
+                        .retryOtherLocations(null)
+                        .incidentId(null),
                         e
                 );
             }
@@ -83,19 +88,22 @@ public abstract class BaseWebService {
         try {
             return executor.execute(command, mode, param);
         } catch (Exception | AssertionError e) {
-            if (e instanceof WebApplicationException) {
-                throw (WebApplicationException)e;
+            if (e instanceof ServiceException) {
+                throw (ServiceException)e;
+//            if (e instanceof WebApplicationException) {
+//                throw (WebApplicationException)e;
             } else {
                 //should never arrive here. nothing we can do.
-                logger.error("Unexpected late exception translation!");
-                throw new InternalServerErrorException(e);
+                String msg = "Unexpected late exception translation for: "+e.getMessage();
+                logger.error(msg);
+                throw InternalServerErrorServiceExceptions.internalServerError(msg);
             }
         }
     }
 
     protected Object possiblyWrapInEnvelope(boolean envelope, Object result) {
         if (envelope) {
-            return Envelope.success(result);
+            return FaultInfoEnvelope.success(result);
         }
         return result;
     }

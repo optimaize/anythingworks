@@ -7,7 +7,8 @@ import com.optimaize.anythingworks.server.implcommon.rest.ServerJacksonJsonMarsh
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlyHttpServer;
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlySoapWebServicePublisher;
 import com.optimaize.anythingworks.server.implgrizzly.rest.CharsetResponseFilter;
-import com.optimaize.anythingworks.server.implgrizzly.rest.RestExceptionMapper;
+import com.optimaize.anythingworks.server.implgrizzly.rest.FaultInfoRestExceptionMapper;
+import com.optimaize.anythingworks.server.implgrizzly.rest.JsonErrorRestExceptionMapper;
 import com.optimaize.anythingworks.server.rest.RestWebService;
 import com.optimaize.anythingworks.server.rest.RestWebServiceProvider;
 import com.optimaize.anythingworks.server.soap.SoapWebServiceProvider;
@@ -58,7 +59,8 @@ public class GrizzlyWebServer implements WebServer {
             jacksonProvider.setMapper(objectMapper);
             resourceConfig.register(jacksonProvider);
             resourceConfig.register(JacksonFeature.class);
-            resourceConfig.register(RestExceptionMapper.class);
+//            resourceConfig.register(JsonErrorRestExceptionMapper.class);
+            resourceConfig.register(FaultInfoRestExceptionMapper.class);
             resourceConfig.register(CharsetResponseFilter.class);
 
             //register rest services

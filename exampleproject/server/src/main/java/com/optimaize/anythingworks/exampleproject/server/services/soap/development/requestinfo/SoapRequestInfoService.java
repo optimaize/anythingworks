@@ -1,16 +1,14 @@
 package com.optimaize.anythingworks.exampleproject.server.services.soap.development.requestinfo;
 
 import com.google.common.base.Optional;
+import com.optimaize.anythingworks.exampleproject.server.lib.BaseWebService;
+import com.optimaize.anythingworks.server.implcommon.soap.EagerRequestDataExtractor;
+import com.optimaize.anythingworks.server.implcommon.soap.RequestDataExtractor;
+import com.optimaize.anythingworks.server.soap.SoapWebService;
+import com.optimaize.anythingworks.server.soap.exception.SoapWebServiceException;
 import com.optimaize.command4j.Command;
 import com.optimaize.command4j.ExecutionContext;
 import com.optimaize.command4j.commands.BaseCommand;
-import com.optimaize.anythingworks.exampleproject.server.lib.BaseWebService;
-import com.optimaize.anythingworks.server.soap.SoapWebService;
-import com.optimaize.anythingworks.server.soap.exception.AccessDeniedWebServiceException;
-import com.optimaize.anythingworks.server.soap.exception.InternalServerErrorWebServiceException;
-import com.optimaize.anythingworks.server.soap.exception.InvalidInputWebServiceException;
-import com.optimaize.anythingworks.server.implcommon.soap.EagerRequestDataExtractor;
-import com.optimaize.anythingworks.server.implcommon.soap.RequestDataExtractor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +35,7 @@ public class SoapRequestInfoService extends BaseWebService implements SoapWebSer
     @WebMethod
     public String requestInfo(
             @WebParam(name="apiKey") @XmlElement(nillable=false,required=true) final String apiKey
-    ) throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException {
+    ) throws SoapWebServiceException {
         //because only this thread has access to the request, and the command4j framework uses another thread for
         //the execution of the call, we must use the eager impl here:
         final EagerRequestDataExtractor extractor = new EagerRequestDataExtractor(webServiceContext);
@@ -65,7 +63,7 @@ public class SoapRequestInfoService extends BaseWebService implements SoapWebSer
 
     @NotNull
     protected Optional<String> execute(Command<Object, String> command)
-            throws AccessDeniedWebServiceException, InvalidInputWebServiceException, InternalServerErrorWebServiceException {
+            throws SoapWebServiceException {
         return soapExceptionBarrier(command, modeFactory.soapDefaultMode(), null);
     }
 

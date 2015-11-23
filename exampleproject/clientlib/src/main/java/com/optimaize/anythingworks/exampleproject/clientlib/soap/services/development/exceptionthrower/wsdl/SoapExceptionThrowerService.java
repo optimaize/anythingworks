@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "SoapExceptionThrowerService", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", wsdlLocation = "http://localhost:80/soap/v1/system/exceptionthrower?wsdl")
+@WebServiceClient(name = "SoapExceptionThrowerService", targetNamespace = "http://exceptionthrower.development.soap.services.server.exampleproject.anythingworks.optimaize.com/", wsdlLocation = "http://localhost/soap/v1/development/exceptionthrower?wsdl")
 public class SoapExceptionThrowerService
     extends Service
 {
@@ -30,7 +30,7 @@ public class SoapExceptionThrowerService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:80/soap/v1/system/exceptionthrower?wsdl");
+            url = new URL("http://localhost/soap/v1/development/exceptionthrower?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

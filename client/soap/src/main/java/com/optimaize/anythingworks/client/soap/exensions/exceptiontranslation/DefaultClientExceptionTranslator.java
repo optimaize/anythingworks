@@ -1,15 +1,16 @@
 package com.optimaize.anythingworks.client.soap.exensions.exceptiontranslation;
 
+import com.optimaize.anythingworks.client.soap.exception.SoapFaultInfo;
+import com.optimaize.anythingworks.common.fault.exceptions.*;
+import com.optimaize.anythingworks.common.fault.faultinfo.Blame;
+import com.optimaize.anythingworks.common.fault.faultinfo.Retry;
+import com.optimaize.anythingworks.common.fault.faultinfo.RetryType;
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
-import com.optimaize.anythingworks.client.soap.exception.*;
-import com.optimaize.anythingworks.common.soap.exception.Blame;
-import com.optimaize.anythingworks.common.soap.exception.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Translates exceptions that arrive in the form of generated wsdl exception classes from the server.
@@ -18,18 +19,23 @@ import java.util.Map;
  */
 public class DefaultClientExceptionTranslator implements ExceptionTranslator {
 
-    private static final Map<String,Class<? extends ServiceException>> mappings = new HashMap<>();
-    static {
-        mappings.put("InvalidInputWebServiceException", InvalidInputServiceException.class);
-        mappings.put("AccessDeniedWebServiceException", AccessDeniedServiceException.class);
-        mappings.put("InternalServerErrorWebServiceException",     InternalServiceException.class);
-        //mappings.put("ServiceUnavailableWebServiceException",     .class); //*shrug*
-    }
+//    private static final Map<String,Class<? extends ServiceException>> mappings = new HashMap<>();
+//    static {
+//        mappings.put("SoapWebServiceException", SoapWebServiceException.class);
+//
+////        mappings.put("BadRequestWebServiceException", BadRequestServiceException.class);
+////        mappings.put("AccessDeniedWebServiceException", AccessDeniedServiceException.class);
+////        mappings.put("ProtocolWebServiceException", ProtocolServiceException.class);
+////
+////        mappings.put("InternalServerErrorWebServiceException",     InternalServerErrorServiceException.class);
+////        mappings.put("ServiceTemporarilyUnavailableWebServiceException",     ServiceTemporarilyUnavailableServiceException.class);
+////        mappings.put("BadResponseWebServiceException",     BadResponseServiceException.class);
+//    }
 
 
     public boolean canTranslate(@NotNull Throwable t) {
         if (t instanceof Exception) {
-            if (mappings.containsKey(t.getClass().getSimpleName())) {
+            if ("SoapWebServiceException".equals(t.getClass().getSimpleName())) {
                 return (findGetFaultInfoMethod(t)) != null;
             }
         }
@@ -39,23 +45,29 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
 
     @NotNull @Override
     public Exception translate(@NotNull Throwable t) throws Exception {
-        String className = t.getClass().getSimpleName();
-        String msg = t.getMessage();
-        FaultInfo faultInfo = extractFaultInfo(t);
-        switch (className) {
-            case "InvalidInputWebServiceException":
-                throw new InvalidInputServiceException(msg, faultInfo);
-            case "AccessDeniedWebServiceException":
-                throw new AccessDeniedServiceException(msg, faultInfo);
-            case "InternalServerErrorWebServiceException":
-                throw new InternalServiceException(msg, faultInfo);
+        SoapFaultInfo faultInfo = extractFaultInfo(t);
+        switch (faultInfo.getFaultCause()) {
+            case "BadRequest":
+                throw new BadRequestServiceException(faultInfo);
+            case "AccessDenied":
+                throw new AccessDeniedServiceException(faultInfo);
+            case "Protocol":
+                throw new ProtocolServiceException(faultInfo);
+
+            case "InternalServerError":
+                throw new InternalServerErrorServiceException(faultInfo);
+            case "ServiceTemporarilyUnavailable":
+                throw new ServiceTemporarilyUnavailableServiceException(faultInfo);
+            case "BadResponse":
+                throw new BadResponseServiceException(faultInfo);
+
             default:
-                throw new UnsupportedOperationException("Unhandled case, or canTranslate() not called: "+className+"!");
+                throw new UnsupportedOperationException("Unhandled case: "+faultInfo.getFaultCause()+"!");
         }
     }
 
     @NotNull
-    private FaultInfo extractFaultInfo(Throwable t) {
+    private SoapFaultInfo extractFaultInfo(Throwable t) {
         Method getFaultInfoMethod = findGetFaultInfoMethod(t);
         if (getFaultInfoMethod==null) throw new AssertionError("Was canTranslate() called!?!");
         return translateFaultBean(execMethod(t, getFaultInfoMethod));
@@ -63,22 +75,16 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
 
 
     @NotNull
-    private FaultInfo translateFaultBean(Object oFaultBean) {
-        int errorCode = extractErrorCode(oFaultBean);
-        Blame blame           = extractBlame(oFaultBean);
+    private SoapFaultInfo translateFaultBean(Object oFaultBean) {
         String faultCause = extractFaultCause(oFaultBean);
+        Blame blame           = extractBlame(oFaultBean);
         String message = extractMessage(oFaultBean);
-        Retry retrySameServer       = extractRetrySameServer(oFaultBean);
-        Retry retryOtherServers     = extractRetryOtherServers(oFaultBean);
-        boolean problemReported = extractProblemReported(oFaultBean); //TODO decide nullablility
+        String applicationErrorCode = extractApplicationErrorCode(oFaultBean);
+        String incidentId = extractIncidentId(oFaultBean);
+        Retry retrySameLocation       = extractRetrySameLocation(oFaultBean);
+        Retry retryOtherLocations     = extractRetryOtherLocations(oFaultBean);
 
-        return new FaultInfo(errorCode, blame, faultCause, message, retrySameServer, retryOtherServers, problemReported);
-    }
-
-    private int extractErrorCode(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "getErrorCode");
-        Object o = execMethod(oFaultBean, m);
-        return (Integer)o;
+        return new SoapFaultInfo(faultCause, blame, message, applicationErrorCode, incidentId, retrySameLocation, retryOtherLocations);
     }
 
     @NotNull
@@ -88,43 +94,50 @@ public class DefaultClientExceptionTranslator implements ExceptionTranslator {
     }
 
     @NotNull
-    private String extractMessage(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "getMessage");
-        return execMethod(oFaultBean, m).toString();
-    }
-
-    @NotNull
     private Blame extractBlame(Object oFaultBean) {
         Method m = expectMethod(oFaultBean, "getBlame");
         Object oBlame = execMethod(oFaultBean, m);
         return Blame.valueOf(oBlame.toString());
     }
-    @NotNull
-    private Retry extractRetrySameServer(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "getRetrySameServer");
-        return handleRetryExtraction(oFaultBean, m);
-    }
 
     @NotNull
-    private Retry extractRetryOtherServers(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "getRetryOtherServers");
-        return handleRetryExtraction(oFaultBean, m);
+    private String extractMessage(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getMessage");
+        return execMethod(oFaultBean, m).toString();
     }
 
+    @Nullable
+    private String extractApplicationErrorCode(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getApplicationErrorCode");
+        Object value = execMethod(oFaultBean, m);
+        return (String)value;
+    }
+    @Nullable
+    private String extractIncidentId(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getIncidentId");
+        Object value = execMethod(oFaultBean, m);
+        return (String)value;
+    }
+
+    @Nullable
+    private Retry extractRetrySameLocation(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getRetrySameLocation");
+        return handleRetryExtraction(oFaultBean, m);
+    }
+    @Nullable
+    private Retry extractRetryOtherLocations(Object oFaultBean) {
+        Method m = expectMethod(oFaultBean, "getRetryOtherLocations");
+        return handleRetryExtraction(oFaultBean, m);
+    }
     private Retry handleRetryExtraction(Object oFaultBean, Method m) {
         //gives us THE or just A retry object.
         Object oRetry = execMethod(oFaultBean, m);
+        if (oRetry==null) return null;
 
         //we can't be sure which it is, therefore we go on with generics, not type casting.
         Method m1 = expectMethod(oRetry, "getRetryType");
         Method m2 = expectMethod(oRetry, "getRetryInSeconds");
         return new Retry(RetryType.valueOf(execMethod(oRetry, m1).toString()), (Long)execMethod(oRetry, m2));
-    }
-    @Nullable
-    private Boolean extractProblemReported(Object oFaultBean) {
-        Method m = expectMethod(oFaultBean, "isProblemReported");
-        Object problemLogged = execMethod(oFaultBean, m);
-        return (Boolean)problemLogged;
     }
 
 

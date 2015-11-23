@@ -1,11 +1,15 @@
 package com.optimaize.anythingworks.server.soap.exception;
 
-import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
+import com.optimaize.anythingworks.common.fault.exceptions.InternalServerErrorServiceException;
+import com.optimaize.anythingworks.common.fault.exceptions.ServiceException;
+import com.optimaize.anythingworks.common.fault.exceptions.ServiceTemporarilyUnavailableServiceException;
 import com.optimaize.anythingworks.server.commandextensions.ExceptionMessageMaker;
+import com.optimaize.anythingworks.server.common.fault.FaultInfos;
+import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Translates exceptions so that only BaseWebServiceException and subclasses make it to the client.
+ * Translates exceptions so that only {@link SoapWebServiceException} makes it to the client.
  *
  * @author Fabian Kessler
  */
@@ -13,19 +17,15 @@ public class SoapWebServiceExceptionTranslator implements ExceptionTranslator {
 
     @NotNull
     private final ExceptionMessageMaker exceptionMessageMaker;
-    private final boolean problemReported;
 
     /**
-     * Sets the {@code problemReported} in the {@link FaultBean}.
-     * <p>If {@code true} then it expects the user of this translator to log the exceptions.</p>
      */
-    public SoapWebServiceExceptionTranslator(@NotNull ExceptionMessageMaker exceptionMessageMaker, boolean problemReported) {
+    public SoapWebServiceExceptionTranslator(@NotNull ExceptionMessageMaker exceptionMessageMaker) {
         this.exceptionMessageMaker = exceptionMessageMaker;
-        this.problemReported = problemReported;
     }
 
     public boolean canTranslate(@NotNull Throwable t) {
-        if (t instanceof BaseWebServiceException) {
+        if (t instanceof ServiceException) {
             return false; //leave as is
         }
         return true;
@@ -57,35 +57,19 @@ public class SoapWebServiceExceptionTranslator implements ExceptionTranslator {
                 || t instanceof IllegalStateException
                 || t instanceof UnsupportedOperationException
                 || t instanceof AssertionError) {
-            throw new InternalServerErrorWebServiceException(
-                    FaultBeanBuilders.Server.internalServerError()
-                    .errorCode(ErrorCodes.Server.SERVER_ERROR.getCode())
-                    .message(message)
-                    .retrySameServer(Retry.no()) //we assume it's persistent, not temporary.
-                    .retryOtherServers(Retry.no())
-                    .problemReported(problemReported)
+            throw new InternalServerErrorServiceException(
+                    FaultInfos.Server.InternalServerError.internalServerError(message)
             );
 
         } else if (t instanceof OutOfMemoryError) {
-            throw new InternalServerErrorWebServiceException(
-                    FaultBeanBuilders.Server.internalServerError()
-                            .errorCode(ErrorCodes.Server.SERVER_ERROR.getCode())
-                            .message(message)
-                            .retrySameServer(Retry.later(120L)) //give it some time to reboot...
-                            .retryOtherServers(Retry.now()) //hopefully it's not the user input that causes the out of memory, and kills other places too.
-                            .problemReported(problemReported)
+            //disputable whether this should be done. server should be shut down... so that it can restart. the faster the better.
+            throw new ServiceTemporarilyUnavailableServiceException(
+                    FaultInfos.Server.ServiceTemporarilyUnavailable.serviceTemporarilyUnavailable()
             );
-
         } else {//includes RuntimeException, Exception, Error, Throwable:
-            throw new InternalServerErrorWebServiceException(
-                    FaultBeanBuilders.Server.internalServerError()
-                            .errorCode(ErrorCodes.Server.SERVER_ERROR.getCode())
-                            .message(message)
-                            .retrySameServer(Retry.unknown()) //we can't be sure whether it was temporary or persistent.
-                            .retryOtherServers(Retry.unknown())
-                            .problemReported(problemReported)
+            throw new InternalServerErrorServiceException(
+                FaultInfos.Server.InternalServerError.internalServerError(message)
             );
-
         }
     }
 

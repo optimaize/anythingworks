@@ -13,8 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class SoapDefaultServerExceptionTranslator implements ExceptionTranslator {
 
     private static final SoapWebServiceExceptionTranslator wrapped = new SoapWebServiceExceptionTranslator(
-            new FixedStringExceptionMessageMaker("Internal server error!"),
-            true //someone has got to log the exceptions
+            new FixedStringExceptionMessageMaker("Internal server error!")
     );
 
     public boolean canTranslate(@NotNull Throwable t) {

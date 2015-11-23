@@ -6,9 +6,10 @@ package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.devel
 public class ExceptionThrowerParams {
 
     public enum ExceptionType {
-        NotAuthorized,
-        Forbidden,
-        BadRequest,
+        NoSuchAccount,
+
+        InvalidInput,
+
         InternalServerError
     }
 

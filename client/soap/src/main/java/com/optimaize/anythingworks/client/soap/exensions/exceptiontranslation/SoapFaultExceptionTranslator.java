@@ -1,9 +1,11 @@
 package com.optimaize.anythingworks.client.soap.exensions.exceptiontranslation;
 
+import com.optimaize.anythingworks.common.fault.exceptions.ServiceException;
+import com.optimaize.anythingworks.common.fault.faultinfo.Retry;
 import com.optimaize.command4j.ext.extensions.exception.exceptiontranslation.ExceptionTranslator;
 import com.optimaize.anythingworks.client.soap.exception.*;
-import com.optimaize.anythingworks.common.soap.exception.Blame;
-import com.optimaize.anythingworks.common.soap.exception.RetryType;
+import com.optimaize.anythingworks.common.fault.faultinfo.Blame;
+import com.optimaize.anythingworks.common.fault.faultinfo.RetryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -50,8 +52,8 @@ public class SoapFaultExceptionTranslator implements ExceptionTranslator {
             if (fault != null) {
                 Detail detail = fault.getDetail();
                 if (detail != null) {
-                    FaultInfo faultInfo = extractFaultInfo(detail);
-                    exToThrow = converter.makeException(e.getMessage(), faultInfo);
+                    SoapFaultInfo faultInfo = extractFaultInfo(detail);
+                    exToThrow = converter.makeException(faultInfo);
                 }
             }
         } catch (RuntimeException exWhileTryingToMakeEx) {
@@ -125,31 +127,31 @@ public class SoapFaultExceptionTranslator implements ExceptionTranslator {
      *         enum values is returned.
      */
     @NotNull
-    private FaultInfo extractFaultInfo(@NotNull Detail detail) {
+    private SoapFaultInfo extractFaultInfo(@NotNull Detail detail) {
         List<SOAPElement> entries = getFaultInfoElements(detail);
 
-        Blame blame = null;
         String faultCause = null;
-        Retry retrySameServer = null;
-        Retry retryOtherServers = null;
-        Boolean problemReported = null;
-        Integer errorCode = null;
+        Blame blame = null;
         String message = null;
+        String applicationErrorCode = null;
+        String incidentId = null;
+        Retry retrySameLocation = null;
+        Retry retryOtherLocations = null;
 
         for (SOAPElement entry : entries) {
             String tagName = entry.getTagName();
             Node node = entry.getFirstChild();
-            if (tagName.equalsIgnoreCase("blame")) {
-                try {
-                    blame = Blame.valueOf(((Text) node).getWholeText());
-                } catch (IllegalArgumentException e) {
-                    throw new RuntimeException("Unknown Blame value!");
-                }
-            } else if (tagName.equalsIgnoreCase("faultCause")) {
+            if (tagName.equalsIgnoreCase("faultCause")) {
                 try {
                     faultCause = ((Text)node).getWholeText();
                 } catch (IllegalArgumentException e) {
                     throw new RuntimeException("Unknown faultCause value!");
+                }
+            } else if (tagName.equalsIgnoreCase("blame")) {
+                try {
+                    blame = Blame.valueOf(((Text) node).getWholeText());
+                } catch (IllegalArgumentException e) {
+                    throw new RuntimeException("Unknown Blame value!");
                 }
             } else if (tagName.equalsIgnoreCase("message")) {
                 try {
@@ -157,44 +159,41 @@ public class SoapFaultExceptionTranslator implements ExceptionTranslator {
                 } catch (IllegalArgumentException e) {
                     throw new RuntimeException("Unknown message value!");
                 }
-            } else if (tagName.equalsIgnoreCase("errorCode")) {
+            } else if (tagName.equalsIgnoreCase("applicationErrorCode")) {
                 try {
-                    errorCode = Integer.parseInt(((Text) node).getWholeText(), 10);
+                    applicationErrorCode = ((Text) node).getWholeText();
                 } catch (IllegalArgumentException e) {
-                    throw new RuntimeException("Unknown errorCode value!");
+                    throw new RuntimeException("Unknown applicationErrorCode value!");
                 }
-            } else if (tagName.equalsIgnoreCase("retrySameServer")) {
-                retrySameServer = readRetry(entry);
-            } else if (tagName.equalsIgnoreCase("retryOtherServers")) {
-                retryOtherServers = readRetry(entry);
-            } else if (tagName.equals("problemReported")) {
-                String boolText = ((Text)node).getWholeText();
-                //while testing this was "true" or "false". doing defensive translation here, worst case i leave null (unknown).
-                if (boolText.equalsIgnoreCase("true")) {
-                    problemReported = true;
-                } else if (boolText.equalsIgnoreCase("false")) {
-                    problemReported = false;
-                } else {
-                    throw new RuntimeException("Unknown problemReported value: "+boolText);
+            } else if (tagName.equalsIgnoreCase("retrySameLocation")) {
+                retrySameLocation = readRetry(entry);
+            } else if (tagName.equalsIgnoreCase("retryOtherLocations")) {
+                retryOtherLocations = readRetry(entry);
+            } else if (tagName.equals("incidentId")) {
+                try {
+                    incidentId = ((Text) node).getWholeText();
+                } catch (IllegalArgumentException e) {
+                    throw new RuntimeException("Unknown incidentId value!");
                 }
             } else {
                 log.warn("Unknown new field in fault info from server: "+tagName);
             }
         }
 
-        if (errorCode==null) throw new RuntimeException("Missing errorCode");
-        if (blame==null) throw new RuntimeException("Missing blame");
         if (faultCause==null) throw new RuntimeException("Missing faultCause");
+        if (blame==null) throw new RuntimeException("Missing blame");
+        if (applicationErrorCode!=null && applicationErrorCode.isEmpty()) applicationErrorCode = null;
         if (message==null) throw new RuntimeException("Missing message");
-        if (problemReported==null) throw new RuntimeException("Missing problemReported");
+        if (incidentId!=null && incidentId.isEmpty()) incidentId = null;
 
-        return new FaultInfo(errorCode, blame, faultCause, message,
-                retrySameServer, retryOtherServers,
-                problemReported);
+        return new SoapFaultInfo(faultCause, blame, message,
+                applicationErrorCode, incidentId,
+                retrySameLocation, retryOtherLocations
+        );
     }
 
     private Retry readRetry(Node node) {
-        //<retryOtherServers><retryType>NO</retryType></retryOtherServers>
+        //<retryOtherLocations><retryType>NO</retryType></retryOtherLocations>
         RetryType retryType = null;
         Long retryInSeconds = null; //optional
         NodeList childNodes = node.getChildNodes();

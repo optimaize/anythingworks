@@ -2,10 +2,14 @@ package com.optimaize.anythingworks.client.rest.http;
 
 import com.google.common.base.Optional;
 import com.optimaize.anythingworks.client.rest.json.ClientJacksonJsonMarshallerFactory;
-import com.optimaize.anythingworks.common.rest.JsonError;
+import com.optimaize.anythingworks.common.fault.ErrorCodes;
+import com.optimaize.anythingworks.common.fault.exceptions.*;
+import com.optimaize.anythingworks.common.fault.faultinfo.Blame;
+import com.optimaize.anythingworks.common.fault.faultinfo.Retry;
 import com.optimaize.anythingworks.common.rest.JsonMarshaller;
 import com.optimaize.anythingworks.common.rest.JsonMarshallingException;
 import com.optimaize.anythingworks.common.rest.TypeRef;
+import com.optimaize.anythingworks.common.rest.fault.RestFaultInfo;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
@@ -16,7 +20,8 @@ import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.ws.rs.*;
+import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
@@ -63,7 +68,9 @@ public class RestHttpClientImpl implements RestHttpClient {
     private static ConcurrentMap<String, Client> hostMap = new ConcurrentHashMap<>();
 
 
-
+    /**
+     * Builder for creating a {@link RestHttpClientImpl}.
+     */
     public static class Builder {
         private String basePath;
         private HeaderParams defaultHeaders = HeaderParams.create();
@@ -187,92 +194,6 @@ public class RestHttpClientImpl implements RestHttpClient {
         }
     }
 
-    /*
-      Format to {@code Pair} objects.
-    */
-    private List<Pair> parameterToPairs(String collectionFormat, String name, Object value) {
-        List<Pair> params = new ArrayList<>();
-
-        // preconditions
-        if (name == null || name.isEmpty() || value == null) return params;
-
-        Collection valueCollection;
-        if (value instanceof Collection) {
-            valueCollection = (Collection) value;
-        } else {
-            params.add(new Pair(name, parameterToString(value)));
-            return params;
-        }
-
-        if (valueCollection.isEmpty()) {
-            return params;
-        }
-
-        // get the collection format
-        collectionFormat = (collectionFormat == null || collectionFormat.isEmpty() ? "csv" : collectionFormat); // default: csv
-
-        // create the params based on the collection format
-        if (collectionFormat.equals("multi")) {
-            for (Object item : valueCollection) {
-                params.add(new Pair(name, parameterToString(item)));
-            }
-
-            return params;
-        }
-
-        String delimiter = ",";
-
-        if (collectionFormat.equals("csv")) {
-            delimiter = ",";
-        } else if (collectionFormat.equals("ssv")) {
-            delimiter = " ";
-        } else if (collectionFormat.equals("tsv")) {
-            delimiter = "\t";
-        } else if (collectionFormat.equals("pipes")) {
-            delimiter = "|";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (Object item : valueCollection) {
-            sb.append(delimiter);
-            sb.append(parameterToString(item));
-        }
-
-        params.add(new Pair(name, sb.substring(1)));
-
-        return params;
-    }
-
-    /**
-     * Select the Accept header's value from the given accepts array:
-     * if JSON exists in the given array, use it;
-     * otherwise use all of them (joining into a string)
-     *
-     * @param accepts The accepts array to select from
-     * @return The Accept header to use. If the given array is empty,
-     * null will be returned (not to set the Accept header explicitly).
-     */
-    private String selectHeaderAccept(String[] accepts) {
-        if (accepts.length == 0) return null;
-        if (StringUtil.containsIgnoreCase(accepts, "application/json")) return "application/json";
-        return StringUtil.join(accepts, ",");
-    }
-
-    /**
-     * Select the Content-Type header's value from the given array:
-     * if JSON exists in the given array, use it;
-     * otherwise use the first one of the array.
-     *
-     * @param contentTypes The Content-Type array to select from
-     * @return The Content-Type header to use. If the given array is empty,
-     * JSON will be used.
-     */
-    private String selectHeaderContentType(String[] contentTypes) {
-        if (contentTypes.length == 0) return "application/json";
-        if (StringUtil.containsIgnoreCase(contentTypes, "application/json")) return "application/json";
-        return contentTypes[0];
-    }
-
     /**
      * Escape the given string to be used as URL query value.
      */
@@ -287,23 +208,43 @@ public class RestHttpClientImpl implements RestHttpClient {
     /**
      * Serialize the given Java object into string entity according the given
      * Content-Type (only JSON is supported for now).
+     * This data is then sent to the server.
      */
-    private Entity<String> serialize(Object obj, String contentType) throws WebApplicationException {
+    private Entity<String> serialize(Object obj, String contentType) throws ClientErrorException {
         if (contentType.startsWith("application/json")) {
             try {
                 return Entity.json(jsonMarshaller.serialize(obj));
             } catch (JsonMarshallingException e) {
-                throw new ClientErrorException(Response.Status.BAD_REQUEST, e);
+                String msg = "Failed marshalling object to JSON data for sending to server: "+e.getMessage();
+//                throw new ClientErrorException(Response.Status.BAD_REQUEST, e);
+                throw new BadRequestServiceException(
+                        new RestFaultInfo("BadRequest", Blame.CLIENT,
+                                msg, ""+ ErrorCodes.Client.MARSHALLING_FAILED.getCode(),
+                                null,
+                                Retry.no(), Retry.no(),
+                                Response.Status.BAD_REQUEST.getStatusCode(),
+                                Response.Status.BAD_REQUEST.getReasonPhrase()
+                        ), e
+                );
             }
         } else {
-            throw new NotSupportedException(
-                    "Content type \"" + contentType + "\" is not supported."
+            String msg = "Content type \"" + contentType + "\" is not supported.";
+//            throw new NotSupportedException(msg);
+            throw new BadRequestServiceException(
+                    new RestFaultInfo("BadRequest", Blame.CLIENT,
+                            msg, ""+ ErrorCodes.Client.UNSUPPORTED_TECHNOLOGY.getCode(),
+                            null,
+                            Retry.no(), Retry.no(),
+                            Response.Status.BAD_REQUEST.getStatusCode(),
+                            Response.Status.BAD_REQUEST.getReasonPhrase()
+                    )
             );
         }
     }
 
     /**
-     * Deserialize response body to Java object according to the Content-Type.
+     * Deserialize response body as received from the server to Java object according to the Content-Type
+     * (only JSON is supported for now).
      */
     private <T> T deserializeResult(Response response, @Nullable String envelopeFieldName, TypeRef returnType) throws WebApplicationException {
         String contentType = readContentType(response);
@@ -317,15 +258,47 @@ public class RestHttpClientImpl implements RestHttpClient {
                     return jsonMarshaller.deserialize(body, returnType);
                 }
             } catch (JsonMarshallingException e) {
-                throw new ClientErrorException(Response.Status.BAD_REQUEST, e);
+                String msg = "Failed unmarshalling JSON data from server to object: "+e.getMessage();
+//                throw new ClientErrorException(Response.Status.BAD_REQUEST, e);
+
+                Retry retry;
+                if (response.getStatusInfo().getFamily() == Response.Status.Family.SERVER_ERROR) {
+                    //it is likely that the server can handle it next time, and there won't be an error at all.
+                    //then there won't be a problem unmarshalling the error info either.
+                    retry = Retry.now();
+                } else {
+                    //success:      no, because it's unlikely the server sends a different response next time.
+                    //client error: no, because the client's data is wrong anyway, we just can't understand the detail
+                    //              why it's wrong, but it's still wrong next time.
+                    //              this could happen when the client uses an outdated protocol. server rejects it, and
+                    //              the client can't even understand (the detail of) the response.
+                    retry = Retry.no();
+                }
+                throw new ClientServiceException(
+                        new RestFaultInfo(
+                                "Protocol", Blame.CLIENT,
+                                msg, ""+ErrorCodes.Client.UNMARSHALLING_FAILED.getCode(),
+                                null,
+                                retry, retry,
+                                response.getStatusInfo().getStatusCode(),
+                                response.getStatusInfo().getReasonPhrase()
+                        ), e
+                );
             }
         } else if (returnType.getType().equals(String.class)) {
             // Expecting string, return the raw response body.
             return (T) body;
         } else {
-            throw new NotSupportedException(
-                    "Content type \"" + contentType + "\" is not supported for type: "
-                            + returnType.getType()
+            String msg = "Client requested content type >>>"+ACCEPT+"<<< but server sent >>>\"" + contentType + "\">>> and that is not supported for type: " + returnType.getType();
+//            throw new NotSupportedException(msg);
+            throw new BadResponseServiceException(
+                    new RestFaultInfo("BadResponse", Blame.SERVER,
+                            msg, ""+ErrorCodes.Server.BAD_RESPONSE.getCode(),
+                            null,
+                            Retry.no(), Retry.no(),
+                            response.getStatusInfo().getStatusCode(),
+                            response.getStatusInfo().getReasonPhrase()
+                    )
             );
         }
     }
@@ -343,10 +316,22 @@ public class RestHttpClientImpl implements RestHttpClient {
     private String readContentType(Response response) throws WebApplicationException {
         String contentType = null;
         List<Object> contentTypes = response.getHeaders().get("Content-Type");
-        if (contentTypes != null && !contentTypes.isEmpty())
+        if (contentTypes != null && !contentTypes.isEmpty()) {
             contentType = String.valueOf(contentTypes.get(0));
-        if (contentType == null)
-            throw new WebApplicationException("Missing Content-Type in response", 500);
+        }
+        if (contentType == null) {
+            String msg = "Missing Content-Type in response";
+            //throw new WebApplicationException(msg, 500);
+            throw new BadResponseServiceException(
+                    new RestFaultInfo("BadResponse", Blame.SERVER,
+                            msg, ""+ErrorCodes.Server.BAD_RESPONSE.getCode(),
+                            null,
+                            Retry.no(), Retry.no(),
+                            Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),
+                            Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase()
+                    )
+            );
+        }
         return contentType;
     }
 
@@ -376,7 +361,7 @@ public class RestHttpClientImpl implements RestHttpClient {
                                                    QueryParams queryParams,
                                                    HeaderParams headerParams,
                                                    TypeRef returnType
-    ) throws WebApplicationException {
+    ) throws ServiceException {
         return invokeApi(
                 path, "GET",
                 queryParams, headerParams,
@@ -391,7 +376,7 @@ public class RestHttpClientImpl implements RestHttpClient {
                                                     HeaderParams headerParams,
                                                     Object body,
                                                     TypeRef returnType
-    ) throws WebApplicationException {
+    ) throws ServiceException {
         return invokeApi(
                 path, method,
                 queryParams, headerParams,
@@ -406,7 +391,7 @@ public class RestHttpClientImpl implements RestHttpClient {
                                                     HeaderParams headerParams,
                                                     Map<String, Object> formParams,
                                                     TypeRef returnType
-    ) throws WebApplicationException {
+    ) throws ServiceException {
         return invokeApi(
                 path, method,
                 queryParams, headerParams,
@@ -430,75 +415,117 @@ public class RestHttpClientImpl implements RestHttpClient {
                                                    QueryParams queryParams, HeaderParams headerParams,
                                                    Object body, Map<String, Object> formParams,
                                                    TypeRef returnType
-    ) throws WebApplicationException {
-        if (body!=null && formParams!=null) {
-            throw new IllegalArgumentException("Only formParams OR body can be used, not both at once!");
-        }
-        if (method.equals("GET") && (body!=null || formParams!=null)) {
-            throw new IllegalArgumentException("Can't use GET with body nor form!");
-        }
+    ) throws ServiceException {
 
-        Client client = getClient();
-        WebTarget target = client.target(this.basePath).path(path);
-        target = addQueryParams(queryParams, target);
-        Invocation.Builder invocationBuilder = target.request().accept(ACCEPT);
-        invocationBuilder = setHeaders(headerParams, invocationBuilder);
-
+        Invocation.Builder invocationBuilder;
         Entity<?> formEntity = null;
+        Entity<String> bodyEntity = null;
 
-        if (CONTENT_TYPE.startsWith("multipart/form-data")) {
-            MultiPart multipart = new MultiPart();
-            for (Entry<String, Object> param: formParams.entrySet()) {
-                if (param.getValue() instanceof File) {
-                    File file = (File) param.getValue();
 
-                    FormDataMultiPart mp = new FormDataMultiPart();
-                    mp.bodyPart(new FormDataBodyPart(param.getKey(), file.getName()));
-                    multipart.bodyPart(mp, MediaType.MULTIPART_FORM_DATA_TYPE);
+        //STEP 1/3: PREPARE DATA TO SEND
+        try {
+            if (body != null && formParams != null) {
+                throw new IllegalArgumentException("Only formParams OR body can be used, not both at once!");
+            }
+            if (method.equals("GET") && (body != null || formParams != null)) {
+                throw new IllegalArgumentException("Can't use GET with body nor form!");
+            }
+            if (body != null) {
+                bodyEntity = serialize(body, CONTENT_TYPE);
+            }
 
-                    multipart.bodyPart(new FileDataBodyPart(param.getKey(), file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
-                } else {
-                    FormDataMultiPart mp = new FormDataMultiPart();
-                    mp.bodyPart(new FormDataBodyPart(param.getKey(), parameterToString(param.getValue())));
-                    multipart.bodyPart(mp, MediaType.MULTIPART_FORM_DATA_TYPE);
+            Client client = getClient();
+            WebTarget target = client.target(this.basePath).path(path);
+            target = addQueryParams(queryParams, target);
+            invocationBuilder = target.request().accept(ACCEPT);
+            invocationBuilder = setHeaders(headerParams, invocationBuilder);
+
+            if (CONTENT_TYPE.startsWith("multipart/form-data")) {
+                MultiPart multipart = new MultiPart();
+                for (Entry<String, Object> param : formParams.entrySet()) {
+                    if (param.getValue() instanceof File) {
+                        File file = (File) param.getValue();
+
+                        FormDataMultiPart mp = new FormDataMultiPart();
+                        mp.bodyPart(new FormDataBodyPart(param.getKey(), file.getName()));
+                        multipart.bodyPart(mp, MediaType.MULTIPART_FORM_DATA_TYPE);
+
+                        multipart.bodyPart(new FileDataBodyPart(param.getKey(), file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+                    } else {
+                        FormDataMultiPart mp = new FormDataMultiPart();
+                        mp.bodyPart(new FormDataBodyPart(param.getKey(), parameterToString(param.getValue())));
+                        multipart.bodyPart(mp, MediaType.MULTIPART_FORM_DATA_TYPE);
+                    }
                 }
+                formEntity = Entity.entity(multipart, MediaType.MULTIPART_FORM_DATA_TYPE);
+            } else if (CONTENT_TYPE.startsWith("application/x-www-form-urlencoded")) {
+                Form form = new Form();
+                for (Entry<String, Object> param : formParams.entrySet()) {
+                    form.param(param.getKey(), parameterToString(param.getValue()));
+                }
+                formEntity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+            } else if (formParams != null) {
+                throw new IllegalArgumentException("Form params can't be used for this content type!");
             }
-            formEntity = Entity.entity(multipart, MediaType.MULTIPART_FORM_DATA_TYPE);
-        } else if (CONTENT_TYPE.startsWith("application/x-www-form-urlencoded")) {
-            Form form = new Form();
-            for (Entry<String, Object> param: formParams.entrySet()) {
-                form.param(param.getKey(), parameterToString(param.getValue()));
+        } catch (Exception e) {
+            if (e instanceof ServiceException) {
+                throw e;
             }
-            formEntity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
-        } else if (formParams!=null) {
-            throw new IllegalArgumentException("Form params can't be used for this content type!");
+            throw new BadRequestServiceException(
+                    new RestFaultInfo("BadRequest", Blame.CLIENT,
+                            e.getMessage(), ""+ErrorCodes.Client.BAD_REQUEST.getCode(),
+                            null,
+                            Retry.no(), Retry.no(),
+                            Response.Status.BAD_REQUEST.getStatusCode(),
+                            Response.Status.BAD_REQUEST.getReasonPhrase()
+                    ), e
+            );
         }
 
+
+        //STEP 2/3: SEND THE REQUEST
         Response response;
-
-        if ("GET".equals(method)) {
-            response = invocationBuilder.get();
-        } else if ("POST".equals(method)) {
-            if (formEntity != null) {
-                response = invocationBuilder.post(formEntity);
-            } else if (body == null) {
-                response = invocationBuilder.post(null);
-            } else {
-                response = invocationBuilder.post(serialize(body, CONTENT_TYPE));
-            }
-        } else if ("PUT".equals(method)) {
-            if (formEntity != null) {
-                response = invocationBuilder.put(formEntity);
-            } else if (body == null) {
-                response = invocationBuilder.put(null);
-            } else {
-                response = invocationBuilder.put(serialize(body, CONTENT_TYPE));
-            }
-        } else if ("DELETE".equals(method)) {
-            response = invocationBuilder.delete();
-        } else {
-            throw new WebApplicationException("Unknown method type " + method, 500);
+        switch (method) {
+            case "GET":
+                response = invocationBuilder.get();
+                break;
+            case "POST":
+                if (formEntity != null) {
+                    response = invocationBuilder.post(formEntity);
+                } else if (body == null) {
+                    response = invocationBuilder.post(null);
+                } else {
+                    response = invocationBuilder.post(bodyEntity);
+                }
+                break;
+            case "PUT":
+                if (formEntity != null) {
+                    response = invocationBuilder.put(formEntity);
+                } else if (body == null) {
+                    response = invocationBuilder.put(null);
+                } else {
+                    response = invocationBuilder.put(bodyEntity);
+                }
+                break;
+            case "DELETE":
+                response = invocationBuilder.delete();
+                break;
+            default:
+                String msg = "Unknown method type >>>" + method+"<<<!";
+//                throw new WebApplicationException(msg, 500);
+                throw new BadRequestServiceException(
+                        new RestFaultInfo("BadRequest", Blame.CLIENT,
+                                msg, null,
+                                null,
+                                Retry.no(), Retry.no(),
+                                Response.Status.BAD_REQUEST.getStatusCode(),
+                                Response.Status.BAD_REQUEST.getReasonPhrase()
+                        )
+                );
         }
+
+
+        //STEP 3/3: READ/PARSE THE RESPONSE
 
         boolean envelope = false;
 
@@ -513,67 +540,33 @@ public class RestHttpClientImpl implements RestHttpClient {
                 return new RestHttpClientResponse<>(response, Optional.fromNullable(deserialized));
             }
         } else {
-
-            String message = null;
-            try {
-                TypeRef<JsonError> errorTypeRef = new TypeRef<JsonError>(){};
-                JsonError restError = deserializeResult(response, jsonEnvelopeErrorAttributeName, errorTypeRef);
-                if (restError!=null) {
-                    message = restError.getErrorText();
-                }
-            } catch (WebApplicationException e) {
-                //never mind
-            }
-
-            //source, but modified: http://stackoverflow.com/questions/22561527/handling-custom-error-response-in-jax-rs-2-0-client-library
-            Response.Status status = Response.Status.fromStatusCode(response.getStatus());
-            if (message==null) {
-                message = status.getReasonPhrase();
-            }
-            WebApplicationException webAppException;
-            switch (status) {
-
-                case BAD_REQUEST:
-                    webAppException = new BadRequestException(message);
-                    break;
-                case UNAUTHORIZED:
-                    webAppException = new NotAuthorizedException(message);
-                    break;
-                case FORBIDDEN:
-                    webAppException = new ForbiddenException(message);
-                    break;
-                case NOT_FOUND:
-                    webAppException = new NotFoundException(message);
-                    break;
-                case METHOD_NOT_ALLOWED:
-                    webAppException = new NotAllowedException(message);
-                    break;
-                case NOT_ACCEPTABLE:
-                    webAppException = new NotAcceptableException(message);
-                    break;
-                case UNSUPPORTED_MEDIA_TYPE:
-                    webAppException = new NotSupportedException(message);
-                    break;
-
-                case INTERNAL_SERVER_ERROR:
-                    webAppException = new InternalServerErrorException(message);
-                    break;
-                case SERVICE_UNAVAILABLE:
-                    webAppException = new ServiceUnavailableException(message);
-                    break;
-
+            TypeRef<RestFaultInfo> errorTypeRef = new TypeRef<RestFaultInfo>(){};
+            RestFaultInfo faultInfo = deserializeResult(response, jsonEnvelopeErrorAttributeName, errorTypeRef);
+            switch (faultInfo.getFaultCause()) {
+                case "BadRequest":
+                    throw new BadRequestServiceException(faultInfo);
+                case "AccessDenied":
+                    throw new AccessDeniedServiceException(faultInfo);
+                case "InternalServerError":
+                    throw new InternalServerErrorServiceException(faultInfo);
+                case "ServiceTemporarilyUnavailable":
+                    throw new ServiceTemporarilyUnavailableServiceException(faultInfo);
+                case "BadResponse":
+                    throw new BadResponseServiceException(faultInfo);
                 default:
-                    if (status.getFamily() == Response.Status.Family.CLIENT_ERROR) {
-                        webAppException = new ClientErrorException(message, status.getStatusCode());
-                    } else if (status.getFamily() == Response.Status.Family.SERVER_ERROR) {
-                        webAppException = new ServerErrorException(message, status.getStatusCode());
-                    } else {
-                        //3xx codes (dunno what to throw)
-                        webAppException = new WebApplicationException(message);
+                    Blame.assertSize(4);
+                    switch (faultInfo.getBlame()) {
+                        case CLIENT:
+                            throw new ClientServiceException(faultInfo);
+                        case SERVER:
+                            throw new ServerServiceException(faultInfo);
+                        case NETWORK:
+                            throw new NetworkServiceException(faultInfo);
+                        case UNKNOWN:
+                        default:
+                            throw new ServiceException(faultInfo);
                     }
             }
-
-            throw webAppException;
         }
     }
 
