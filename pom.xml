@@ -5,7 +5,7 @@
     <groupId>com.optimaize.anythingworks</groupId>
     <artifactId>anythingworks</artifactId>
     <name>anythingworks</name>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.5</version>
     <packaging>pom</packaging>
 
     <url>https://github.com/optimaize/anythingworks</url>
@@ -94,7 +94,7 @@
         <connection>scm:git:git://github.com/optimaize/anythingworks.git</connection>
         <developerConnection>scm:git:git@github.com:optimaize/anythingworks.git</developerConnection>
         <url>http://github.com/optimaize/anythingworks</url>
-        <tag>HEAD</tag>
+        <tag>anythingworks-0.5</tag>
     </scm>
 
     <build>

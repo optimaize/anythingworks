@@ -4,13 +4,13 @@
     <parent>
         <artifactId>anythingworks-server</artifactId>
         <groupId>com.optimaize.anythingworks.server</groupId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.5</version>
     </parent>
 
     <groupId>com.optimaize.anythingworks.server.impljdk</groupId>
     <artifactId>anythingworks-server-impljdk</artifactId>
     <name>anythingworks-server-impljdk</name>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.5</version>
 
     <properties>
     </properties>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.optimaize.anythingworks.server.implcommon</groupId>
             <artifactId>anythingworks-server-implcommon</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>0.5</version>
         </dependency>
     </dependencies>
 </project>
