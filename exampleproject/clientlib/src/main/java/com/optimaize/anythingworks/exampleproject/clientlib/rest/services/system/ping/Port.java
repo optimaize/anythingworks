@@ -1,32 +1,27 @@
-package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.development.exceptionthrower;
+package com.optimaize.anythingworks.exampleproject.clientlib.rest.services.system.ping;
 
-import com.optimaize.anythingworks.client.rest.http.HeaderParams;
-import com.optimaize.anythingworks.client.rest.http.QueryParams;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClient;
-import com.optimaize.anythingworks.client.rest.http.RestHttpClientResponse;
+import com.optimaize.anythingworks.client.rest.http.*;
 import com.optimaize.anythingworks.common.rest.TypeRef;
 import com.optimaize.anythingworks.exampleproject.clientlib.rest.services.RestServicePort;
 
 /**
  *
  */
-public class RestExceptionThrowerPort extends RestServicePort {
+class Port extends RestServicePort {
 
     private static final TypeRef returnType = new TypeRef<String>() {};
 
     private final RestHttpClient restApiClient;
     private final String servicePath;
 
-    public RestExceptionThrowerPort(RestHttpClient restApiClient, String servicePath) {
+    public Port(RestHttpClient restApiClient, String servicePath) {
         this.restApiClient = restApiClient;
         this.servicePath = servicePath;
     }
 
-    public String call(String apiKey, String exceptionType, int exceptionChance) {
+    public String ping(String apiKey) {
         QueryParams queryParams = QueryParams.create();
         queryParams.add("apiKey", apiKey);
-        queryParams.add("exceptionType", exceptionType);
-        queryParams.add("exceptionChance", ""+exceptionChance);
 
         HeaderParams headerParams = HeaderParams.none();
 

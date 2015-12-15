@@ -12,12 +12,12 @@ import java.util.concurrent.Callable;
  * This command tells the server to throw certain exceptions.
  * It can also be at random, meaning it succeeds sometimes and fails other times.
  */
-public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionThrowerPort, ExceptionThrowerParams, String> {
+public class RestExceptionThrowerCommand extends RestBaseCommand<Port, ExceptionThrowerParams, String> {
 
     private static final String SERVICE_PATH = "/development/exceptionthrower";
 
     public RestExceptionThrowerCommand() {
-        super(RestExceptionThrowerPort.class);
+        super(Port.class);
     }
 
     @Override
@@ -30,11 +30,11 @@ public class RestExceptionThrowerCommand extends RestBaseCommand<RestExceptionTh
     }
 
     @NotNull @Override
-    protected Callable<RestExceptionThrowerPort> createPort(@NotNull final ExecutionContext ec) {
-        return new Callable<RestExceptionThrowerPort>() {
+    protected Callable<Port> createPort(@NotNull final ExecutionContext ec) {
+        return new Callable<Port>() {
             @Override
-            public RestExceptionThrowerPort call() throws Exception {
-                return new RestExceptionThrowerPort(makeClient(ec), SERVICE_PATH);
+            public Port call() throws Exception {
+                return new Port(makeClient(ec), SERVICE_PATH);
             }
         };
     }

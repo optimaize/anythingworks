@@ -7,14 +7,14 @@ import com.optimaize.anythingworks.exampleproject.clientlib.rest.services.RestSe
 /**
  *
  */
-public class RestRequestInfoPort extends RestServicePort {
+class Port extends RestServicePort {
 
     private static final TypeRef returnType = new TypeRef<RequestInfo>() {};
 
     private final RestHttpClient restApiClient;
     private final String servicePath;
 
-    public RestRequestInfoPort(RestHttpClient restApiClient, String servicePath) {
+    public Port(RestHttpClient restApiClient, String servicePath) {
         this.restApiClient = restApiClient;
         this.servicePath = servicePath;
     }

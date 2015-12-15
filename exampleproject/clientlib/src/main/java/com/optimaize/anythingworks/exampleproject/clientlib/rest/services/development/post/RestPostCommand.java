@@ -14,12 +14,12 @@ import java.util.concurrent.Callable;
  *
  * @author Fabian Kessler
  */
-public class RestPostCommand extends RestBaseCommand<RestPostServicePort, ComplexObject, ComplexObject> {
+public class RestPostCommand extends RestBaseCommand<Port, ComplexObject, ComplexObject> {
 
     private static final String SERVICE_PATH = "/development/post";
 
     public RestPostCommand() {
-        super(RestPostServicePort.class);
+        super(Port.class);
     }
 
     @Override
@@ -32,11 +32,11 @@ public class RestPostCommand extends RestBaseCommand<RestPostServicePort, Comple
     }
 
     @NotNull @Override
-    protected Callable<RestPostServicePort> createPort(@NotNull final ExecutionContext ec) {
-        return new Callable<RestPostServicePort>() {
+    protected Callable<Port> createPort(@NotNull final ExecutionContext ec) {
+        return new Callable<Port>() {
             @Override
-            public RestPostServicePort call() throws Exception {
-                return new RestPostServicePort(makeClient(ec), SERVICE_PATH);
+            public Port call() throws Exception {
+                return new Port(makeClient(ec), SERVICE_PATH);
             }
         };
     }

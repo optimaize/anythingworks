@@ -8,14 +8,14 @@ import com.optimaize.anythingworks.exampleproject.ontology.rest.development.post
 /**
  *
  */
-public class RestPostServicePort extends RestServicePort {
+class Port extends RestServicePort {
 
     private static final TypeRef returnType = new TypeRef<ComplexObject>() {};
 
     private final RestHttpClient restApiClient;
     private final String servicePath;
 
-    public RestPostServicePort(RestHttpClient restApiClient, String servicePath) {
+    public Port(RestHttpClient restApiClient, String servicePath) {
         this.restApiClient = restApiClient;
         this.servicePath = servicePath;
     }

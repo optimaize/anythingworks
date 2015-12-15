@@ -15,12 +15,12 @@ import java.util.concurrent.Callable;
  *
  * @author Fabian Kessler
  */
-public class RestPingCommand extends RestBaseCommand<RestPingServicePort, Void, String> {
+public class RestPingCommand extends RestBaseCommand<Port, Void, String> {
 
     private static final String SERVICE_PATH = "/system/ping";
 
     public RestPingCommand() {
-        super(RestPingServicePort.class);
+        super(Port.class);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class RestPingCommand extends RestBaseCommand<RestPingServicePort, Void, 
     }
 
     @NotNull @Override
-    protected Callable<RestPingServicePort> createPort(@NotNull final ExecutionContext ec) {
-        return new Callable<RestPingServicePort>() {
+    protected Callable<Port> createPort(@NotNull final ExecutionContext ec) {
+        return new Callable<Port>() {
             @Override
-            public RestPingServicePort call() throws Exception {
-                return new RestPingServicePort(makeClient(ec), SERVICE_PATH);
+            public Port call() throws Exception {
+                return new Port(makeClient(ec), SERVICE_PATH);
             }
         };
     }

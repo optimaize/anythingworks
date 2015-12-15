@@ -11,12 +11,12 @@ import java.util.concurrent.Callable;
 /**
  * The requestinfo command retrieves information from the server about the request.
  */
-public class RestRequestInfoCommand extends RestBaseCommand<RestRequestInfoPort, Void, RequestInfo> {
+public class RestRequestInfoCommand extends RestBaseCommand<Port, Void, RequestInfo> {
 
     private static final String SERVICE_PATH = "/development/requestinfo";
 
     public RestRequestInfoCommand() {
-        super(RestRequestInfoPort.class);
+        super(Port.class);
     }
 
     @Override
@@ -29,11 +29,11 @@ public class RestRequestInfoCommand extends RestBaseCommand<RestRequestInfoPort,
     }
 
     @NotNull @Override
-    protected Callable<RestRequestInfoPort> createPort(@NotNull final ExecutionContext ec) {
-        return new Callable<RestRequestInfoPort>() {
+    protected Callable<Port> createPort(@NotNull final ExecutionContext ec) {
+        return new Callable<Port>() {
             @Override
-            public RestRequestInfoPort call() throws Exception {
-                return new RestRequestInfoPort(makeClient(ec), SERVICE_PATH);
+            public Port call() throws Exception {
+                return new Port(makeClient(ec), SERVICE_PATH);
             }
         };
     }
