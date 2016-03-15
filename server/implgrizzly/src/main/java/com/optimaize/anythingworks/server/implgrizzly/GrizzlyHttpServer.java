@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -79,7 +80,7 @@ public class GrizzlyHttpServer {
             public void run() {
                 if (httpServer.isStarted()) {
                     try {
-                        httpServer.stop();
+                        httpServer.shutdown(2, TimeUnit.SECONDS);
                     } catch (Throwable e) {
                         //never mind.
                         log.warn("Failed stopping http server.", e);
