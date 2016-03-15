@@ -20,6 +20,13 @@ public class GrizzlyHttpServer {
 
     private static final Logger log = LoggerFactory.getLogger(GrizzlyHttpServer.class);
 
+    /**
+     * How much time to give Grizzly to finish serving pending requests before terminating on
+     * program shutdown. Hardcoded for now.
+     */
+    private static final int GRIZZLY_SHUTDOWN_GRACE_PERIOD_MS = 2000;
+
+
     @NotNull
     public final HttpServer httpServer;
 
@@ -80,7 +87,7 @@ public class GrizzlyHttpServer {
             public void run() {
                 if (httpServer.isStarted()) {
                     try {
-                        httpServer.shutdown(2, TimeUnit.SECONDS);
+                        httpServer.shutdown(GRIZZLY_SHUTDOWN_GRACE_PERIOD_MS, TimeUnit.MILLISECONDS);
                     } catch (Throwable e) {
                         //never mind.
                         log.warn("Failed stopping http server.", e);
