@@ -5,10 +5,10 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Adds the path, that's all for now.
  */
-public interface SoapConfiguredServicesProvider extends SoapServicesProvider {
+public interface SoapConfiguredWebServiceProvider extends SoapWebServiceProvider {
 
     /**
-     * The serives will be published under this absolute base path (starting with a slash)
+     * The services will be published under this absolute base path (starting with a slash, ending in a slash)
      * plus {@link SoapWebService#getServicePath()} appended.
      */
     @NotNull
