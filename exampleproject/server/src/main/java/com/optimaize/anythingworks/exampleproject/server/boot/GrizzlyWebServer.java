@@ -8,7 +8,6 @@ import com.optimaize.anythingworks.server.implgrizzly.GrizzlyHttpServer;
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlySoapWebServicePublisher;
 import com.optimaize.anythingworks.server.implgrizzly.rest.CharsetResponseFilter;
 import com.optimaize.anythingworks.server.implgrizzly.rest.FaultInfoRestExceptionMapper;
-import com.optimaize.anythingworks.server.implgrizzly.rest.JsonErrorRestExceptionMapper;
 import com.optimaize.anythingworks.server.rest.RestWebService;
 import com.optimaize.anythingworks.server.rest.RestWebServiceProvider;
 import com.optimaize.anythingworks.server.soap.SoapWebServiceProvider;
@@ -36,49 +35,35 @@ public class GrizzlyWebServer implements WebServer {
 
     private static final Logger log = LoggerFactory.getLogger(GrizzlyWebServer.class);
 
+    private static final Host HOST = new Host("localhost", 80);
+
+
     @Inject
     private List<SoapWebServiceProvider> soapWebServiceProviders;
     @Inject
     private List<RestWebServiceProvider> restWebServiceProviders;
 
+
     @Override
     public void start() throws IOException {
-
         //this setup code for Grizzly with optional REST is ugly.
         //see http://stackoverflow.com/questions/33320872/how-do-i-register-jax-rs-into-an-existing-grizzly-httpserver
         //i'm hoping to get an answer about how to do it nicer.
+        //also, this code does not support listening on different paths for rest, or different hosts, for example
+        //to have services on v1 and v2, or to have services on different ports.
         GrizzlyHttpServer grizzlyHttpServer;
 
         if (!restWebServiceProviders.isEmpty()) {
-            ResourceConfig resourceConfig = new ResourceConfig();
-
-            //for data binding:
-            //we customize it a bit with our own preferences.
-            JacksonJaxbJsonProvider jacksonProvider = new JacksonJaxbJsonProvider();
-            ObjectMapper objectMapper = ServerJacksonJsonMarshallerFactory.create().getJackson();
-            jacksonProvider.setMapper(objectMapper);
-            resourceConfig.register(jacksonProvider);
-            resourceConfig.register(JacksonFeature.class);
-//            resourceConfig.register(JsonErrorRestExceptionMapper.class);
-            resourceConfig.register(FaultInfoRestExceptionMapper.class);
-            resourceConfig.register(CharsetResponseFilter.class);
-
-            //register rest services
-            for (RestWebServiceProvider restWebServiceProvider : restWebServiceProviders) {
-                for (RestWebService restWebService : restWebServiceProvider.getAll()) {
-                    log.info("Publishing rest web services for class: "+restWebService.getClass().getSimpleName());
-                    resourceConfig.register(restWebService);
-                }
-            }
+            ResourceConfig resourceConfig = makeRestResourceConfig();
             HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(
-                    URI.create("http://localhost:80/rest/v1"),
+                    URI.create(HOST.toUriString() + "/rest/v1"),
                     resourceConfig,
                     false
             );
-            grizzlyHttpServer = new GrizzlyHttpServer(httpServer, new Host("localhost", 80));
+            grizzlyHttpServer = new GrizzlyHttpServer(httpServer, HOST);
 
         } else {
-            grizzlyHttpServer = new GrizzlyHttpServer(new Host("localhost", 80));
+            grizzlyHttpServer = new GrizzlyHttpServer(HOST);
         }
 
         //register soap services
@@ -87,6 +72,31 @@ public class GrizzlyWebServer implements WebServer {
         soapPublisher.publishServicesByProviders(soapWebServiceProviders);
 
         grizzlyHttpServer.start();
+    }
+
+    @NotNull
+    private ResourceConfig makeRestResourceConfig() {
+        ResourceConfig resourceConfig = new ResourceConfig();
+
+        //for data binding:
+        //we customize it a bit with our own preferences.
+        JacksonJaxbJsonProvider jacksonProvider = new JacksonJaxbJsonProvider();
+        ObjectMapper objectMapper = ServerJacksonJsonMarshallerFactory.create().getJackson();
+        jacksonProvider.setMapper(objectMapper);
+        resourceConfig.register(jacksonProvider);
+        resourceConfig.register(JacksonFeature.class);
+//            resourceConfig.register(JsonErrorRestExceptionMapper.class);
+        resourceConfig.register(FaultInfoRestExceptionMapper.class);
+        resourceConfig.register(CharsetResponseFilter.class);
+
+        //register rest services
+        for (RestWebServiceProvider restWebServiceProvider : restWebServiceProviders) {
+            for (RestWebService restWebService : restWebServiceProvider.getAll()) {
+                log.info("Publishing rest web services for class: "+restWebService.getClass().getSimpleName());
+                resourceConfig.register(restWebService);
+            }
+        }
+        return resourceConfig;
     }
 
     private void configureGrizzly(@NotNull NetworkListener networkListener) {
