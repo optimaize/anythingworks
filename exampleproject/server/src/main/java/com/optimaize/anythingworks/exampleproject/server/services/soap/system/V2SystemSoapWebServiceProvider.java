@@ -1,7 +1,8 @@
 package com.optimaize.anythingworks.exampleproject.server.services.soap.system;
 
 import com.google.common.collect.ImmutableList;
-import com.optimaize.anythingworks.exampleproject.server.services.soap.system.ping.SoapPingService;
+import com.optimaize.anythingworks.exampleproject.server.services.soap.V2SoapServiceProvider;
+import com.optimaize.anythingworks.exampleproject.server.services.soap.system.ping.V2SoapPingService;
 import com.optimaize.anythingworks.server.soap.SoapWebService;
 import com.optimaize.anythingworks.server.soap.SoapWebServiceProvider;
 import org.jetbrains.annotations.NotNull;
@@ -13,10 +14,10 @@ import java.util.List;
 /**
  */
 @Service
-public class SystemSoapWebServiceProvider implements SoapWebServiceProvider {
+public class V2SystemSoapWebServiceProvider implements SoapWebServiceProvider, V2SoapServiceProvider {
 
     @Inject
-    private SoapPingService ping;
+    private V2SoapPingService ping;
 
     @NotNull
     public List<SoapWebService> getAll() {

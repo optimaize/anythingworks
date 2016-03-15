@@ -21,7 +21,7 @@ public interface SoapWebServicePublisher {
 
     void publishServices(Collection<SoapWebService> soapWebService);
 
-    void publishServicesByProviders(Collection<SoapWebServiceProvider> soapWebServiceProviders);
+    void publishServicesByProviders(Collection<? extends SoapWebServiceProvider> soapWebServiceProviders);
 
     void publishService(SoapWebService soapWebService);
 

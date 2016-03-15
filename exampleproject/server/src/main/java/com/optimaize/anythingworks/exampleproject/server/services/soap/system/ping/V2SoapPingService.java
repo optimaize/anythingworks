@@ -16,10 +16,10 @@ import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Version 1 of the ping service.
+ * Version 2 of the ping service. The response is slightly different.
  */
 @WebService @Service
-public class SoapPingService extends BaseWebService implements SoapWebService {
+public class V2SoapPingService extends BaseWebService implements SoapWebService {
 
     @WebMethod(exclude=true) @NotNull
     public String getServicePath() {
@@ -33,7 +33,7 @@ public class SoapPingService extends BaseWebService implements SoapWebService {
         return execute(new BaseCommand<Object, String>() {
                 @Override
                 public String call(@NotNull Optional<Object> arg, @NotNull ExecutionContext ec) throws Exception {
-                    return "pong";
+                    return "pong-v2";
                 }
         }).orNull();
     }

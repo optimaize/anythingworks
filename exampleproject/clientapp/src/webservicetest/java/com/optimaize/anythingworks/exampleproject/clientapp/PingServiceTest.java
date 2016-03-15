@@ -1,6 +1,7 @@
 package com.optimaize.anythingworks.exampleproject.clientapp;
 
 import com.google.common.base.Stopwatch;
+import com.optimaize.anythingworks.exampleproject.clientlib.soap.services.system.pingv2.PingV2Command;
 import com.optimaize.command4j.Command;
 import com.optimaize.command4j.CommandExecutor;
 import com.optimaize.command4j.Mode;
@@ -32,6 +33,19 @@ public class PingServiceTest {
         assertEquals(result, "pong");
 
 //        stressTest(ping);
+    }
+
+    /**
+     * To run this test change the v1 to v2 in DemoappSoapPortUrlFactory.
+     * Then the soap_Ping() test will fail.
+     */
+    //@Test
+    public void soap_v2_Ping() throws Exception {
+        PingV2Command ping = new PingV2Command();
+        Mode mode = MyModeFactory.debug();
+        executor.service().submitAndWait(ping, mode, null, Duration.millis(1000)).get();
+        String result = executor.execute(ping, mode, null).get();
+        assertEquals(result, "pong-v2");
     }
 
     @Test

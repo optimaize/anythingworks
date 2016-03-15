@@ -3,6 +3,8 @@ package com.optimaize.anythingworks.exampleproject.server.boot;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.optimaize.anythingworks.common.host.Host;
+import com.optimaize.anythingworks.exampleproject.server.services.soap.V1SoapServiceProvider;
+import com.optimaize.anythingworks.exampleproject.server.services.soap.V2SoapServiceProvider;
 import com.optimaize.anythingworks.server.implcommon.rest.ServerJacksonJsonMarshallerFactory;
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlyHttpServer;
 import com.optimaize.anythingworks.server.implgrizzly.GrizzlySoapWebServicePublisher;
@@ -10,7 +12,6 @@ import com.optimaize.anythingworks.server.implgrizzly.rest.CharsetResponseFilter
 import com.optimaize.anythingworks.server.implgrizzly.rest.FaultInfoRestExceptionMapper;
 import com.optimaize.anythingworks.server.rest.RestWebService;
 import com.optimaize.anythingworks.server.rest.RestWebServiceProvider;
-import com.optimaize.anythingworks.server.soap.SoapWebServiceProvider;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.threadpool.ThreadPoolConfig;
@@ -39,7 +40,9 @@ public class GrizzlyWebServer implements WebServer {
 
 
     @Inject
-    private List<SoapWebServiceProvider> soapWebServiceProviders;
+    private List<V1SoapServiceProvider> soapV1WebServiceProviders;
+    @Inject
+    private List<V2SoapServiceProvider> soapV2WebServiceProviders;
     @Inject
     private List<RestWebServiceProvider> restWebServiceProviders;
 
@@ -64,12 +67,16 @@ public class GrizzlyWebServer implements WebServer {
 
         } else {
             grizzlyHttpServer = new GrizzlyHttpServer(HOST);
+            grizzlyHttpServer.httpServer.addListener(new NetworkListener("my-listener", HOST.getHostName(), HOST.getPortNumber()));
         }
 
         //register soap services
-        GrizzlySoapWebServicePublisher soapPublisher = grizzlyHttpServer.getSoapWebServicePublisher("/soap/v1/");
-        configureGrizzly(soapPublisher.getNetworkListener()); //TODO this is ugly, should be for all, not in soap area.
-        soapPublisher.publishServicesByProviders(soapWebServiceProviders);
+        grizzlyHttpServer.getSoapWebServicePublisher("/soap/v1/").publishServicesByProviders(soapV1WebServiceProviders);
+        grizzlyHttpServer.getSoapWebServicePublisher("/soap/v2/").publishServicesByProviders(soapV2WebServiceProviders);
+
+        for (NetworkListener networkListener : grizzlyHttpServer.httpServer.getListeners()) {
+            configureGrizzly(networkListener);
+        }
 
         grizzlyHttpServer.start();
     }
@@ -92,7 +99,7 @@ public class GrizzlyWebServer implements WebServer {
         //register rest services
         for (RestWebServiceProvider restWebServiceProvider : restWebServiceProviders) {
             for (RestWebService restWebService : restWebServiceProvider.getAll()) {
-                log.info("Publishing rest web services for class: "+restWebService.getClass().getSimpleName());
+                log.info("Publishing rest web services for class: "+restWebService.getClass().getName());
                 resourceConfig.register(restWebService);
             }
         }

@@ -24,7 +24,7 @@ public abstract class BaseSoapWebServicePublisher implements SoapWebServicePubli
     }
 
     @Override
-    public void publishServicesByProviders(Collection<SoapWebServiceProvider> soapWebServiceProviders) {
+    public void publishServicesByProviders(Collection<? extends SoapWebServiceProvider> soapWebServiceProviders) {
         for (SoapWebServiceProvider soapWebServiceProvider : soapWebServiceProviders) {
             publishServices(soapWebServiceProvider);
         }
