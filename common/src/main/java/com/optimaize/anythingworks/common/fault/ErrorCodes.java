@@ -45,6 +45,9 @@ public class ErrorCodes {
         HOST(1230),
         HOST_BLOCKED(1231),
 
+        SERVICE(1240),
+        SERVICE_NOT_ALLOWED(1241),
+
 
         //RESPONSE: 1300-1399
         FAILED_HANDLING_RESPONSE(1300),

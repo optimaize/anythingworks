@@ -14,6 +14,18 @@ public class FaultInfos {
 
         public static class AccessDenied {
 
+            /**
+             * A general forbidden error, be sure to include a meaningful text message because the code won't say the exact cause.
+             */
+            public static FaultInfo permissionDenied(@NotNull String msg, Retry retrySameLocation, Retry retryOtherLocations) {
+                return FaultInfoBuilders.Client.accessDenied()
+                        .applicationErrorCode(""+ ErrorCodes.Client.PERMISSION_DENIED.getCode())
+                        .message(msg)
+                        .retrySameLocation(retrySameLocation)
+                        .retryOtherLocations(retryOtherLocations)
+                        .incidentId(null);
+            }
+
             public static FaultInfo accountUnknown(@NotNull String userId) {
                 return FaultInfoBuilders.Client.accessDenied()
                         .applicationErrorCode(""+ ErrorCodes.Client.ACCOUNT_UNKNOWN.getCode())
@@ -73,6 +85,15 @@ public class FaultInfos {
                         .message("Host blocked: "+host)
                         .retrySameLocation(Retry.later(null))
                         .retryOtherLocations(Retry.later(null))
+                        .incidentId(null);
+            }
+
+            public static FaultInfo serviceNotAllowed(@NotNull String userId, @NotNull String service) {
+                return FaultInfoBuilders.Client.accessDenied()
+                        .applicationErrorCode(""+ErrorCodes.Client.SERVICE_NOT_ALLOWED.getCode())
+                        .message("User "+userId + " has no permission to service: "+service)
+                        .retrySameLocation(Retry.no())
+                        .retryOtherLocations(Retry.no())
                         .incidentId(null);
             }
 
