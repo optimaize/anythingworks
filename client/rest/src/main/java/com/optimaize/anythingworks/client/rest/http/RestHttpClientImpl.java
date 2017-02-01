@@ -289,7 +289,7 @@ public class RestHttpClientImpl implements RestHttpClient {
             // Expecting string, return the raw response body.
             return (T) body;
         } else {
-            String msg = "Client requested content type >>>"+ACCEPT+"<<< but server sent >>>\"" + contentType + "\">>> and that is not supported for type: " + returnType.getType();
+            String msg = "Client requested content type >>>"+ACCEPT+"<<< but server sent >>>\"" + contentType + "\"<<< and that is not supported for type: " + returnType.getType();
 //            throw new NotSupportedException(msg);
             throw new BadResponseServiceException(
                     new RestFaultInfo("BadResponse", Blame.SERVER,
