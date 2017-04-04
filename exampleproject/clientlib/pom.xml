@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.optimaize.anythingworks.client.soap</groupId>
             <artifactId>anythingworks-client-soap</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -17,7 +17,6 @@
     </description>
 
     <properties>
-        <org.springframework.version>4.2.2.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>
@@ -44,7 +43,7 @@
         <dependency><!-- for the @Inject annotation -->
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>${javax.inject.version}</version>
         </dependency>
 
         <!--
@@ -102,7 +101,7 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-core</artifactId>
             <scope>compile</scope><!-- see, only for build time. -->
-            <version>1.5.4</version>
+            <version>${swagger.version}</version>
             <exclusions>
                 <exclusion>
                     <!-- don't know why the exclusion, that's how the example does it at
@@ -123,7 +122,7 @@
                 <!-- for swagger artifacts generation at build time -->
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${swagger-maven-plugin.version}</version>
                 <configuration>
                     <apiSources>
                         <apiSource>
