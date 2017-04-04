@@ -66,6 +66,14 @@ public class SoapWebServiceExceptionTranslator implements ExceptionTranslator {
             throw new ServiceTemporarilyUnavailableServiceException(
                     FaultInfos.Server.ServiceTemporarilyUnavailable.serviceTemporarilyUnavailable()
             );
+        } else if (t instanceof NoClassDefFoundError) {
+            throw new InternalServerErrorServiceException(
+                    FaultInfos.Server.InternalServerError.internalServerError("NoClassDefFoundError: "+message)
+            );
+        } else if (t instanceof NoSuchMethodError) {
+            throw new InternalServerErrorServiceException(
+                    FaultInfos.Server.InternalServerError.internalServerError("NoSuchMethodError: "+message)
+            );
         } else {//includes RuntimeException, Exception, Error, Throwable:
             throw new InternalServerErrorServiceException(
                 FaultInfos.Server.InternalServerError.internalServerError(message)

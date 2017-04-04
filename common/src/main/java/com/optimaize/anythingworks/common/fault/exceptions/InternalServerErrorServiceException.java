@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
  *   <li>UnsupportedOperationException when a functionality has not been implemented yet but should have been</li>
  *   <li>AssertionError an unexpected situation</li>
  *   <li>A data access or IO exception on the server</li>
+ *   <li>NoClassDefFoundError and NoSuchMethodError (a broken software build, usually outdated dependency)</li>
  * </ul></p>
  *
  * @author fab
