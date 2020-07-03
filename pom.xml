@@ -79,8 +79,8 @@
 <!--        <org.springframework.version>5.1.9.RELEASE</org.springframework.version>-->
         <javax.inject.version>1</javax.inject.version>
 
-<!--        <swagger.version>1.5.4</swagger.version>-->
-        <swagger.version>1.5.23</swagger.version>
+        <swagger.version>1.5.4</swagger.version>
+<!--        <swagger.version>1.5.23</swagger.version>-->
         <swagger-maven-plugin.version>3.1.0</swagger-maven-plugin.version>
 <!--        <swagger-maven-plugin.version>3.1.8</swagger-maven-plugin.version>-->
 
