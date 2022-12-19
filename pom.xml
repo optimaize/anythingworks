@@ -75,7 +75,7 @@
         <jul-to-slf4j.version>1.7.22</jul-to-slf4j.version>
         <logback-classic.version>1.1.3</logback-classic.version>
         
-        <repo-base-url>https://artifactory.optimaize.com</repo-base-url>
+        <repo-base-url>https://repo1.maven.org</repo-base-url>
 
         <org.springframework.version>4.3.6.RELEASE</org.springframework.version>
         <!--        <org.springframework.version>4.3.25.RELEASE</org.springframework.version>-->
@@ -289,14 +289,14 @@
     <repositories>
         <repository>
             <id>optimaize-release</id>
-            <url>${repo-base-url}/artifactory/libs-release-local</url>
+            <url>${repo-base-url}/maven2</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
         </repository>
         <repository>
             <id>optimaize-snapshot</id>
-            <url>${repo-base-url}/artifactory/libs-snapshot-local</url>
+            <url>${repo-base-url}/maven2</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -307,12 +307,12 @@
         <repository>
             <id>optimaize-release</id>
             <name>maven.nameprofiler.com-releases</name>
-            <url>${repo-base-url}/artifactory/libs-release-local</url>
+            <url>${repo-base-url}/maven2</url>
         </repository>
         <snapshotRepository>
             <id>optimaize-snapshot</id>
             <name>maven.nameprofiler.com-snapshots</name>
-            <url>${repo-base-url}/artifactory/libs-snapshot-local</url>
+            <url>${repo-base-url}/maven2</url>
         </snapshotRepository>
     </distributionManagement>
 
