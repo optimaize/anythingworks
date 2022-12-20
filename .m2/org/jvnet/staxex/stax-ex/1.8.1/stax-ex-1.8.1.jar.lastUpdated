@@ -1,7 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Dec 20 12:02:37 UTC 2022
-6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537757452
-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact org.jvnet.staxex\:stax-ex\:jar\:1.8.1 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/org/jvnet/staxex/stax-ex/1.8.1/stax-ex-1.8.1.jar, status\: 409 Conflict
-https\://repo.maven.apache.org/maven2/.lastUpdated=1671537757580
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537757435
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

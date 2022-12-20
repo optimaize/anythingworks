@@ -1,7 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Dec 20 12:02:47 UTC 2022
-6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537767616
-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact com.fasterxml.jackson.dataformat\:jackson-dataformat-yaml\:pom\:2.4.5 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.4.5/jackson-dataformat-yaml-2.4.5.pom, status\: 409 Conflict
-https\://repo.maven.apache.org/maven2/.lastUpdated=1671537767630
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537767612
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

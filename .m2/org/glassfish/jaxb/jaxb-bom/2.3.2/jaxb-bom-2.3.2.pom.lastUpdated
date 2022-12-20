@@ -1,7 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Dec 20 12:02:36 UTC 2022
-6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537756359
-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact org.glassfish.jaxb\:jaxb-bom\:pom\:2.3.2 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/org/glassfish/jaxb/jaxb-bom/2.3.2/jaxb-bom-2.3.2.pom, status\: 409 Conflict
-https\://repo.maven.apache.org/maven2/.lastUpdated=1671537756371
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537756353
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

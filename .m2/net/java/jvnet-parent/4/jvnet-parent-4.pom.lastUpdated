@@ -1,7 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Dec 20 12:02:16 UTC 2022
-6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537736336
-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact net.java\:jvnet-parent\:pom\:4 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/net/java/jvnet-parent/4/jvnet-parent-4.pom, status\: 409 Conflict
-https\://repo.maven.apache.org/maven2/.lastUpdated=1671537736349
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537736331
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

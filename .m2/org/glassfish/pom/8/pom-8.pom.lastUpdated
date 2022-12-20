@@ -1,7 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Dec 20 12:02:29 UTC 2022
-6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537749402
-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact org.glassfish\:pom\:pom\:8 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/org/glassfish/pom/8/pom-8.pom, status\: 409 Conflict
-https\://repo.maven.apache.org/maven2/.lastUpdated=1671537749417
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537749396
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

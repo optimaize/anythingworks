@@ -1,7 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Dec 20 12:02:36 UTC 2022
-6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537756927
-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact com.sun.xml.fastinfoset\:FastInfoset\:pom\:1.2.16 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/com/sun/xml/fastinfoset/FastInfoset/1.2.16/FastInfoset-1.2.16.pom, status\: 409 Conflict
-https\://repo.maven.apache.org/maven2/.lastUpdated=1671537756939
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537756924
-https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=
