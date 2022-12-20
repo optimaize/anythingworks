@@ -17,7 +17,7 @@
         SOAP / WSDL web services (JAX-WS).
 
         Within this project classes specific for one technology are prefixed
-        with either "Rest" or "Soap" .
+        with either "Rest" or "Soap".
 
         Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
     </description>
@@ -43,16 +43,13 @@
 
         <guava.version>21.0</guava.version>
         <intellijannotations.version>12.0</intellijannotations.version>
-        <command4j.version>0.5</command4j.version>
+        <command4j.version>0.6</command4j.version>
 
-        <!--&lt;!&ndash; We use the latest jersey from glassfish which is 2.22.1 and it uses jackson 2.5.4, which-->
-        <!--is not the newest. It is incompatible with the latest 2.6.3. I run into a nasty runtime exception-->
-        <!--because an empty constructor is not empty anymore, init fails.-->
-        <!--Explicitly changing the Jackson version to the earlier one solves the issue. &ndash;&gt;-->
-        <!--&lt;!&ndash;<jackson.version>2.6.3</jackson.version>&ndash;&gt;-->
-        <!--<jackson.version>2.8.6</jackson.version>-->
+        <!-- We use the latest jersey from glassfish which is 2.22.1, and it uses jackson 2.5.4, which -->
+        <!-- is not the newest. It is incompatible with the latest 2.6.3. I run into a nasty runtime exception -->
+        <!-- because an empty constructor is not empty anymore, init fails. -->
+        <!-- Explicitly changing the Jackson version to the earlier one solves the issue. -->
         <jackson.version>2.5.4</jackson.version>
-        <!--        <jackson.version>2.9.9</jackson.version>-->
 
         <!--<glassfish-jersey.version>2.25.1</glassfish-jersey.version>-->
         <glassfish-jersey.version>2.22.1</glassfish-jersey.version>
@@ -75,7 +72,7 @@
         <jul-to-slf4j.version>1.7.22</jul-to-slf4j.version>
         <logback-classic.version>1.1.3</logback-classic.version>
         
-        <repo-base-url>https://artifactory.optimaize.com</repo-base-url>
+        <repo-base-url>https://repo1.maven.org</repo-base-url>
 
         <org.springframework.version>4.3.6.RELEASE</org.springframework.version>
         <!--        <org.springframework.version>4.3.25.RELEASE</org.springframework.version>-->
@@ -87,11 +84,11 @@
         <swagger-maven-plugin.version>3.1.0</swagger-maven-plugin.version>
         <!--        <swagger-maven-plugin.version>3.1.8</swagger-maven-plugin.version>-->
 
-        <testng.version>6.10</testng.version>
+        <testng.version>7.4.0</testng.version>
 
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     </properties>
@@ -148,36 +145,6 @@
         </resources>
 
         <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <!--
-                            see https://stackoverflow.com/questions/29807418/refactoring-import-statements-using-shade-relocations-in-maven
-                            -->
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <useBaseVersion>true</useBaseVersion>
-                            <relocations>
-                                <relocation>
-                                    <!-- we need to relocate jackson to be able to keep the outdated version here,
-                                         but software that uses anythingworks does not want this old jackson (under the main class path). -->
-                                    <pattern>com.fasterxml.jackson</pattern>
-                                    <shadedPattern>com.optimaize.anythingworks.shaded.jackson</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -187,35 +154,6 @@
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <!--
-                            see https://stackoverflow.com/questions/29807418/refactoring-import-statements-using-shade-relocations-in-maven
-                            -->
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <useBaseVersion>true</useBaseVersion>
-                            <createDependencyReducedPom>true</createDependencyReducedPom>
-                            <relocations>
-                                <relocation>
-                                    <!-- we need to relocate jackson to be able to keep the outdated version here,
-                                         but software that uses anythingworks does not want this old jackson (under the main class path). -->
-                                    <pattern>com.fasterxml.jackson</pattern>
-                                    <shadedPattern>com.optimaize.anythingworks.shaded.jackson</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -289,34 +227,60 @@
     <repositories>
         <repository>
             <id>optimaize-release</id>
-            <url>${repo-base-url}/artifactory/libs-release-local</url>
+            <url>${repo-base-url}/maven2</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
         </repository>
         <repository>
             <id>optimaize-snapshot</id>
-            <url>${repo-base-url}/artifactory/libs-snapshot-local</url>
+            <url>${repo-base-url}/maven2</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
 
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus release repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+<!--
     <distributionManagement>
         <repository>
             <id>optimaize-release</id>
             <name>maven.nameprofiler.com-releases</name>
-            <url>${repo-base-url}/artifactory/libs-release-local</url>
+            <url>${repo-base-url}/maven2</url>
         </repository>
         <snapshotRepository>
             <id>optimaize-snapshot</id>
             <name>maven.nameprofiler.com-snapshots</name>
-            <url>${repo-base-url}/artifactory/libs-snapshot-local</url>
+            <url>${repo-base-url}/maven2</url>
         </snapshotRepository>
     </distributionManagement>
+-->
 
     <profiles>
+
+        <profile>
+            <id>do-not-release-sign-artifacts</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+            </build>
+        </profile>
+
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
@@ -324,9 +288,22 @@
                     <name>performRelease</name>
                     <value>true</value>
                 </property>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -341,6 +318,11 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+	                 <configuration>
+	                <gpgArguments>
+    		      <arg>--batch</arg>
+	                </gpgArguments>
+        		 </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -361,7 +343,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <doclint>none</doclint>
                         </configuration>
                     </plugin>
                 </plugins>

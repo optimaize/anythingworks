@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.optimaize.anythingworks</groupId>
+    <artifactId>anythingworks</artifactId>
+    <name>anythingworks</name>
+    <version>1.1.0</version>
+    <packaging>pom</packaging>
+
+    <url>https://github.com/optimaize/anythingworks</url>
+    <description>
+        Java Library to Bootstrap Web service client/server development.
+
+        It supports both RESTful web services (JAX-RS) and
+        SOAP / WSDL web services (JAX-WS).
+
+        Within this project classes specific for one technology are prefixed
+        with either "Rest" or "Soap".
+
+        Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
+    </description>
+    <organization>
+        <name>Optimaize GmbH, Switzerland</name>
+        <url>http://www.optimaize.com/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Fabian Kessler</name>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>LGPLv3</name>
+        </license>
+    </licenses>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+
+        <guava.version>21.0</guava.version>
+        <intellijannotations.version>12.0</intellijannotations.version>
+        <command4j.version>0.6</command4j.version>
+
+        <!-- We use the latest jersey from glassfish which is 2.22.1, and it uses jackson 2.5.4, which -->
+        <!-- is not the newest. It is incompatible with the latest 2.6.3. I run into a nasty runtime exception -->
+        <!-- because an empty constructor is not empty anymore, init fails. -->
+        <!-- Explicitly changing the Jackson version to the earlier one solves the issue. -->
+        <jackson.version>2.5.4</jackson.version>
+
+        <!--<glassfish-jersey.version>2.25.1</glassfish-jersey.version>-->
+        <glassfish-jersey.version>2.22.1</glassfish-jersey.version>
+        <!--        <glassfish-jersey.version>2.29</glassfish-jersey.version>-->
+        <glassfish.javax.servlet.version>3.0</glassfish.javax.servlet.version>
+
+        <!--&lt;!&ndash; can't upgrade this now, otherwise getting error at server startup:-->
+        <!--"class file for com.sun.xml.ws.api.server.WSEndpoint not found" &ndash;&gt;-->
+        <!--&lt;!&ndash;<grizzly-version>2.3.23</grizzly-version>&ndash;&gt;-->
+        <!--<grizzly-version>2.3.28</grizzly-version>-->
+        <grizzly-version>2.3.18</grizzly-version>
+        <!--        <grizzly-version>2.4.4</grizzly-version>-->
+
+        <!--        <sun.jaxws-rt.version>2.2.10</sun.jaxws-rt.version>-->
+        <sun.jaxws-rt.version>2.3.2</sun.jaxws-rt.version>
+        <javax.ws.rs.version>2.0.1</javax.ws.rs.version>
+        <!--        <javax.ws.rs.version>2.1.1</javax.ws.rs.version>-->
+
+        <slf4j-version>1.7.22</slf4j-version>
+        <jul-to-slf4j.version>1.7.22</jul-to-slf4j.version>
+        <logback-classic.version>1.1.3</logback-classic.version>
+        
+        <repo-base-url>https://artif4ctory.optimaize.com</repo-base-url>
+
+        <org.springframework.version>4.3.6.RELEASE</org.springframework.version>
+        <!--        <org.springframework.version>4.3.25.RELEASE</org.springframework.version>-->
+        <!--        <org.springframework.version>5.1.9.RELEASE</org.springframework.version>-->
+        <javax.inject.version>1</javax.inject.version>
+
+        <swagger.version>1.5.4</swagger.version>
+        <!--        <swagger.version>1.5.23</swagger.version>-->
+        <swagger-maven-plugin.version>3.1.0</swagger-maven-plugin.version>
+        <!--        <swagger-maven-plugin.version>3.1.8</swagger-maven-plugin.version>-->
+
+        <testng.version>7.4.0</testng.version>
+
+        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+    </properties>
+
+
+    <!-- bring in all the jersey dependencies we need, from the same version -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${glassfish-jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${intellijannotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <connection>scm:git:git://github.com/optimaize/anythingworks.git</connection>
+        <developerConnection>scm:git:git@github.com:optimaize/anythingworks.git</developerConnection>
+        <url>http://github.com/optimaize/anythingworks</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <build>
+        <resources>
+            <resource><!-- this is default, but because we tamper with the resources, we need to explicitly mention it. -->
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource><!-- Include the README and LICENSE files: -->
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>README*</include>
+                    <include>LICENSE*</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Required: javadoc JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <!-- Automated passphrase entry: -->
+
+                    <!-- To pass your passphrase to the build automatically, so avoiding
+                    manual interaction, you'll need to put the passphrase into settings.xml.
+                    You don't really want that to be in plain text, so you'll want to follow:
+                    http://maven.apache.org/guides/mini/guide-encryption.html -->
+                    <!-- <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments> -->
+
+                    <!-- Manual passphrase entry: -->
+
+                    <!-- This is the simplest secure solution, but requires you to type
+                    your key passphrase in manually when performing a release. No biggie unless
+                    you want your CI server to decide when to release for you. -->
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>optimaize-release</id>
+            <url>${repo-base-url}/artifactory/libs-release-local</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>optimaize-snapshot</id>
+            <url>${repo-base-url}/artifactory/libs-snapshot-local</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus release repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+<!--
+    <distributionManagement>
+        <repository>
+            <id>optimaize-release</id>
+            <name>maven.nameprofiler.com-releases</name>
+            <url>${repo-base-url}/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>optimaize-snapshot</id>
+            <name>maven.nameprofiler.com-snapshots</name>
+            <url>${repo-base-url}/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+-->
+
+    <profiles>
+
+        <profile>
+            <id>do-not-release-sign-artifacts</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <!--<configuration>-->
+                        <!--<passphrase>${gpg.passphrase}</passphrase>-->
+                        <!--</configuration>-->
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+	                 <configuration>
+	                <gpgArguments>
+    		      <arg>--batch</arg>
+	                </gpgArguments>
+        		 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- see http://stackoverflow.com/questions/15886209/maven-is-not-working-in-java-8-when-javadoc-tags-are-incomplete
+            for building automatically with any JDK. -->
+            <id>doclint-java8-disable</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <doclint>none</doclint>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <modules>
+        <module>common</module>
+        <module>client</module>
+        <module>server</module>
+        <module>exampleproject</module>
+    </modules>
+</project>

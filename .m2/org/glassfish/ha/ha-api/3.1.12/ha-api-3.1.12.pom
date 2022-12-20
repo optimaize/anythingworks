@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eclipse.ee4j</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.5</version>
+    </parent>
+
+    <groupId>org.glassfish.ha</groupId>
+    <artifactId>ha-api</artifactId>
+    <version>3.1.12</version>
+    <packaging>hk2-jar</packaging>
+    <name>GlassFish High Availability APIs and SPI</name>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/glassfish-ha-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/glassfish-ha-api.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/glassfish-ha-api</url>
+      <tag>HEAD</tag>
+  </scm>
+
+    <developers>
+        <developer>
+            <id>yaminikb</id>
+            <name>Yamini K B</name>
+            <organization>Oracle Corporation</organization>
+            <organizationUrl>http://www.oracle.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Mahesh Kannan</name>
+            <organization>Oracle Corporation</organization>
+            <organizationUrl>http://www.oracle.com/</organizationUrl>
+        </contributor>
+    </contributors>
+
+    <licenses>
+        <license>
+            <name>EPL 2.0</name>
+            <url>http://www.eclipse.org/legal/epl-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>GPL2 w/ CPE</name>
+            <url>https://www.gnu.org/software/classpath/license.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/glassfish/issues</url>
+    </issueManagement>
+
+    <properties>
+        <hk2.version>2.0.5</hk2.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- Configure maven-bundle-plugin to generate OSGi manifest.
+                 Please note: we use the manifest goal only and not the bundle goal.
+                  The bundle goal can lead to very surprising results if the
+                  package names are not correctly specified. So,
+                  we use the jar plugin to generate the jar.-->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+		<version>3.5.0</version>
+                <configuration>
+                    <!-- By default, we don't export anything.
+                    -->
+                    <Export-Package />
+                    <!-- Since, we are in a top level pom and
+                         we we don't want it to be active for plain jar type artifacts,
+                         enable the plugin for hk2-jar and bundle packaging type only,
+                    -->
+                    <supportedProjectTypes>
+                        <supportedProjectType>hk2-jar</supportedProjectType>
+                        <supportedProjectType>bundle</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <!-- Read all the configuration from osgi.bundle file, if it exists.
+                             See Felix-699 to find out why we use ${basedir}.
+                        -->
+		         <_include>-${basedir}/osgi.bundle</_include>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish.hk2</groupId>
+                <artifactId>osgiversion-maven-plugin</artifactId>
+                <version>${hk2.version}</version>
+                <executions>
+                    <!-- Since we don't want qualifier like b05 or SNAPSHOT to appear
+                         in package version attribute, we use the following goal to
+                         populate a project property with an OSGi version which is
+                         equivalent to maven version without qualifier and then use that
+                         property in osgi.bundle while exporting. -->
+                    <execution>
+                        <id>compute-osgi-version</id>
+                        <goals>
+                            <goal>compute-osgi-version</goal>
+                        </goals>
+                        <configuration>
+                            <dropVersionComponent>qualifier</dropVersionComponent>
+                            <versionPropertyName>project.osgi.version</versionPropertyName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish.hk2</groupId>
+                <artifactId>hk2-maven-plugin</artifactId>
+                <version>${hk2.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <generateOSGiHeaders>true</generateOSGiHeaders>
+                    <archive>
+                        <!-- Use the manifest.mf produced by maven-bundle-plugin:manifest -->
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun</groupId>
+                        <artifactId>tools</artifactId>
+                        <version>${hk2.version}</version>
+                        <scope>system</scope>
+                        <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[1.7,1.8)</version>
+                                    <message>JDK7 is required</message>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <arguments>${release.arguments}</arguments>
+                    <preparationGoals>install</preparationGoals>
+                    <goals>deploy</goals>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <includePom>true</includePom>
+                </configuration>
+                <executions>
+                    <execution>
+                       <id>attach-sources</id>
+                       <goals>
+                           <goal>jar-no-fork</goal> 
+                       </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                   </execution>
+               </executions>
+           </plugin>                     
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <artifactId>hk2</artifactId>
+            <version>${hk2.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

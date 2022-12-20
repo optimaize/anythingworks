@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 20 12:02:36 UTC 2022
+6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537756334
+https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact org.eclipse.ee4j\:project\:pom\:1.0.5 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/org/eclipse/ee4j/project/1.0.5/project-1.0.5.pom, status\: 409 Conflict
+https\://repo.maven.apache.org/maven2/.lastUpdated=1671537756346
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537756328
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

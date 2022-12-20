@@ -7,7 +7,7 @@ It supports both RESTful web services (JAX-RS) and SOAP / WSDL web services (JAX
 
 For the Client part there are different modules for REST and SOAP so that a web service client does not have 
 unwanted dependencies. In other places (server side) some classes specific for one technology are prefixed
-with either "Rest" or "Soap".
+with either "Rest" or "Soap" .
 
 Other technologies, like JSON-RPC, could be added. Hence the name "anything works".
 
@@ -56,7 +56,7 @@ that shouldn't be. Therefore this library hides the web service technology as mu
 
 ## Technology stack
 
-* Java 7
+* Java 8
 * Guava: for the Optional class, and some other things
 * JAX-RS: for REST
 * JAX-WS: for SOAP
@@ -80,7 +80,7 @@ For REST:
     <dependency>
         <groupId>com.optimaize.anythingworks.client.rest</groupId>
         <artifactId>anythingworks-client-rest</artifactId>
-        <version>0.5</version>
+        <version>1.1.0</version>
     </dependency>
 
 For SOAP: 
@@ -88,7 +88,7 @@ For SOAP:
     <dependency>
         <groupId>com.optimaize.anythingworks.client.soap</groupId>
         <artifactId>anythingworks-client-soap</artifactId>
-        <version>0.5</version>
+        <version>1.1.0</version>
     </dependency>
 
 
@@ -105,7 +105,7 @@ If you wish to use another http server, then implement your own module.
     <dependency>
         <groupId>com.optimaize.anythingworks.server.implgrizzly</groupId>
         <artifactId>anythingworks-server-implgrizzly</artifactId>
-        <version>0.5</version>
+        <version>1.1.0</version>
     </dependency>
 
 ### common

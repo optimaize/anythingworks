@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 20 12:02:39 UTC 2022
+6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537759627
+https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact javax.xml.bind\:jaxb-api\:pom\:2.2.3 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/javax/xml/bind/jaxb-api/2.2.3/jaxb-api-2.2.3.pom, status\: 409 Conflict
+https\://repo.maven.apache.org/maven2/.lastUpdated=1671537759640
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537759622
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

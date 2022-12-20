@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 20 12:02:39 UTC 2022
+6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537759842
+https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact javax.jws\:jsr181-api\:pom\:1.0-MR1 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/javax/jws/jsr181-api/1.0-MR1/jsr181-api-1.0-MR1.pom, status\: 409 Conflict
+https\://repo.maven.apache.org/maven2/.lastUpdated=1671537759854
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537759835
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

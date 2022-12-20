@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.eclipse.ee4j</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.5</version>
+    </parent>
+
+    <properties>
+        <release.spec.feedback>jaxws-dev@eclipse.org</release.spec.feedback>
+        <release.spec.date>Jun 2013</release.spec.date>
+        <non.final>false</non.final>
+        <extension.name>jakarta.jws</extension.name>
+        <spec.version>1.1</spec.version>
+        <implementation.vendor.id>org.glassfish</implementation.vendor.id>
+        <findbugs.version>2.3.1</findbugs.version>
+        <findbugs.exclude>exclude.xml</findbugs.exclude>
+        <findbugs.threshold>Low</findbugs.threshold>
+        <legal.doc.source>${project.basedir}</legal.doc.source>
+        <vendor.name>Oracle Corporation</vendor.name>
+    </properties>
+
+    <groupId>jakarta.jws</groupId>
+    <artifactId>jakarta.jws-api</artifactId>
+    <version>1.1.1</version>
+    <name>${extension.name} API</name>
+    <description>Java EE Web Services Metadata API</description>
+    <url>https://github.com/eclipse-ee4j/jws-api</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/jws-api</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>lukasj</id>
+            <name>Lukas Jungmann</name>
+            <organization>Oracle</organization>
+            <roles>
+                <role>lead</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/jws-api/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Eclipse Project for JAX-WS mailing list</name>
+            <post>jaxws-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/jaxws-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/jaxws-dev</unsubscribe>
+            <archive>https://dev.eclipse.org/mhonarc/lists/jaxws-dev/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <build>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.glassfish.build</groupId>
+                    <artifactId>spec-version-maven-plugin</artifactId>
+                    <version>1.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>3.5.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                        <configuration>
+                            <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                            <timestampFormat>{0,date,yyyy-MM-dd'T'HH:mm:ssZ}</timestampFormat>
+                            <shortRevisionLength>7</shortRevisionLength>
+                            <revisionOnScmFailure>false</revisionOnScmFailure>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-legal-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${legal.doc.source}</directory>
+                                    <includes>
+                                        <include>NOTICE.md</include>
+                                        <include>LICENSE.md</include>
+                                    </includes>
+                                    <targetPath>META-INF</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <release>9</release>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>base-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <release>7</release>
+                            <excludes>
+                                <exclude>module-info.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <release>9</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish.build</groupId>
+                <artifactId>spec-version-maven-plugin</artifactId>
+                <configuration>
+                    <specMode>jakarta</specMode>
+                    <spec>
+                        <nonFinal>${non.final}</nonFinal>
+                        <jarType>api</jarType>
+                        <specVersion>${spec.version}</specVersion>
+                        <specImplVersion>${project.version}</specImplVersion>
+                        <apiPackage>${extension.name}</apiPackage>
+                    </spec>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>set-spec-properties</goal>
+                            <!-- TODO:
+                            glassfish-spec-version-maven-plugin needs to be updated
+                            in order to check 'jakarta.' prefixed values in manifest entries
+                            -->
+                            <!--<goal>check-module</goal>-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <supportedProjectTypes>
+                        <supportedProjectType>jar</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <Bundle-Version>${spec.bundle.version}</Bundle-Version>
+                        <Bundle-SymbolicName>${spec.bundle.symbolic-name}</Bundle-SymbolicName>
+                        <Extension-Name>${spec.extension.name}</Extension-Name>
+                        <Implementation-Version>${spec.implementation.version}</Implementation-Version>
+                        <Specification-Version>${spec.specification.version}</Specification-Version>
+                        <Bundle-Description>
+                            Web Services Metadata for the JavaTM Platform ${spec.version} API Design Specification
+                        </Bundle-Description>
+                        <Specification-Vendor>${vendor.name}</Specification-Vendor>
+                        <_include>-${basedir}/osgi.bundle</_include>
+                        <Implementation-Build-Id>${scmBranch}-${buildNumber}, ${timestamp}</Implementation-Build-Id>
+                        <_noee>true</_noee>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <doclint>none</doclint>
+                    <nodeprecated>false</nodeprecated>
+                    <use>false</use>
+                    <author>true</author>
+                    <version>true</version>
+                    <header><![CDATA[<br>JWS&nbsp;API&nbsp;v${project.version}]]>
+                    </header>
+                    <bottom><![CDATA[<br>
+Copyright &#169; {inceptionYear}&#x2013;{currentYear} Oracle and/or its affiliates.
+All rights reserved.<br>Comments to: <a href="mailto:${release.spec.feedback}">${release.spec.feedback}</a>.]]>
+                    </bottom>
+                    <detectJavaApiLink>false</detectJavaApiLink>
+                    <groups>
+                        <group>
+                            <title>Web Services Metadata for the JavaTM Platform API Documentation</title>
+                            <packages>javax.jws</packages>
+                        </group>
+                    </groups>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <threshold>${findbugs.threshold}</threshold>
+                    <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <reporting>
+                        <plugins>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>findbugs-maven-plugin</artifactId>
+                                <version>${findbugs.version}</version>
+                                <configuration>
+                                    <threshold>${findbugs.threshold}</threshold>
+                                    <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>
+                                </configuration>
+                            </plugin>
+                        </plugins>
+                    </reporting>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

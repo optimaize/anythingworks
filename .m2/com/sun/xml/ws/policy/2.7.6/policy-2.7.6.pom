@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eclipse.ee4j</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.5</version>
+    </parent>
+
+    <groupId>com.sun.xml.ws</groupId>
+    <artifactId>policy</artifactId>
+    <version>2.7.6</version>
+    <packaging>jar</packaging>
+
+    <name>policy</name>
+    <description>WS-Policy implementation for Project Metro</description>
+    <url>https://github.com/eclipse-ee4j/metro-policy</url>
+
+    <scm>
+        <connection>scm:git:git@github.com:eclipse-ee4j/metro-policy.git</connection>
+        <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-policy.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/metro-policy</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>    
+
+    <developers>
+        <developer>
+            <id>bravehorsie</id>
+            <name>Roman Grigoriadi</name>
+            <email>Roman.Grigoriadi@oracle.com</email>
+        </developer>
+        <developer>
+            <id>zhengjl</id>
+            <name>Zheng Jun Li</name>
+            <email>zheng.jun.li@oracle.com</email>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/metro-policy/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Eclipse Metro mailing list</name>
+            <post>metro-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/metro-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/metro-dev</unsubscribe>
+            <archive>https://www.eclipse.org/lists/metro-dev</archive>
+        </mailingList>
+    </mailingLists>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netbeans.hint.license>policy</netbeans.hint.license>
+        <findbugs.exclude>exclude.xml</findbugs.exclude>
+        <findbugs.threshold>Low</findbugs.threshold>
+        <istack.version>3.0.8</istack.version>
+        <legal.doc.source>${project.basedir}/..</legal.doc.source>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>txw2</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.istack</groupId>
+            <artifactId>istack-commons-runtime</artifactId>
+            <version>${istack.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.woodstox</groupId>
+            <artifactId>woodstox-core</artifactId>
+            <version>5.1.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.sun.istack</groupId>
+                    <artifactId>istack-commons-maven-plugin</artifactId>
+                    <version>${istack.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>4.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>3.0.5</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.glassfish.findbugs</groupId>
+                            <artifactId>findbugs</artifactId>
+                            <version>1.7</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.glassfish.copyright</groupId>
+                    <artifactId>glassfish-copyright-maven-plugin</artifactId>
+                    <version>1.50</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-legal-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${legal.doc.source}</directory>
+                                    <includes>
+                                        <include>NOTICE.md</include>
+                                        <include>LICENSE.md</include>
+                                    </includes>
+                                    <targetPath>META-INF</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <source>9</source>
+                            <target>9</target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>base-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <release>8</release>
+                            <excludes>
+                                <exclude>module-info.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+           <plugin>
+                <groupId>com.sun.istack</groupId>
+                <artifactId>istack-commons-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>rs-gen</id>
+                        <goals>
+                            <goal>rs-gen</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <directory>${project.basedir}/src/main/resources</directory>
+                                <includes>
+                                    <include>**/*.properties</include>
+                                </includes>
+                            </resources>
+                            <destDir>${project.build.directory}/generated-sources/rsrc-gen</destDir>
+                            <license>${project.basedir}/Licenses/License.java</license>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <configuration>
+                    <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                    <timestampFormat>{0,date,yyyy-MM-dd'T'HH:mm:ssZ}</timestampFormat>
+                    <revisionOnScmFailure>false</revisionOnScmFailure>
+                    <shortRevisionLength>7</shortRevisionLength>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <configuration>
+                            <instructions>
+                                <_noee>true</_noee>
+                                <Implementation-Build-Id>${project.version} - ${scmBranch}-${buildNumber}, ${timestamp}</Implementation-Build-Id>
+                            </instructions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                    <check>
+                        <totalLineRate>70</totalLineRate>
+                        <packageLineRate>50</packageLineRate>
+                        <haltOnFailure>true</haltOnFailure>
+                    </check>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <threshold>${findbugs.threshold}</threshold>
+                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                    <excludeFilterFile>
+                        exclude-common.xml,${findbugs.exclude}
+                    </excludeFilterFile>
+                    <fork>true</fork>
+                    <jvmArgs>-Xms64m -Xmx256m</jvmArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish.copyright</groupId>
+                <artifactId>glassfish-copyright-maven-plugin</artifactId>
+                <configuration>
+                    <templateFile>${project.basedir}/copyright.txt</templateFile>
+                    <excludeFile>${project.basedir}/copyright-exclude</excludeFile>
+                    <scm>git</scm>
+                    <!-- skip files not under SCM-->
+                    <scmOnly>true</scmOnly>
+                    <!-- turn off warnings -->
+                    <warn>true</warn>
+                    <!-- for use with repair -->
+                    <update>false</update>
+                    <!-- check that year is correct -->
+                    <ignoreYear>false</ignoreYear>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <sourcepath>${project.build.sourceDirectory}:${project.build.directory}/generated-sources/rsrc-gen</sourcepath>
+                    <additionalOptions>-Xdoclint:none</additionalOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>

@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 20 12:02:40 UTC 2022
+6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537760039
+https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact jakarta.activation\:jakarta.activation-api\:pom\:2.1.0 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.pom, status\: 409 Conflict
+https\://repo.maven.apache.org/maven2/.lastUpdated=1671537760052
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537760033
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=

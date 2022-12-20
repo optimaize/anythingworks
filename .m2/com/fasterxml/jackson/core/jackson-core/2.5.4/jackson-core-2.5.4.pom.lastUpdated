@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 20 12:02:22 UTC 2022
+6f844d35c7cd2f99aae9f451a604405fbd428f1e@default-optimaize-snapshot-https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.lastUpdated=1671537742404
+https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/.error=Could not transfer artifact com.fasterxml.jackson.core\:jackson-core\:pom\:2.5.4 from/to optimaize-snapshot (https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local)\: transfer failed for https\://artif4ctory.optimaize.com/artifactory/libs-snapshot-local/com/fasterxml/jackson/core/jackson-core/2.5.4/jackson-core-2.5.4.pom, status\: 409 Conflict
+https\://repo.maven.apache.org/maven2/.lastUpdated=1671537742419
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.lastUpdated=1671537742396
+https\://artif4ctory.optimaize.com/artifactory/libs-release-local/.error=
